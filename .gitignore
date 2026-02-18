@@ -1,13 +1,8 @@
-# Build folders
-/build/
-/out/
-
-# Visual Studio
-.vs/
-
-# CMake
-CMakeFiles/
-CMakeCache.txt
-*.exe
-*.pdb
-*.ilk
+include/
+src/
+tests/
+scripts/
+topologies/
+CMakeLists.txt
+README.md
+LICENSE
