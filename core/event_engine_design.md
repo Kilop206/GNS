@@ -1,147 +1,74 @@
-# GNS — Generic Network Simulator
+# Event Engine Design
 
-## Overview
+## 1. Purpose
 
-GNS é um simulador de redes orientado a eventos, com foco em determinismo, modularidade e base científica sólida.
-
-O projeto está sendo desenvolvido incrementalmente, priorizando:
-
-- Arquitetura limpa
-- Separação clara de responsabilidades
-- Testes automatizados
-- Determinismo forte na simulação
+O Event Engine é o núcleo do GNS.  
+Ele implementa um modelo de simulação orientado a eventos discretos com foco em determinismo e reprodutibilidade.
 
 ---
 
-## Objetivo
+## 2. Simulation Time Model
 
-Construir um motor de simulação de redes baseado em eventos discretos que permita:
+- Tipo de tempo: int64_t
+- Unidade: ticks lógicos
+- O tempo é lógico e não depende do relógio do sistema.
+- O tempo avança apenas quando um evento é processado.
 
-- Execução determinística
-- Reprodutibilidade de resultados
-- Extensibilidade modular
-- Base sólida para futuras abstrações de rede
+Justificativa da escolha:
+Ao usar int64_t, garantimos uma ampla faixa de tempo para simulações longas. O modelo lógico permite controle total sobre o avanço do tempo, eliminando dependências externas e garantindo determinismo.
 
----
+## 3. Event Definition
 
-## Arquitetura Atual
-	GNS/
-	|-- core/ # Componentes principais do motor de simulação
-	|-- app/ # Executável principal
-	|-- tests/ # Testes unitários
-	|-- docs/ # Documentação técnica
-	|-- CMakeLists.txt
+Um evento é definido como:
 
----
+- Timestamp (tempo lógico)
+- Identificador único incremental
+- Ação a ser executada
 
-## Tecnologias Utilizadas
-
-- C++20
-- CMake
-- Catch2 (testes unitários)
-- CTest
+Responsabilidade:
+O evento representa uma ação agendada para ocorrer em um tempo específico da simulação.
 
 ---
 
-## Como Compilar
+## 4. Event Ordering Policy
 
-### 1️º Gerar build
+A ordenação dos eventos segue as regras:
 
-```bash
-cmake -S . -B build
-```
+1. Menor timestamp primeiro
+2. Em caso de empate, menor ID primeiro (ordem de inserção)
 
-### 2️º Compilar
-```bash
-cmake --build build
-```
-
-Como o projeto usa gerador multi-config (Visual Studio):
-### 3️º Executar testes
-```bash
-ctest -C Debug --output-on-failure
-```
+Essa política garante determinismo absoluto.
 
 ---
 
-# GNS — Generic Network Simulator
+## 5. Execution Model
 
-## Overview
+O motor executa da seguinte forma:
 
-GNS é um simulador de redes orientado a eventos, com foco em determinismo, modularidade e base científica sólida.
+1. Enquanto a fila não estiver vazia:
+    - Remove o próximo evento
+    - Atualiza o tempo atual da simulação
+    - Executa a ação associada
 
-O projeto está sendo desenvolvido incrementalmente, priorizando:
+O motor pode:
 
-- Arquitetura limpa
-- Separação clara de responsabilidades
-- Testes automatizados
-- Determinismo forte na simulação
-
----
-
-## Objetivo
-
-Construir um motor de simulação de redes baseado em eventos discretos que permita:
-
-- Execução determinística
-- Reprodutibilidade de resultados
-- Extensibilidade modular
-- Base sólida para futuras abstrações de rede
+- Rodar até esvaziar a fila
+- Rodar até atingir um tempo limite
+- Ser pausado e retomado
 
 ---
 
-## Arquitetura Atual
-GNS/
-├── core/ # Componentes principais do motor de simulação
-├── app/ # Executável principal
-├── tests/ # Testes unitários
-├── docs/ # Documentação técnica
-└── CMakeLists.txt
+## 6. Determinism Guarantee
 
+Dado o mesmo conjunto inicial de eventos e a mesma ordem de inserção:
+
+- A execução produzirá sempre a mesma ordem de eventos
+- O estado final será sempre idêntico
 
 ---
 
-## Tecnologias Utilizadas
+## 7. Known Limitations (Inicial)
 
-- C++ (MSVC / padrão moderno)
-- CMake
-- Catch2 (testes unitários)
-- CTest
-
----
-
-## Como Compilar
-
-### 1️º Gerar build
-
-```bash
-cmake -S . -B build
-```
-
-### 2️º Compilar
-```bash
-cmake --build build
-```
-
-Como o projeto usa gerador multi-config (Visual Studio):
-### 3️º Executar testes
-```bash
-cteste -C Debug --output-on-failure
-```
-
-## Documentação Técnica
-
-As decisões arquiteturais e a modelagem do motor de eventos estão descritas em:
-
-`docs/event_engine_design.md`
-
----
-
-## Status do Projeto
-
-Versão atual: v0.1 (Fundação)
-
-- Estrutura modular estabelecida
-- Clock determinístico implementado
-- Pipeline de testes funcional
-- Início do motor de eventos (em desenvolvimento)
+- Execução single-threaded
+- Não utiliza paralelismo no núcleo
+- Não depende de tempo real
