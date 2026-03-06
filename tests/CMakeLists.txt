@@ -1,5 +1,5 @@
 add_executable(tests
-    test_simulation_clock.cpp
+    test_event_queue.cpp
 )
 
 target_link_libraries(tests
@@ -8,4 +8,7 @@ target_link_libraries(tests
     Catch2::Catch2WithMain
 )
 
-add_test(NAME simulation_tests COMMAND tests)
+include(CTest)
+include(Catch)
+
+catch_discover_tests(tests)
