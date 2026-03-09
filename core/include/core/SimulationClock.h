@@ -1,18 +1,11 @@
-#pragma once
-
-namespace gns::core {
-
-    class SimulationClock {
-    public:
-        explicit SimulationClock(double time_step);
-
-        void tick();
-        double now() const;
-        double timeStep() const;
-
-    private:
-        double current_time_;
-        double dt_;
-    };
-
+namespace core {
+	class SimulationClock {
+	private:
+		double current_time_;
+	public:
+		explicit SimulationClock();
+		void tick(double delta_time_);
+		double now() const;
+		void setTime(double new_current_time_);
+	};
 }
