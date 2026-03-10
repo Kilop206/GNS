@@ -1,8 +1,8 @@
-# GNS — Guilhermes Network Simulator
+# KNS — Kilop's Network Simulator
 
 ## Overview
 
-GNS é um simulador de redes orientado a eventos, com foco em determinismo, modularidade e base científica sólida.
+KNS é um simulador de redes orientado a eventos, com foco em determinismo, modularidade e base científica sólida.
 
 O projeto está sendo desenvolvido incrementalmente, priorizando:
 
@@ -25,7 +25,7 @@ Construir um motor de simulação de redes baseado em eventos discretos que perm
 ---
 
 ## Arquitetura Atual
-	GNS/
+	KNS/
 	|-- core/ # Componentes principais do motor de simulação
 	|-- app/ # Executável principal
 	|-- tests/ # Testes unitários
