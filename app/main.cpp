@@ -1,15 +1,15 @@
 #include <iostream>
-#include "core/SimulationClock.h"
-#include "core/SimulationEngine.h"
-#include "core/PrintEvent.h"
+#include "kns/engine/SimulationClock.hpp"
+#include "kns/engine/SimulationEngine.hpp"
+#include "kns/engine/PrintEvent.hpp"
 
 int main() {
 
-    core::SimulationEngine engine;
+    kns::SimulationEngine engine;
 
-    engine.schedule(new core::PrintEvent(10, "Evento B"));
-    engine.schedule(new core::PrintEvent(5, "Evento A"));
-    engine.schedule(new core::PrintEvent(12, "Evento C"));
+    engine.schedule(new kns::PrintEvent(10, "Evento B"));
+    engine.schedule(new kns::PrintEvent(5, "Evento A"));
+    engine.schedule(new kns::PrintEvent(12, "Evento C"));
 
     engine.run();
 

@@ -1,11 +1,11 @@
 #pragma once
 
-#include "core/Event.h"
-#include "core/SimulationEngine.h"
+#include "kns/engine/Event.hpp"
+#include "kns/engine/SimulationEngine.hpp"
 #include <string>
 
-namespace core {
-    class PrintEvent : public core::Event {
+namespace kns {
+    class PrintEvent : public kns::Event {
     private:
         int time;
         std::string message;
@@ -15,6 +15,6 @@ namespace core {
 
         std::uint64_t getTimestamp() const noexcept;
 
-        void execute(core::SimulationEngine& engine) override;
+        void execute(kns::SimulationEngine& engine) override;
     };
 }

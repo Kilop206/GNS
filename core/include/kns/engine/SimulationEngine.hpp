@@ -1,11 +1,11 @@
 #pragma once
 
-#include "core/EventQueue.h"
-#include "core/SimulationClock.h"
+#include "kns/engine/EventQueue.hpp"
+#include "kns/engine/SimulationClock.hpp"
 
-namespace core {
+namespace kns {
 
-    class Event;
+    class kns::Event;
 
     class SimulationEngine {
     public:
@@ -16,8 +16,8 @@ namespace core {
         void schedule(Event* event);
 
     private:
-        core::SimulationClock clock;
-        core::EventQueue eventQueue;
+        kns::SimulationClock clock;
+        kns::EventQueue eventQueue;
     };
 
 }

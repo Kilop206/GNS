@@ -1,6 +1,6 @@
-#include "core/SimulationClock.h"
+#include "kns/engine/SimulationClock.hpp"
 
-namespace core {
+namespace kns {
 
     SimulationClock::SimulationClock()
         : current_time_(0.0)

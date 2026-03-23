@@ -4,14 +4,14 @@
 #include <queue>
 #include <vector>
 
-#include "core/Event.h"
+#include "kns/engine/Event.hpp"
 
-namespace core {
+namespace kns {
 
     class EventQueue {
     public:
         void schedule(std::unique_ptr<Event> event);
-        std::unique_ptr<Event> next();
+        std::unique_ptr<kns::Event> next();
 
         bool hasEvents() const noexcept;
         std::size_t size() const noexcept;
@@ -25,7 +25,7 @@ namespace core {
 
         std::priority_queue<
             std::unique_ptr<Event>,
-            std::vector<std::unique_ptr<Event>>,
+            std::vector<std::unique_ptr<kns::Event>>,
             EventComparator
         > event_list_;
     };

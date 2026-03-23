@@ -1,6 +1,8 @@
-add_executable(simulator main.cpp)
+add_executable(kns_app
+    main.cpp
+)
 
-target_link_libraries(simulator
+target_link_libraries(kns_app
     PRIVATE
-        core
+    kns_core
 )

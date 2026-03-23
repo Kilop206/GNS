@@ -2,7 +2,7 @@
 
 #include <cstdint>
 
-namespace core {
+namespace kns {
 
     class SimulationEngine;
 
@@ -10,7 +10,7 @@ namespace core {
     public:
         virtual ~Event() = default;
 
-        virtual void execute(SimulationEngine& engine) = 0;
+        virtual void execute(kns::SimulationEngine& engine) = 0;
 
         std::uint64_t getTimestamp() const noexcept;
         std::uint64_t getId() const noexcept;

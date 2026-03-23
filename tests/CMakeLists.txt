@@ -1,14 +1,13 @@
-add_executable(tests
+add_executable(kns_tests
+    test_topology.cpp
     test_event_queue.cpp
+    test_simulation_clock.cpp
 )
 
-target_link_libraries(tests
+target_link_libraries(kns_tests
     PRIVATE
-    core
+    kns_core
     Catch2::Catch2WithMain
 )
 
-include(CTest)
-include(Catch)
-
-catch_discover_tests(tests)
+catch_discover_tests(kns_tests)

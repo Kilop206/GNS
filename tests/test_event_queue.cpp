@@ -1,17 +1,17 @@
 #include <catch2/catch_test_macros.hpp>
 
-#include "core/EventQueue.h"
-#include "core/Event.h"
+#include "kns/engine/EventQueue.hpp"
+#include "kns/engine/Event.hpp"
 
-class TestEvent : public core::Event {
+class TestEvent : public kns::Event {
 public:
     TestEvent(std::uint64_t t) : Event(t) {}
 
-    void execute(core::SimulationEngine&) override {}
+    void execute(kns::SimulationEngine&) override {}
 };
 
 TEST_CASE("EventQueue schedules events") {
-    core::EventQueue queue;
+    kns::EventQueue queue;
 
     queue.schedule(std::make_unique<TestEvent>(10));
     queue.schedule(std::make_unique<TestEvent>(5));
@@ -20,7 +20,7 @@ TEST_CASE("EventQueue schedules events") {
 }
 
 TEST_CASE("EventQueue pops earliest event first") {
-    core::EventQueue queue;
+    kns::EventQueue queue;
 
     queue.schedule(std::make_unique<TestEvent>(10));
     queue.schedule(std::make_unique<TestEvent>(5));

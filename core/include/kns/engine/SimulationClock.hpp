@@ -1,6 +1,6 @@
 #pragma once
 
-namespace core {
+namespace kns {
 	class SimulationClock {
 	private:
 		double current_time_;
