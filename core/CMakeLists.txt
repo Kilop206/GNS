@@ -1,13 +1,14 @@
 add_library(kns_core
-    src/engine/Event.cpp
-    src/engine/EventQueue.cpp
-    src/engine/PrintEvent.cpp
-    src/engine/SimulationClock.cpp
-    src/engine/SimulationEngine.cpp
-    src/network/topology.cpp
-    src/network/topology_loader.cpp
+    src/engine/events/Event.cpp
+    src/engine/core/EventQueue.cpp
+    src/engine/events/PrintEvent.cpp
+    src/engine/time/SimulationClock.cpp
+    src/engine/core/SimulationEngine.cpp
+    src/network/Topology.cpp
+    src/network/TopologyLoader.cpp
 )
 
-target_include_directories(kns_core PUBLIC
-    include
+target_include_directories(kns_core
+    PUBLIC
+        ${CMAKE_CURRENT_SOURCE_DIR}/include
 )

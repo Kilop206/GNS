@@ -1,7 +1,7 @@
 #include <iostream>
-#include "kns/engine/SimulationClock.hpp"
-#include "kns/engine/SimulationEngine.hpp"
-#include "kns/engine/PrintEvent.hpp"
+#include "engine/time/SimulationClock.hpp"
+#include "engine/core/SimulationEngine.hpp"
+#include "engine/events/PrintEvent.hpp"
 
 int main() {
 

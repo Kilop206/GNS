@@ -1,7 +1,7 @@
 #pragma once
 
-#include "kns/engine/EventQueue.hpp"
-#include "kns/engine/SimulationClock.hpp"
+#include "engine/core/EventQueue.hpp"
+#include "engine/time/SimulationClock.hpp"
 
 namespace kns {
 
