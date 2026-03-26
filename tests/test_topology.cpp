@@ -1,29 +1,8 @@
-#include <iostream>
-#include <exception>
-#include "kns/network/topology.hpp"
-#include "kns/network/topology_loader.hpp"
+#include <catch2/catch_test_macros.hpp>
+#include "network/TopologyLoader.hpp"
 
-int main() {
-    try {
+TEST_CASE("Topology loads correctly") {
+    auto topo = kns::TopologyLoader::load_topology("topologies/mesh5.json");
 
-        kns::Topology topo = kns::load_topology("mesh5.json");
-
-        for (int i = 0; i < topo.size(); i++) {
-            std::cout << "Node " << i << " neighbors:\n";
-
-            for (const auto& link : topo.getLinksFromNode(i)) {
-                std::cout
-                    << " -> "
-                    << link.to
-                    << " delay="
-                    << link.delay_ms
-                    << "ms\n";
-            }
-        }
-
-    }
-    catch (const std::exception& e) {
-        std::cerr << "ERROR: " << e.what() << std::endl;
-        return 1;
-    }
+    REQUIRE(topo.size() == 5);
 }

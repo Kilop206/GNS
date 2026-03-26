@@ -1,5 +1,5 @@
-#include "kns/engine/Event.hpp"
-#include "kns/engine/SimulationEngine.hpp"
+#include "engine/events/Event.hpp"
+#include "engine/core/SimulationEngine.hpp"
 
 namespace kns {
 	std::uint64_t kns::Event::nextId_ = 0;

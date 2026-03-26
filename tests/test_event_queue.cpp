@@ -1,7 +1,7 @@
 #include <catch2/catch_test_macros.hpp>
 
-#include "kns/engine/EventQueue.hpp"
-#include "kns/engine/Event.hpp"
+#include "engine/core/EventQueue.hpp"
+#include "engine/events/Event.hpp"
 
 class TestEvent : public kns::Event {
 public:

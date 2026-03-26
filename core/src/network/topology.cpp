@@ -1,4 +1,4 @@
-#include "kns/network/topology.hpp"
+#include "network/Topology.hpp"
 
 namespace kns {
 	Topology::Topology(int nodes) : num_nodes(nodes) {

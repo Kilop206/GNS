@@ -1,5 +1,5 @@
-#include "kns/engine/EventQueue.hpp"
-#include "kns/engine/Event.hpp" 
+#include "engine/core/EventQueue.hpp"
+#include "engine/events/Event.hpp" 
 
 #include <stdexcept>
 
