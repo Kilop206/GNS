@@ -2,6 +2,71 @@
 
 ## Overview
 
+KNS is a network simulator oriented to events, focusing on determinism, modularity and solid scientific base.
+
+The project is being developed incrementaly, prioritizing:
+- Clean Architecture
+- Clear separation of responsabilities
+- Automatizated tests
+- Strong determinism on simulation
+
+---
+
+## Goal
+
+Build the motor of a network simulator based on discret events that lets:
+
+- Deterministic execution[
+- Results reprodutction
+- Modular extensibility
+- Solid base for future network abstractions
+
+---
+
+## Current Architecture
+	KNS/
+	|-- core/ # Main components for the simulation motor
+	|-- app/ # Main executable
+	|-- tests / # Unitaty tests
+	|-- topologies / # JSON files of topologies models
+	|-- CMakeLists.txt
+	
+---
+
+## Used Technologies
+
+- C++20
+- CMake
+- Catch2 (unitary tests)
+- Ctest
+
+---
+
+## How to Compile
+
+### 1st Generate build
+```bash
+cmake -S . -B build
+```
+
+### 2nd Compile
+```bash
+cmake --build build
+```
+
+Since the project uses multi-config generator (Visual Studio):
+### 3️rd Execute Tests
+```bash
+ctest -C Debug --output-on-failure
+```
+
+---
+---
+
+# KNS — Kilop's Network Simulator
+
+## Overview
+
 KNS é um simulador de redes orientado a eventos, com foco em determinismo, modularidade e base científica sólida.
 
 O projeto está sendo desenvolvido incrementalmente, priorizando:
@@ -29,7 +94,7 @@ Construir um motor de simulação de redes baseado em eventos discretos que perm
 	|-- core/ # Componentes principais do motor de simulação
 	|-- app/ # Executável principal
 	|-- tests/ # Testes unitários
-	|-- docs/ # Documentação técnica
+	|-- topologies/ # Arquivos JSON de modelos de topologias
 	|-- CMakeLists.txt
 
 ---

@@ -6,6 +6,7 @@ add_library(kns_core
     src/engine/core/SimulationEngine.cpp
     src/network/Topology.cpp
     src/network/TopologyLoader.cpp
+    src/network/Routing.cpp
 )
 
 target_include_directories(kns_core
