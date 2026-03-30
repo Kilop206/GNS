@@ -9,5 +9,7 @@ namespace kns {
 		double bandwidth_mbps;
 
 		double loss_prob;
+
+		int getOtherNode() const;
 	};
 }
