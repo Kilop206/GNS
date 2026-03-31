@@ -10,7 +10,7 @@
 namespace kns {
 	// Dijkstra's algorithm to compute shortest paths from a source node to all other nodes in the topology
 	// Complexity: O((V + E) log V) where V is the number of nodes and E is the number of edges in the topology
-	kns::Routing::DijkstraResult kns::buildDijkstra(const kns::Topology& topology, int src) {
+	kns::Routing::DijkstraResult kns::Routing::buildDijkstra(const KNS::Topology& topology, int src) {
 
 		int n = topology.size();
 
@@ -49,7 +49,6 @@ namespace kns {
 		}
 
 		return kns::Routing::DijkstraResult{ dist, parent };
-<<<<<<< HEAD
 	}
 
 	std::vector<int> Routing::buildRoutingTable(const Topology& topology, int src) {
@@ -75,7 +74,5 @@ namespace kns {
 			}
 		}
 		return nextHop;
-=======
->>>>>>> a6db360fc62a4dec1f1ae6f56ae6c1ebdbc06746
 	}
 }
