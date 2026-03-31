@@ -50,29 +50,4 @@ namespace kns {
 
 		return kns::Routing::DijkstraResult{ dist, parent };
 	}
-
-	std::vector<int> Routing::buildRoutingTable(const Topology& topology, int src) {
-		DijkstraResult result = buildDijkstra(topology, src);
-		int n = topology.size();
-		std::vector<int> nextHop(n) = -1;
-		const auto& parent = result.parent
-		for (int d = 0; d < n; d++) {
-			int current = d;
-
-			if (d == src) {
-				nextHop[d] = -1;
-			} else if (parent[d] == -1) {
-				nextHop[d] = -1;
-			} else {
-				while (parent[current] != src) {
-					if (parent[current] == -1) {
-						break;
-					}
-					current = parent[current];
-				}
-				nextHop[d] = current;
-			}
-		}
-		return nextHop;
-	}
 }
