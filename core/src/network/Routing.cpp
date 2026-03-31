@@ -49,6 +49,7 @@ namespace kns {
 		}
 
 		return kns::Routing::DijkstraResult{ dist, parent };
+<<<<<<< HEAD
 	}
 
 	std::vector<int> Routing::buildRoutingTable(const Topology& topology, int src) {
@@ -74,5 +75,7 @@ namespace kns {
 			}
 		}
 		return nextHop;
+=======
+>>>>>>> a6db360fc62a4dec1f1ae6f56ae6c1ebdbc06746
 	}
 }
