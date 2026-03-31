@@ -16,5 +16,8 @@ namespace KNS {
 
 		// Dijkstra's algorithm to compute shortest paths from a source node to all other nodes in the topology
 		DijkstraResult buildDijkstra(const KNS::Topology& topology, int src);
+
+		// Builds the routing table for a given source node in the topology using Dijkstra's algorithm.
+		std::vector<int> buildRoutingTable(const Topology::Topology& topology, int src);
 	};
 }
