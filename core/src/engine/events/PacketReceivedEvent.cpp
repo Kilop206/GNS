@@ -1,6 +1,8 @@
+#include <cmath>
+#include <cassert>
+
 #include "events/PacketReceivedEvent.hpp"
 #include "core/SimulationEngine.hpp"
-
 
 namespace kns {
 
@@ -40,9 +42,27 @@ namespace kns {
         if (!selected_link) {
             return;
         }
+        assert(selected_link->bandwidth_mbps > 0);
 
-        // Calculate the time when the packet will be received at the next hop. This is the current simulation time plus the delay of the selected link.
-        std::uint64_t new_time = engine.now() + static_cast<std::uint64_t>(selected_link->delay_ms);
+        double propagation = selected_link->delay_ms;
+
+        // bytes → bits
+        double bits = packet.packet_size_bytes * 8.0;
+
+        // Mbps → bits por segundo
+        double bandwidth_bps = selected_link->bandwidth_mbps * 1e6;
+
+        // tempo de transmissão em segundos
+        double transmission_seconds = bits / bandwidth_bps;
+
+        // converter para milissegundos
+        double transmission = transmission_seconds * 1000.0;
+
+        // delay total
+        double total_delay = propagation + transmission;
+
+        // tempo absoluto da simulação
+        std::uint64_t new_time = engine.now() + static_cast<std::uint64_t>(std::ceil(total_delay));
 
         // Create a new PacketReceivedEvent for the next hop and schedule it in the simulation engine. We need to create a new packet that is identical to the current packet but with the current_node updated to the next hop. Then we create a new PacketReceivedEvent with the calculated new_time and the updated packet, and schedule it in the simulation engine.
         Packet nextPacket = packet;
