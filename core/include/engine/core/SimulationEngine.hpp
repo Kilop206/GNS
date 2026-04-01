@@ -34,6 +34,8 @@ namespace kns {
 
         double compute_arrival_time(const Packet& pkt, const Link& link, double now);
 
+        void SimulationEngine::sendPacket(const Packet& pkt, const Link& link, double now);
+
     private:
 
         // Current simulation time.

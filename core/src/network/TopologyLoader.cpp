@@ -40,6 +40,7 @@ namespace kns {
             link.to = l["to"];
             link.delay_ms = l["delay"];
             link.bandwidth_mbps = l["bandwidth"];
+            link.loss_prob = l.value("loss", 0.0);
 
             topology.addLink(link);
         }
