@@ -1,36 +1,52 @@
-#include "engine/core/SimulationEngine.hpp"
-#include "engine/events/Event.hpp"
 #include <memory>
+
+#include "core/SimulationEngine.hpp"
+#include "events/Event.hpp"
 
 namespace kns {
 
-	// Default constructor for the SimulationEngine class.
-    kns::SimulationEngine::SimulationEngine() = default;
+    SimulationEngine::SimulationEngine(const Topology& topology)
+        : topology_(topology)
+    {
+        int n = topology_.size();
+        routing_tables_.resize(n);
 
-	// Default destructor for the SimulationEngine class.
-    kns::SimulationEngine::~SimulationEngine() = default;
+        Routing routing;
 
-    // The run method of the SimulationEngine class. This method processes events from the event queue until there are no more events to process.
-    void kns::SimulationEngine::run() {
-
-        // The run method will continue to execute events until the event queue is empty, 
-        // allowing the simulation to progress over time based on the scheduled events.
-        while (eventQueue.hasEvents()) {
-
-            // Retrieves the next event from the event queue. The event with the earliest timestamp will be returned first.
-            auto event = eventQueue.next();
-
-            // Advances the simulation clock to the timestamp of the event being executed.
-            clock.tick(event->getTimestamp());
-
-            // Executes the event by calling its execute method, passing a reference to the SimulationEngine.
-            event->execute(*this);
+        for (int u = 0; u < n; ++u) {
+            routing_tables_[u] = routing.buildRoutingTable(topology_, u);
         }
     }
 
-    // The schedule method of the SimulationEngine class. This method allows users to add events to the simulation by scheduling them in the event queue.
-    void kns::SimulationEngine::schedule(kns::Event* event) {
-        eventQueue.schedule(std::unique_ptr<Event>(event));
+    void SimulationEngine::schedule(std::unique_ptr<Event> event) {
+        event_queue_.push(std::move(event));
     }
 
+    std::uint64_t SimulationEngine::now() const {
+        return current_time_;
+    }
+
+    const Topology& SimulationEngine::getTopology() const {
+        return topology_;
+    }
+
+    int SimulationEngine::getNextHop(int current, int destination) const {
+        return routing_tables_[current][destination];
+    }
+
+    void SimulationEngine::run() {
+
+        while (!event_queue_.empty()) {
+
+            // Get next event
+            auto event = std::move(const_cast<std::unique_ptr<Event>&>(event_queue_.top()));
+            event_queue_.pop();
+
+            // Advance time
+            current_time_ = event->getTimestamp();
+
+            // Execute event
+            event->execute(*this);
+        }
+    }
 }

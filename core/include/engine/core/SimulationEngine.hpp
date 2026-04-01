@@ -1,42 +1,65 @@
 #pragma once
 
-#include "engine/core/EventQueue.hpp"
-#include "engine/time/SimulationClock.hpp"
+#include <queue>
+#include <memory>
+#include <vector>
+#include <cstdint>
+
+#include "network/Topology.hpp"
+#include "network/Routing.hpp"
+#include "events/Event.hpp"
 
 namespace kns {
 
-	// Forward declaration of the Event class to avoid circular dependencies. 
-    // The SimulationEngine class will use pointers to Event objects, so we only need to declare the class here without including its full definition.
-    class kns::Event;
-
     class SimulationEngine {
     public:
-		// Constructor and destructor for the SimulationEngine class. 
-        // The constructor initializes the simulation clock and event queue, 
-        // while the destructor can be used to perform any necessary cleanup when the SimulationEngine object is destroyed.
-        SimulationEngine();
-        ~SimulationEngine();
 
-		// Starts the simulation by processing events from the event queue. 
-        // The run method will continue to execute events until the event queue is empty, allowing the simulation to progress over time based on the scheduled events.
+        // Constructor that initializes the simulation engine with a given topology.
+        explicit SimulationEngine(const Topology& topology);
+
+        // Schedules a new event to be processed by the simulation engine.
+        void schedule(std::unique_ptr<Event> event);
+
+        // Runs the simulation by processing events from the event queue.
         void run();
 
-		// Schedules a new event to be processed by the simulation engine. 
-        // The event will be added to the event queue, and it will be executed at the appropriate time based on its timestamp. 
-        // This method allows users of the SimulationEngine to add events dynamically during the simulation.
-        void schedule(Event* event);
+        // Returns the current simulation time.
+        std::uint64_t now() const;
+
+        // Returns the next hop for a packet based on the routing table.
+        int getNextHop(int current, int destination) const;
+
+        // Returns a const reference to the topology.
+        const Topology& getTopology() const;
 
     private:
 
-		// The SimulationClock object that keeps track of the current simulation time. 
-        // It provides methods to advance the simulation time and retrieve the current time, 
-        // allowing the SimulationEngine to manage the timing of events effectively.
-        kns::SimulationClock clock;
+        // Current simulation time.
+        std::uint64_t current_time_ = 0;
 
-		// The EventQueue object that holds the scheduled events for the simulation. 
-        // It allows the SimulationEngine to manage and process events in the correct order based on their timestamps, 
-        // ensuring that the simulation progresses according to the scheduled events.
-        kns::EventQueue eventQueue;
+        // Network topology.
+        Topology topology_;
+
+        // Routing tables for each node.
+        std::vector<std::vector<int>> routing_tables_;
+
+        // Event comparison functor for priority queue.
+        struct EventCompare {
+            bool operator()(const std::unique_ptr<Event>& a,
+                            const std::unique_ptr<Event>& b) const {
+                if (a->getTimestamp() == b->getTimestamp()) {
+                    return a->getId() > b->getId();
+                }
+                return a->getTimestamp() > b->getTimestamp();
+            }
+        };
+
+        std::priority_queue<
+            std::unique_ptr<Event>,
+            std::vector<std::unique_ptr<Event>>,
+            EventCompare
+        > event_queue_;
+
     };
 
 }
