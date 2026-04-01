@@ -8,6 +8,7 @@ namespace kns {
         int current_node;
         std::uint64_t creation_time;
         std::size_t packet_size_bytes;
+        int hop_count = 0;
 
         Packet(int source,
                int destination,

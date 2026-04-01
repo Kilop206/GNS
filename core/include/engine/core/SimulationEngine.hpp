@@ -8,6 +8,7 @@
 #include "network/Topology.hpp"
 #include "network/Routing.hpp"
 #include "events/Event.hpp"
+#include "core/Stats.hpp"
 
 namespace kns {
 
@@ -64,6 +65,7 @@ namespace kns {
             EventCompare
         > event_queue_;
 
+        Stats stats_;
     };
 
 }
