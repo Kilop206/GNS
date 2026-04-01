@@ -17,6 +17,6 @@ namespace kns {
 		DijkstraResult buildDijkstra(const kns::Topology& topology, int src);
 
 		// Builds the routing table for a given source node in the topology using Dijkstra's algorithm.
-		std::vector<int> buildRoutingTable(const Topology::Topology& topology, int src);
+		std::vector<int> buildRoutingTable(const Topology& topology, int src);
 	};
 }
