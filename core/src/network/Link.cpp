@@ -15,7 +15,7 @@ namespace kns {
 		if (node == from) {
 			return to;
 		}
-		else (node == to) {
+		else {
 			return from;
 		}
 	}

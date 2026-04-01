@@ -1,7 +1,9 @@
 #include <memory>
+#include <queue>
 
 #include "core/SimulationEngine.hpp"
 #include "events/Event.hpp"
+#include "events/PacketReceivedEvent.hpp"
 #include "network/Packet.hpp"
 
 namespace kns {
@@ -51,12 +53,24 @@ namespace kns {
         }
     }
 
-    double compute_arrival_time(const Packet& pkt, const Link& link, double now) {
-        double transmission_time =
-            (pkt.packet_size_bytes * 8.0) / (link.bandwidth_mbps * 1e6);
+    void SimulationEngine::sendPacket(
+        const Packet& pkt,
+        const Link& link,
+        double now
+    ) {
+        double arrival_time = compute_arrival_time(pkt, link, now);
 
-        double propagation_time = link.delay_ms / 1000.0;
+        int next_node = link.getOtherNode(pkt.current_node);
 
-        return now + propagation_time + transmission_time;
+        Packet new_pkt = pkt;
+        new_pkt.current_node = next_node;
+
+        auto event = std::make_unique<PacketReceivedEvent>(
+            arrival_time,
+            new_pkt,
+            next_node
+        );
+
+        event_queue_.push(std::move(event));
     }
 }
