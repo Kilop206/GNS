@@ -2,6 +2,7 @@
 
 #include "core/SimulationEngine.hpp"
 #include "events/Event.hpp"
+#include "network/Packet.hpp"
 
 namespace kns {
 
@@ -48,5 +49,14 @@ namespace kns {
             // Execute event
             event->execute(*this);
         }
+    }
+
+    double compute_arrival_time(const Packet& pkt, const Link& link, double now) {
+        double transmission_time =
+            (pkt.packet_size_bytes * 8.0) / (link.bandwidth_mbps * 1e6);
+
+        double propagation_time = link.delay_ms / 1000.0;
+
+        return now + propagation_time + transmission_time;
     }
 }

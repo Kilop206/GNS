@@ -44,22 +44,8 @@ namespace kns {
         }
         assert(selected_link->bandwidth_mbps > 0);
 
-        double propagation = selected_link->delay_ms;
-
-        // bytes → bits
-        double bits = packet.packet_size_bytes * 8.0;
-
-        // Mbps → bits por segundo
-        double bandwidth_bps = selected_link->bandwidth_mbps * 1e6;
-
-        // tempo de transmissão em segundos
-        double transmission_seconds = bits / bandwidth_bps;
-
-        // converter para milissegundos
-        double transmission = transmission_seconds * 1000.0;
-
         // delay total
-        double total_delay = propagation + transmission;
+        double total_delay = engine.compute_arrival_time(packet, *selected_link, static_cast<double>(engine.now()));
 
         // tempo absoluto da simulação
         std::uint64_t new_time = engine.now() + static_cast<std::uint64_t>(std::ceil(total_delay));
