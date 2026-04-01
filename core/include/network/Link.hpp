@@ -20,5 +20,8 @@ namespace kns {
 
 		// Returns the ID of the other node connected by this link
 		int getOtherNode(int node) const;
+
+		// Determines if a packet should be dropped based on the loss probability
+		bool should_drop() const;
 	};
 }

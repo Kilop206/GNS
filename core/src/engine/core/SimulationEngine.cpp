@@ -1,6 +1,7 @@
 #include <memory>
 #include <queue>
 #include <cmath>
+#include <iostream>
 
 #include "core/SimulationEngine.hpp"
 #include "events/Event.hpp"
@@ -68,19 +69,44 @@ namespace kns {
         const Link& link,
         double now
     ) {
+        stats_.packets_sent++;
+
+        // Simulate packet loss
+        if (link.should_drop()) {
+            stats_.packets_lost++;
+
+            std::cout << "[DROPPED] Packet from " << pkt.source
+                    << " to " << pkt.destination
+                    << " at time " << now
+                    << std::endl;
+            return;
+        }
+
+        // Compute arrival time at the next node
         double arrival_time = compute_arrival_time(pkt, link, now);
 
+        // Determine the next node
         int next_node = link.getOtherNode(pkt.current_node);
 
+        // Create a new packet instance for the next hop
         Packet new_pkt = pkt;
         new_pkt.current_node = next_node;
+        new_pkt.hop_count++;
 
+        // Update stats for delivered packets
+        stats_.packets_delivered++;
+
+        // Create a packet arrival event for the next node
         auto event = std::make_unique<PacketReceivedEvent>(
             arrival_time,
             new_pkt,
             next_node
         );
 
+        // Schedule the packet arrival event
         event_queue_.push(std::move(event));
+
+        // Update latency stats 
+        stats_.total_latency += arrival_time - now;
     }
 }

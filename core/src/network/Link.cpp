@@ -19,4 +19,8 @@ namespace kns {
 			return from;
 		}
 	}
+
+	bool Link::should_drop() const {
+		return ((double) rand() / RAND_MAX) < loss_prob;
+	}
 }
