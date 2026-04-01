@@ -1,5 +1,6 @@
 #include <memory>
 #include <queue>
+#include <cmath>
 
 #include "core/SimulationEngine.hpp"
 #include "events/Event.hpp"
@@ -51,6 +52,15 @@ namespace kns {
             // Execute event
             event->execute(*this);
         }
+    }
+
+    double compute_arrival_time(const Packet& pkt, const Link& link, double now) {
+        double transmission =
+            (pkt.packet_size_bytes * 8.0) / (link.bandwidth_mbps * 1e6);
+
+        double propagation = link.delay_ms / 1000.0;
+
+        return std::ceil(now + propagation + transmission);
     }
 
     void SimulationEngine::sendPacket(

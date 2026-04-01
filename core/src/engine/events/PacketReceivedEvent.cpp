@@ -1,5 +1,6 @@
 #include <cmath>
 #include <cassert>
+#include <iostream>
 
 #include "events/PacketReceivedEvent.hpp"
 #include "core/SimulationEngine.hpp"
@@ -10,25 +11,29 @@ namespace kns {
         : Event(timestamp), packet(std::move(packet)) {}
 
     void PacketReceivedEvent::execute(SimulationEngine& engine) {
-        // Get the current node and destination from the packet
+        // Verify that the packet is at the correct node
         int u = packet.current_node;
         int dest = packet.destination;
 
-        // If the packet has reached its destination, we can simply return without scheduling any further events.
+        // The assertion checks that the current node ID (u) is non-negative, which is a basic sanity check to ensure that the packet is located at a valid node in the network. In a well-formed network topology, node IDs should be non-negative integers, so this assertion helps catch any potential errors in the simulation where a packet might be assigned an invalid current node.
+        assert(u >= 0);
+
+        // If the packet has reached its destination, we can simply return without scheduling any further events, as there are no more hops to be made. This is a crucial check to prevent unnecessary processing and to ensure that the simulation accurately reflects the behavior of packets in a network.
         if (u == dest) {
+            std::cout << "[DELIVERED] Packet reached " << dest
+                    << " at time " << timestamp_
+                    << std::endl;
             return;
         }
 
-        // Get the next hop for the packet from the routing table. If there is no valid next hop (i.e., getNextHop returns -1), we can return without scheduling any further events.
+        // Get the next hop for the packet from the current node to the destination. This is done by querying the routing table in the simulation engine, which provides the next node that the packet should be forwarded to in order to reach its destination. If there is no valid next hop (i.e., if getNextHop returns -1), it means that there is no route from the current node to the destination, and we can simply return without scheduling any further events, as the packet cannot be forwarded.
         int next = engine.getNextHop(u, dest);
+        if (next == -1) return;
 
-        if (next == -1) {
-            return;
-        }
-
-        // Get the link between the current node and the next hop. We need to find the link in the topology that connects node u to node next. If no such link exists, we can return without scheduling any further events.
+        // Get the links from the current node
         const auto& links = engine.getTopology().getLinksFromNode(u);
 
+        // Find the link to the next hop
         const Link* selected_link = nullptr;
 
         for (const Link& link : links) {
@@ -39,25 +44,9 @@ namespace kns {
         }
 
         // If no link is found, we can return without scheduling any further events.
-        if (!selected_link) {
-            return;
-        }
-        assert(selected_link->bandwidth_mbps > 0);
+        if (!selected_link) return;
 
-        // delay total
-        double total_delay = engine.compute_arrival_time(packet, *selected_link, static_cast<double>(engine.now()));
-
-        // tempo absoluto da simulação
-        std::uint64_t new_time = engine.now() + static_cast<std::uint64_t>(std::ceil(total_delay));
-
-        // Create a new PacketReceivedEvent for the next hop and schedule it in the simulation engine. We need to create a new packet that is identical to the current packet but with the current_node updated to the next hop. Then we create a new PacketReceivedEvent with the calculated new_time and the updated packet, and schedule it in the simulation engine.
-        Packet nextPacket = packet;
-        nextPacket.current_node = next;
-
-        // Create the next event
-        auto nextEvent = std::make_unique<PacketReceivedEvent>(new_time, nextPacket);
-
-        // Schedule the next event in the simulation engine
-        engine.schedule(std::move(nextEvent));
+        // Schedule the packet to be sent over the selected link. This involves calculating the arrival time of the packet at the next node based on the properties of the link (such as delay and bandwidth) and then scheduling a new PacketReceivedEvent for the next node at that calculated arrival time. The sendPacket method of the simulation engine is responsible for handling the logic of sending the packet, including updating its current node and scheduling the appropriate events.
+        engine.sendPacket(packet, *selected_link, timestamp_);
     }
 }

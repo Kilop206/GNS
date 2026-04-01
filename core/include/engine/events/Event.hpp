@@ -26,13 +26,13 @@ namespace kns {
     protected:
 		// Protected constructor for the Event class.
         Event(std::uint64_t timestamp);
+        
+		// The timestamp of the event, which indicates when the event should be executed in the simulation.
+        std::uint64_t timestamp_;
 
     private:
 
 		// Private member variables for the Event class.
-        
-		// The timestamp of the event, which indicates when the event should be executed in the simulation.
-        std::uint64_t timestamp_;
 
 		// The unique ID of the event, which can be used to identify and manage events within the simulation engine.
         std::uint64_t id_;
