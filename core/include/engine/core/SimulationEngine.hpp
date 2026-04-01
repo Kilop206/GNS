@@ -32,6 +32,8 @@ namespace kns {
         // Returns a const reference to the topology.
         const Topology& getTopology() const;
 
+        double compute_arrival_time(const Packet& pkt, const Link& link, double now);
+
     private:
 
         // Current simulation time.
