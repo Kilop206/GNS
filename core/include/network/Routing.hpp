@@ -1,7 +1,6 @@
 #include <limits>
 #include <vector>
 
-#include "network/Node.hpp"
 #include "Topology.hpp"
 
 namespace kns {
