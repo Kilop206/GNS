@@ -7,7 +7,7 @@
 
 namespace kns {
 
-    PacketReceivedEvent::PacketReceivedEvent(std::uint64_t timestamp, Packet packet)
+    PacketReceivedEvent::PacketReceivedEvent(double timestamp, Packet packet)
         : Event(timestamp), packet(std::move(packet)) {}
 
     void PacketReceivedEvent::execute(SimulationEngine& engine) {
@@ -23,6 +23,14 @@ namespace kns {
             std::cout << "[DELIVERED] Packet reached " << dest
                     << " at time " << timestamp_
                     << std::endl;
+
+            // Update stats for delivered packets
+            engine.getStats().packets_delivered++;
+
+            // Calculate the latency of the delivered packet by taking the difference between the current simulation time (engine.now()) and the creation time of the packet (packet.creation_time). This latency value is then added to the total latency in the statistics, which can be used later to calculate average latency for delivered packets.
+            double latency = engine.now() - packet.creation_time;
+            engine.getStats().total_latency += latency;
+
             return;
         }
 

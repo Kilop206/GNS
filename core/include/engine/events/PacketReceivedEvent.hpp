@@ -11,7 +11,7 @@ namespace kns {
     public:
         Packet packet;
 
-        PacketReceivedEvent(std::uint64_t timestamp, Packet packet);
+        PacketReceivedEvent(double timestamp, Packet packet);
 
         void execute(SimulationEngine& engine) override;
     };
