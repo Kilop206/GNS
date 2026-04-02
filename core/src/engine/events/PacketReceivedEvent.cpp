@@ -20,16 +20,12 @@ namespace kns {
 
         // If the packet has reached its destination, we can simply return without scheduling any further events, as there are no more hops to be made. This is a crucial check to prevent unnecessary processing and to ensure that the simulation accurately reflects the behavior of packets in a network.
         if (u == dest) {
-            std::cout << "[DELIVERED] Packet reached " << dest
-                    << " at time " << timestamp_
-                    << std::endl;
+            auto& stats = engine.getStats();
 
-            // Update stats for delivered packets
-            engine.getStats().packets_delivered++;
+            stats.packets_delivered++;
 
-            // Calculate the latency of the delivered packet by taking the difference between the current simulation time (engine.now()) and the creation time of the packet (packet.creation_time). This latency value is then added to the total latency in the statistics, which can be used later to calculate average latency for delivered packets.
             double latency = engine.now() - packet.creation_time;
-            engine.getStats().total_latency += latency;
+            stats.total_latency += latency;
 
             return;
         }
