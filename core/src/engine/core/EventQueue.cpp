@@ -4,50 +4,61 @@
 #include <stdexcept>
 
 namespace kns {
+    // Comparator for the priority queue to order events by timestamp and ID
     bool kns::EventQueue::EventComparator::operator()(const std::unique_ptr<kns::Event>& a,
-        const std::unique_ptr<kns::Event>& b) const
-    {
+        const std::unique_ptr<kns::Event>& b) const {
+        // Order by timestamp first (earlier events have higher priority)
         if (a->getTimestamp() != b->getTimestamp()) {
             return a->getTimestamp() > b->getTimestamp();
         }
 
+        // If timestamps are equal, order by ID (lower ID has higher priority)
         return a->getId() > b->getId();
     }
 
-    void kns::EventQueue::schedule(std::unique_ptr<kns::Event> event)
-    {
+    // Schedule a new event in the queue
+    void kns::EventQueue::schedule(std::unique_ptr<kns::Event> event) {
+        // Ensure the event is not null before scheduling
         if (!event) {
             throw std::invalid_argument("Cannot schedule null event");
         }
 
+        // Add the event to the priority queue
         event_list_.push(std::move(event));
     }
 
-    std::unique_ptr<kns::Event> kns::EventQueue::next()
-    {
+    // Get the next event from the queue, or return nullptr if the queue is empty
+    std::unique_ptr<kns::Event> kns::EventQueue::next() {
+        // If the queue is empty, return nullptr
         if (event_list_.empty()) {
             return nullptr;
         }
 
+        // Get the event at the top of the priority queue
         auto ptr = std::move(
             const_cast<std::unique_ptr<kns::Event>&>(event_list_.top())
         );
 
+        // Remove the event from the queue
         event_list_.pop();
 
+        // Return the event to the caller
         return ptr;
     }
 
+    // Check if there are any events in the queue
     bool kns::EventQueue::hasEvents() const noexcept
     {
         return !event_list_.empty();
     }
 
+    // Get the number of events currently in the queue
     std::size_t kns::EventQueue::size() const noexcept
     {
         return event_list_.size();
     }
 
+    // Clear all events from the queue
     void kns::EventQueue::clear()
     {
         while (!event_list_.empty()) {
