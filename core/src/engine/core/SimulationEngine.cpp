@@ -2,6 +2,7 @@
 #include <queue>
 #include <cmath>
 #include <iostream>
+#include <fstream>
 
 #include "core/SimulationEngine.hpp"
 #include "events/Event.hpp"
@@ -25,17 +26,22 @@ namespace kns {
 
     // Schedule a new event in the simulation
     void SimulationEngine::schedule(std::unique_ptr<Event> event) {
-        event_queue_.push(std::move(event));
+        event_queue_.schedule(std::move(event));
     }
 
     // Get the current simulation time
-    std::uint64_t SimulationEngine::now() const {
-        return current_time_;
+    double SimulationEngine::now() const {
+        return clock_.now();
     }
 
     // Get the topology of the network
     const Topology& SimulationEngine::getTopology() const {
         return topology_;
+    }
+
+    // Get the collected statistics of the simulation
+    Stats& SimulationEngine::getStats() {
+        return stats_;
     }
 
     // Get the next hop from the current node to the destination
@@ -45,23 +51,19 @@ namespace kns {
 
     // Run the simulation until there are no more events to process
     void SimulationEngine::run() {
+        while (event_queue_.hasEvents()) {
 
-        while (!event_queue_.empty()) {
+            auto event = event_queue_.next();
 
-            // Get next event
-            auto event = std::move(const_cast<std::unique_ptr<Event>&>(event_queue_.top()));
-            event_queue_.pop();
+            clock_.setTime(event->getTimestamp());
 
-            // Advance time
-            current_time_ = event->getTimestamp();
-
-            // Execute event
             event->execute(*this);
         }
     }
 
     // Helper function to compute the arrival time of a packet at the next node
-    double compute_arrival_time(const Packet& pkt, const Link& link, double now) {
+    double SimulationEngine::compute_arrival_time(const Packet& pkt, const Link& link, double now) {
+
         // Transmission time = packet size (bits) / bandwidth (bits per second)
         double transmission =
             (pkt.packet_size_bytes * 8.0) / (link.bandwidth_mbps * 1e6);
@@ -70,18 +72,14 @@ namespace kns {
         double propagation = link.delay_ms / 1000.0;
 
         // Total time = propagation + transmission
-        return std::ceil(now + propagation + transmission);
+        return (now + propagation + transmission);
     }
 
     // Send a packet over a link, simulating potential loss and scheduling the next event
-    void SimulationEngine::sendPacket(
-        const Packet& pkt,
-        const Link& link,
-        double now
-    ) {
+    void SimulationEngine::sendPacket(const Packet& pkt, const Link& link, double now) {
         stats_.packets_sent++;
 
-        // Simulate packet loss
+        // Drop
         if (link.should_drop()) {
             stats_.packets_lost++;
 
@@ -92,31 +90,50 @@ namespace kns {
             return;
         }
 
-        // Compute arrival time at the next node
+        // Compute arrival
         double arrival_time = compute_arrival_time(pkt, link, now);
 
-        // Determine the next node
         int next_node = link.getOtherNode(pkt.current_node);
 
-        // Create a new packet instance for the next hop
         Packet new_pkt = pkt;
         new_pkt.current_node = next_node;
         new_pkt.hop_count++;
 
-        // Update stats for delivered packets
-        stats_.packets_delivered++;
-
-        // Create a packet arrival event for the next node
         auto event = std::make_unique<PacketReceivedEvent>(
             arrival_time,
-            new_pkt,
-            next_node
+            new_pkt
         );
 
-        // Schedule the packet arrival event
-        event_queue_.push(std::move(event));
+        event_queue_.schedule(std::move(event));
+    }
 
-        // Update latency stats 
-        stats_.total_latency += arrival_time - now;
+    void SimulationEngine::exportStatsCSV(const std::string& filename) {
+        // Append to the file if it exists, otherwise create a new one
+        std::ofstream file(filename, std::ios::app);
+
+        // If the file is new, write the header
+        if (file.tellp() == 0) {
+            file << "Packets Sent,Packets Delivered,Packets Lost,Delivery Rate,Loss Rate,Average Latency\n";
+        }
+
+        // Calculate rates and average latency
+        double delivery_rate = stats_.packets_sent > 0
+            ? (double)stats_.packets_delivered / stats_.packets_sent
+            : 0.0;
+
+        double loss_rate = stats_.packets_sent > 0
+            ? (double)stats_.packets_lost / stats_.packets_sent
+            : 0.0;
+        double avg_latency = stats_.packets_delivered > 0 
+                            ? stats_.total_latency / stats_.packets_delivered
+                            : 0.0;
+
+        // Write the stats to the CSV file
+        file << stats_.packets_sent << ","
+            << stats_.packets_delivered << ","
+            << stats_.packets_lost << ","
+            << delivery_rate << ","
+            << loss_rate << ","
+            << avg_latency << "\n";
     }
 }

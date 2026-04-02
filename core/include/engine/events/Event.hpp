@@ -20,15 +20,15 @@ namespace kns {
         virtual void execute(kns::SimulationEngine& engine) = 0;
 
 		// Getter methods for the timestamp and ID of the event.
-        std::uint64_t getTimestamp() const noexcept;
+        double getTimestamp() const noexcept;
         std::uint64_t getId() const noexcept;
 
     protected:
 		// Protected constructor for the Event class.
-        Event(std::uint64_t timestamp);
+        Event(double timestamp);
         
 		// The timestamp of the event, which indicates when the event should be executed in the simulation.
-        std::uint64_t timestamp_;
+        double timestamp_;
 
     private:
 

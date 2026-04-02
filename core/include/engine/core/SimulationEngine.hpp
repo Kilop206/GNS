@@ -9,6 +9,8 @@
 #include "network/Routing.hpp"
 #include "events/Event.hpp"
 #include "core/Stats.hpp"
+#include "core/EventQueue.hpp"
+#include "time/SimulationClock.hpp"
 
 namespace kns {
 
@@ -25,7 +27,7 @@ namespace kns {
         void run();
 
         // Returns the current simulation time.
-        std::uint64_t now() const;
+        double now() const;
 
         // Returns the next hop for a packet based on the routing table.
         int getNextHop(int current, int destination) const;
@@ -33,14 +35,22 @@ namespace kns {
         // Returns a const reference to the topology.
         const Topology& getTopology() const;
 
+        // Returns the collected statistics of the simulation.
+        Stats& getStats();
+
+        // Computes the arrival time of a packet at the next node based on the link characteristics.
         double compute_arrival_time(const Packet& pkt, const Link& link, double now);
 
-        void SimulationEngine::sendPacket(const Packet& pkt, const Link& link, double now);
+        // Simulates sending a packet over a link, including potential packet loss and scheduling the next event for packet arrival.
+        void sendPacket(const Packet& pkt, const Link& link, double now);
+
+        // Exports the collected statistics to a CSV file for analysis.
+        void exportStatsCSV(const std::string& filename);
 
     private:
 
         // Current simulation time.
-        std::uint64_t current_time_ = 0;
+        SimulationClock clock_;
 
         // Network topology.
         Topology topology_;
@@ -59,13 +69,11 @@ namespace kns {
             }
         };
 
-        std::priority_queue<
-            std::unique_ptr<Event>,
-            std::vector<std::unique_ptr<Event>>,
-            EventCompare
-        > event_queue_;
-
+        // Statistics for the simulation
         Stats stats_;
+
+        // Event queue for managing scheduled events
+        EventQueue event_queue_;
     };
 
 }

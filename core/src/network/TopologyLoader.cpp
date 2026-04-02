@@ -27,7 +27,7 @@ namespace kns {
         json j;
         file >> j;
 
-        int nodes = j["nodes"];
+        int nodes = j["num_nodes"];
 
 		// Create a topology with the specified number of nodes
         Topology topology(nodes);
