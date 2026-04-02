@@ -1,6 +1,7 @@
 # Build directories
 build/
 .vs/
+.vscode/
 Debug/
 Release/
 x64/
