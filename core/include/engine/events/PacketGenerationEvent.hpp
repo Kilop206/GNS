@@ -1,6 +1,6 @@
 #pragma once
 
-#include "events/Event.hpp"
+#include "engine/events/Event.hpp"
 #include "network/Packet.hpp"
 
 namespace kns {

@@ -4,9 +4,9 @@
 #include <iostream>
 #include <fstream>
 
-#include "core/SimulationEngine.hpp"
-#include "events/Event.hpp"
-#include "events/PacketReceivedEvent.hpp"
+#include "engine/core/SimulationEngine.hpp"
+#include "engine/events/Event.hpp"
+#include "engine/events/PacketReceivedEvent.hpp"
 #include "network/Packet.hpp"
 
 namespace kns {

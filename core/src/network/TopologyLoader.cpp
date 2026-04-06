@@ -27,7 +27,7 @@ namespace kns {
         json j;
         file >> j;
 
-        int nodes = j["num_nodes"];
+        int nodes = j["nodes"];
 
 		// Create a topology with the specified number of nodes
         Topology topology(nodes);
@@ -40,7 +40,7 @@ namespace kns {
             link.to = l["to"];
             link.delay_ms = l["delay"];
             link.bandwidth_mbps = l["bandwidth"];
-            link.loss_prob = l.value("loss", 0.0);
+            link.loss_prob = l["loss"];
 
             topology.addLink(link);
         }

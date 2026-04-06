@@ -1,7 +1,7 @@
 #pragma once
 
 #include <vector>
-#include "network/link.hpp"
+#include "network/Link.hpp"
 
 namespace kns {
 	class Topology {

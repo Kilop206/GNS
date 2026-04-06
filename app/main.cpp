@@ -1,11 +1,12 @@
-#include "core/SimulationEngine.hpp"
-#include "events/PacketGenerationEvent.hpp"
+#include "engine/core/SimulationEngine.hpp"
+#include "engine/events/PacketGenerationEvent.hpp"
+#include "network/TopologyLoader.hpp"
 
 using namespace kns;
 
 int main() {
 
-    Topology topo(100);
+    Topology topo = TopologyLoader::load_topology("topologies/mesh5.json");
 
     SimulationEngine engine(topo);
 
@@ -14,7 +15,7 @@ int main() {
         int dest = (i + 1) % topo.size();
 
         auto event = std::make_unique<PacketGenerationEvent>(
-            0.0,
+            i * 0.01,
             source,
             dest,
             1500

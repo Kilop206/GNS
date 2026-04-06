@@ -1,5 +1,5 @@
-#include "events/PacketGenerationEvent.hpp"
-#include "core/SimulationEngine.hpp"
+#include "engine/events/PacketGenerationEvent.hpp"
+#include "engine/core/SimulationEngine.hpp"
 
 namespace kns {
 

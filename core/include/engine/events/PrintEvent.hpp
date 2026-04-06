@@ -1,8 +1,9 @@
 #pragma once
 
+#include <string>
+
 #include "engine/events/Event.hpp"
 #include "engine/core/SimulationEngine.hpp"
-#include <string>
 
 namespace kns {
     class PrintEvent : public kns::Event {

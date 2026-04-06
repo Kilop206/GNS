@@ -1,11 +1,6 @@
-add_executable(kns_app
-    main.cpp
-)
+add_executable(kns_app main.cpp)
 
-target_link_libraries(kns_app
-    PRIVATE
-    kns_core
-)
+target_link_libraries(kns_app kns_core)
 
 add_custom_command(TARGET kns_app POST_BUILD
     COMMAND ${CMAKE_COMMAND} -E copy_directory
