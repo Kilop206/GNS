@@ -1,5 +1,5 @@
-#include "events/Event.hpp"
-#include "core/SimulationEngine.hpp"
+#include "engine/events/Event.hpp"
+#include "engine/core/SimulationEngine.hpp"
 
 namespace kns {
 

@@ -2,8 +2,8 @@
 #include <cassert>
 #include <iostream>
 
-#include "events/PacketReceivedEvent.hpp"
-#include "core/SimulationEngine.hpp"
+#include "engine/events/PacketReceivedEvent.hpp"
+#include "engine/core/SimulationEngine.hpp"
 
 namespace kns {
 

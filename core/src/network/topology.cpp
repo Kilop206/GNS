@@ -28,10 +28,4 @@ namespace kns {
 		return num_nodes;
 
 	}
-
-	// Method to add a bidirectional link to the topology
-	void Topology::addLink(const Link& link) {
-		adjacency_list[link.from].push_back(link);
-		adjacency_list[link.to].push_back(link);
-	}
 }

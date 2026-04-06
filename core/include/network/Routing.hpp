@@ -1,7 +1,7 @@
 #include <limits>
 #include <vector>
 
-#include "Topology.hpp"
+#include "network/Topology.hpp"
 
 namespace kns {
 	class Routing {

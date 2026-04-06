@@ -4,13 +4,16 @@
 #include <memory>
 #include <vector>
 #include <cstdint>
+#include <string>
 
 #include "network/Topology.hpp"
 #include "network/Routing.hpp"
-#include "events/Event.hpp"
-#include "core/Stats.hpp"
-#include "core/EventQueue.hpp"
-#include "time/SimulationClock.hpp"
+#include "engine/events/Event.hpp"
+#include "engine/core/Stats.hpp"
+#include "engine/core/EventQueue.hpp"
+#include "engine/time/SimulationClock.hpp"
+#include "network/Packet.hpp"
+#include "network/Link.hpp"
 
 namespace kns {
 

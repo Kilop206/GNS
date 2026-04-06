@@ -11,12 +11,7 @@ add_executable(kns_tests
     test_event_queue.cpp
     test_simulation_clock.cpp
 )
-
-target_link_libraries(kns_tests
-    PRIVATE
-    kns_core
-    Catch2::Catch2WithMain
-)
+target_link_libraries(kns_tests kns_core Catch2::Catch2WithMain)
 
 copy_topologies(kns_tests)
 
