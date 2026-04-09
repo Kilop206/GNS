@@ -1,12 +1,22 @@
 #include "engine/core/SimulationEngine.hpp"
 #include "engine/events/PacketGenerationEvent.hpp"
 #include "network/TopologyLoader.hpp"
+#include "network/Topology.hpp"
+
+#include <iostream>
 
 using namespace kns;
 
-int main() {
+int main(int argc, char* argv[]) {
 
-    Topology topo = TopologyLoader::load_topology("topologies/mesh5.json");
+	if (argc < 2) {
+		std::cerr << "Usage: ./kns_app <topology_file>\n";
+		return 1;
+	}
+
+	std::string path = argv[1];
+
+    Topology topo = TopologyLoader::load_topology(path);
 
     SimulationEngine engine(topo);
 
