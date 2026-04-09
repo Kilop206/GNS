@@ -4,6 +4,7 @@
 
 #include <fstream>
 #include <stdexcept>
+#include <iostream>
 #include <nlohmann/json.hpp>
 
 using json = nlohmann::json;
@@ -18,7 +19,6 @@ namespace kns {
 
 		// Check if the file was opened successfully
         if (!file.is_open()) {
-
 			// If not, throw an exception
             throw std::runtime_error("Cannot open topology file");
         }
