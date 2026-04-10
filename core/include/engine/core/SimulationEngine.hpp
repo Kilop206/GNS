@@ -5,6 +5,7 @@
 #include <vector>
 #include <cstdint>
 #include <string>
+#include <unordered_map>
 
 #include "network/Topology.hpp"
 #include "network/Routing.hpp"
@@ -14,11 +15,51 @@
 #include "engine/time/SimulationClock.hpp"
 #include "network/Packet.hpp"
 #include "network/Link.hpp"
+#include "engine/core/RunConfig.hpp"
 
 namespace kns {
 
     class SimulationEngine {
+    private:
+
+        double loss_prob = 0.01;
+
+        std::unordered_map<int, std::queue<Packet>> buffers;
+
+        size_t max_queue_size = 50;
+
+        // Current simulation time.
+        SimulationClock clock_;
+
+        // Network topology.
+        Topology topology_;
+
+        // Routing tables for each node.
+        std::vector<std::vector<int>> routing_tables_;
+
+        // Event comparison functor for priority queue.
+        struct EventCompare {
+            bool operator()(const std::unique_ptr<Event>& a,
+                            const std::unique_ptr<Event>& b) const {
+                if (a->getTimestamp() == b->getTimestamp()) {
+                    return a->getId() > b->getId();
+                }
+                return a->getTimestamp() > b->getTimestamp();
+            }
+        };
+
+        // Statistics for the simulation
+        Stats stats_;
+
+        // Event queue for managing scheduled events
+        EventQueue event_queue_;
+
     public:
+
+
+        double random();
+
+        double get_loss_prob() const;
 
         // Constructor that initializes the simulation engine with a given topology.
         explicit SimulationEngine(const Topology& topology);
@@ -48,35 +89,7 @@ namespace kns {
         void sendPacket(const Packet& pkt, const Link& link, double now);
 
         // Exports the collected statistics to a CSV file for analysis.
-        void exportStatsCSV(const std::string& filename);
-
-    private:
-
-        // Current simulation time.
-        SimulationClock clock_;
-
-        // Network topology.
-        Topology topology_;
-
-        // Routing tables for each node.
-        std::vector<std::vector<int>> routing_tables_;
-
-        // Event comparison functor for priority queue.
-        struct EventCompare {
-            bool operator()(const std::unique_ptr<Event>& a,
-                            const std::unique_ptr<Event>& b) const {
-                if (a->getTimestamp() == b->getTimestamp()) {
-                    return a->getId() > b->getId();
-                }
-                return a->getTimestamp() > b->getTimestamp();
-            }
-        };
-
-        // Statistics for the simulation
-        Stats stats_;
-
-        // Event queue for managing scheduled events
-        EventQueue event_queue_;
+        void exportStatsCSV(const RunConfig& runConfig);
     };
 
 }
