@@ -3,6 +3,7 @@
 #include "network/TopologyLoader.hpp"
 #include "network/Topology.hpp"
 #include "engine/core/RunConfig.hpp"
+#include "network/Link.hpp"
 
 #include <iostream>
 #include <string>
@@ -22,11 +23,14 @@ int main(int argc, char* argv[]) {
 
     for (int i = 0; i < argc; i++) {
 
-        if (std::string(argv[i]) == "--seed") {
-            runConfig.seed = std::stoi(argv[i+1]);
+        if (i+1 < argc) {
 
-        } else if (std::string(argv[i]) == "--out") {
-            runConfig.filename = argv[i+1];
+            if (std::string(argv[i]) == "--seed") {
+                runConfig.seed = std::stoi(argv[i+1]);
+
+            } else if (std::string(argv[i]) == "--out") {
+                runConfig.filename = argv[i+1];
+            }
         }
     }
 
