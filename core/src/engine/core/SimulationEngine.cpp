@@ -11,6 +11,16 @@
 
 namespace kns {
 
+    // Generates a random number between 0 and 1 using the standard library's rand function. This method is used to simulate random events in the network, such as packet loss, by comparing the generated random number to a predefined loss probability.
+    double SimulationEngine::random() {
+        return (double)rand() / RAND_MAX;
+    }
+
+    // Getter for the packet loss probability
+    double SimulationEngine::get_loss_prob() const {
+        return loss_prob;
+    }
+
     // Constructor that initializes the simulation engine with a given topology
     SimulationEngine::SimulationEngine(const Topology& topology)
         : topology_(topology) {
@@ -107,14 +117,12 @@ namespace kns {
         event_queue_.schedule(std::move(event));
     }
 
-    void SimulationEngine::exportStatsCSV(const std::string& filename) {
+    void SimulationEngine::exportStatsCSV(const RunConfig& runConfig) {
         // Append to the file if it exists, otherwise create a new one
-        std::ofstream file(filename, std::ios::app);
+        std::ofstream file(runConfig.filename, std::ios::out);
 
-        // If the file is new, write the header
-        if (file.tellp() == 0) {
-            file << "Packets Sent,Packets Delivered,Packets Lost,Delivery Rate,Loss Rate,Average Latency\n";
-        }
+        // Writes the header
+        file << "Packets Sent,Packets Delivered,Packets Lost,Delivery Rate,Loss Rate,Average Latency,Seed\n";
 
         // Calculate rates and average latency
         double delivery_rate = stats_.packets_sent > 0
@@ -134,6 +142,7 @@ namespace kns {
             << stats_.packets_lost << ","
             << delivery_rate << ","
             << loss_rate << ","
-            << avg_latency << "\n";
+            << avg_latency << ","
+            << runConfig.seed  << "\n";
     }
 }
