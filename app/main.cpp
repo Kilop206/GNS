@@ -5,6 +5,8 @@
 #include "engine/core/RunConfig.hpp"
 
 #include <iostream>
+#include <string>
+#include <cstdlib>
 
 using namespace kns;
 
@@ -14,6 +16,19 @@ int main(int argc, char* argv[]) {
 		std::cerr << "Usage: ./kns_app <topology_file> (e.g: if you are in app, then use ./topologies/mesh.json)\n";
 		return 1;
 	}
+
+
+    kns::RunConfig runConfig = {"results.csv", 1};
+
+    for (int i = 0; i < argc; i++) {
+
+        if (std::string(argv[i]) == "--seed") {
+            runConfig.seed = std::stoi(argv[i+1]);
+
+        } else if (std::string(argv[i]) == "--out") {
+            runConfig.filename = argv[i+1];
+        }
+    }
 
 	std::string path = argv[1];
 
@@ -34,8 +49,7 @@ int main(int argc, char* argv[]) {
 
         engine.schedule(std::move(event));
     }
-
-    kns::RunConfig runConfig = {"results.csv", 1};
+    
     srand(runConfig.seed);
 
     engine.run();
