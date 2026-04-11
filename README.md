@@ -25,8 +25,10 @@ Build the motor of a network simulator based on discret events that lets:
 
 ## Current Architecture
 	KNS/
-	|-- core/ # Main components for the simulation motor
 	|-- app/ # Main executable
+	|-- core/ # Main components for the simulation motor
+	|-- docs/ # DOcuments explaining the project
+	|-- scripts/ # Scripts that automatically run and create graphs
 	|-- tests / # Unitaty tests
 	|-- topologies / # JSON files of topologies models
 	|-- CMakeLists.txt
