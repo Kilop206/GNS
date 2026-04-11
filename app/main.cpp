@@ -15,6 +15,8 @@ using namespace kns;
 
 int main(int argc, char* argv[]) {
 
+    std::cout << "Starting..." << std::endl;
+
 	if (argc < 2) {
 		std::cerr << "Usage: ./kns_app <topology_file> (e.g: if you are in app, then use ./topologies/mesh.json)\n";
 		return 1;
