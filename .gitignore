@@ -6,6 +6,7 @@ Debug/
 Release/
 x64/
 out/
+results/
 
 # CMake
 CMakeCache.txt

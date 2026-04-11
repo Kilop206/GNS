@@ -16,7 +16,7 @@ The project is being developed incrementaly, prioritizing:
 
 Build the motor of a network simulator based on discret events that lets:
 
-- Deterministic execution[
+- Deterministic execution
 - Results reprodutction
 - Modular extensibility
 - Solid base for future network abstractions
@@ -31,6 +31,34 @@ Build the motor of a network simulator based on discret events that lets:
 	|-- topologies / # JSON files of topologies models
 	|-- CMakeLists.txt
 	
+---
+
+## Experiments
+
+On this section we will describe how you should run the scripts in order to have automated tests for your topology
+
+### 1st Enter scripts direcotry
+```bash
+cd scripts
+```
+
+### 2nd Run run_all.ps1
+```bash
+.\run_all.ps1
+```
+
+### 3rd Run plot_results.py
+```bash
+py plot_results.py
+```
+
+## Runned experiments
+
+![Loss Rate vs Loss Probability](results/loss_rate_vs_loss_prob.png)
+![Latency vs Loss Probability](results/latency_vs_loss_prob.png)
+
+[Read the full analysis](docs/experiments.md)
+
 ---
 
 ## Used Technologies
@@ -59,69 +87,3 @@ Since the project uses multi-config generator (Visual Studio):
 ```bash
 ctest -C Debug --output-on-failure
 ```
-
----
----
-
-# KNS — Kilop's Network Simulator
-
-## Overview
-
-KNS é um simulador de redes orientado a eventos, com foco em determinismo, modularidade e base científica sólida.
-
-O projeto está sendo desenvolvido incrementalmente, priorizando:
-
-- Arquitetura limpa
-- Separação clara de responsabilidades
-- Testes automatizados
-- Determinismo forte na simulação
-
----
-
-## Objetivo
-
-Construir um motor de simulação de redes baseado em eventos discretos que permita:
-
-- Execução determinística
-- Reprodutibilidade de resultados
-- Extensibilidade modular
-- Base sólida para futuras abstrações de rede
-
----
-
-## Arquitetura Atual
-	KNS/
-	|-- core/ # Componentes principais do motor de simulação
-	|-- app/ # Executável principal
-	|-- tests/ # Testes unitários
-	|-- topologies/ # Arquivos JSON de modelos de topologias
-	|-- CMakeLists.txt
-
----
-
-## Tecnologias Utilizadas
-
-- C++20
-- CMake
-- Catch2 (testes unitários)
-- CTest
-
----
-
-## Como Compilar
-
-### 1️º Gerar build
-
-```bash
-cmake -S . -B build
-```
-
-### 2️º Compilar
-```bash
-cmake --build build
-```
-
-Como o projeto usa gerador multi-config (Visual Studio):
-### 3️º Executar testes
-```bash
-ctest -C Debug --output-on-failure
