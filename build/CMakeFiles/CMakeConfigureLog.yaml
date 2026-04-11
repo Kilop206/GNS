@@ -35,6 +35,9 @@ events:
     found: "C:/Program Files/CMake/share/cmake-4.2/Modules/CMakeCXXCompilerId.cpp.in"
     search_context:
       ENV{PATH}:
+        - "c:\\Users\\guilh\\AppData\\Roaming\\Code\\User\\globalStorage\\github.copilot-chat\\debugCommand"
+        - "c:\\Users\\guilh\\AppData\\Roaming\\Code\\User\\globalStorage\\github.copilot-chat\\copilotCli"
+        - "C:\\Users\\guilh\\AppData\\Local\\Programs\\Microsoft VS Code"
         - "C:\\WINDOWS\\system32"
         - "C:\\WINDOWS"
         - "C:\\WINDOWS\\System32\\Wbem"
@@ -53,6 +56,7 @@ events:
         - "C:\\MinGW\\bin"
         - "C:\\MinGW"
         - "C:\\Users\\guilh\\AppData\\Roaming\\npm"
+        - "c:\\Users\\guilh\\.vscode\\extensions\\ms-python.debugpy-2025.18.0-win32-x64\\bundled\\scripts\\noConfigScripts"
   -
     kind: "message-v1"
     backtrace:
@@ -69,7 +73,7 @@ events:
       The output was:
       0
       Vers├úo do MSBuild 18.4.0+6e61e96ac para .NET Framework
-      Compila├º├úo de 10/04/2026 23:22:26 iniciada.
+      Compila├º├úo de 11/04/2026 17:58:29 iniciada.
       
       Projeto "C:\\Users\\guilh\\Desktop\\KNS\\build\\CMakeFiles\\4.2.3\\CompilerIdCXX\\CompilerIdCXX.vcxproj" no n├│ 1 (destinos padr├úo).
       PrepareForBuild:
@@ -107,7 +111,7 @@ events:
           0 Aviso(s)
           0 Erro(s)
       
-      Tempo Decorrido 00:00:00.89
+      Tempo Decorrido 00:00:01.30
       
       
       Compilation of the CXX compiler identification source "CMakeCXXCompilerId.cpp" produced "CompilerIdCXX.exe"
@@ -140,6 +144,9 @@ events:
       - "link"
     candidate_directories:
       - "C:/Program Files/Microsoft Visual Studio/18/Community/VC/Tools/MSVC/14.50.35717/bin/Hostx64/x64/"
+      - "C:/Users/guilh/AppData/Roaming/Code/User/globalStorage/github.copilot-chat/debugCommand/"
+      - "C:/Users/guilh/AppData/Roaming/Code/User/globalStorage/github.copilot-chat/copilotCli/"
+      - "C:/Users/guilh/AppData/Local/Programs/Microsoft VS Code/"
       - "C:/Windows/System32/"
       - "C:/Windows/"
       - "C:/Windows/System32/wbem/"
@@ -157,11 +164,15 @@ events:
       - "C:/MinGW/bin/"
       - "C:/MinGW/"
       - "C:/Users/guilh/AppData/Roaming/npm/"
+      - "C:/Users/guilh/.vscode/extensions/ms-python.debugpy-2025.18.0-win32-x64/bundled/scripts/noConfigScripts/"
     searched_directories:
       - "C:/Program Files/Microsoft Visual Studio/18/Community/VC/Tools/MSVC/14.50.35717/bin/Hostx64/x64/link.com"
     found: "C:/Program Files/Microsoft Visual Studio/18/Community/VC/Tools/MSVC/14.50.35717/bin/Hostx64/x64/link.exe"
     search_context:
       ENV{PATH}:
+        - "c:\\Users\\guilh\\AppData\\Roaming\\Code\\User\\globalStorage\\github.copilot-chat\\debugCommand"
+        - "c:\\Users\\guilh\\AppData\\Roaming\\Code\\User\\globalStorage\\github.copilot-chat\\copilotCli"
+        - "C:\\Users\\guilh\\AppData\\Local\\Programs\\Microsoft VS Code"
         - "C:\\WINDOWS\\system32"
         - "C:\\WINDOWS"
         - "C:\\WINDOWS\\System32\\Wbem"
@@ -180,6 +191,7 @@ events:
         - "C:\\MinGW\\bin"
         - "C:\\MinGW"
         - "C:\\Users\\guilh\\AppData\\Roaming\\npm"
+        - "c:\\Users\\guilh\\.vscode\\extensions\\ms-python.debugpy-2025.18.0-win32-x64\\bundled\\scripts\\noConfigScripts"
   -
     kind: "find-v1"
     backtrace:
@@ -203,6 +215,9 @@ events:
       - "lld-link"
     candidate_directories:
       - "C:/Program Files/Microsoft Visual Studio/18/Community/VC/Tools/MSVC/14.50.35717/bin/Hostx64/x64/"
+      - "C:/Users/guilh/AppData/Roaming/Code/User/globalStorage/github.copilot-chat/debugCommand/"
+      - "C:/Users/guilh/AppData/Roaming/Code/User/globalStorage/github.copilot-chat/copilotCli/"
+      - "C:/Users/guilh/AppData/Local/Programs/Microsoft VS Code/"
       - "C:/Windows/System32/"
       - "C:/Windows/"
       - "C:/Windows/System32/wbem/"
@@ -220,10 +235,20 @@ events:
       - "C:/MinGW/bin/"
       - "C:/MinGW/"
       - "C:/Users/guilh/AppData/Roaming/npm/"
+      - "C:/Users/guilh/.vscode/extensions/ms-python.debugpy-2025.18.0-win32-x64/bundled/scripts/noConfigScripts/"
     searched_directories:
       - "C:/Program Files/Microsoft Visual Studio/18/Community/VC/Tools/MSVC/14.50.35717/bin/Hostx64/x64/lld-link.com"
       - "C:/Program Files/Microsoft Visual Studio/18/Community/VC/Tools/MSVC/14.50.35717/bin/Hostx64/x64/lld-link.exe"
       - "C:/Program Files/Microsoft Visual Studio/18/Community/VC/Tools/MSVC/14.50.35717/bin/Hostx64/x64/lld-link"
+      - "C:/Users/guilh/AppData/Roaming/Code/User/globalStorage/github.copilot-chat/debugCommand/lld-link.com"
+      - "C:/Users/guilh/AppData/Roaming/Code/User/globalStorage/github.copilot-chat/debugCommand/lld-link.exe"
+      - "C:/Users/guilh/AppData/Roaming/Code/User/globalStorage/github.copilot-chat/debugCommand/lld-link"
+      - "C:/Users/guilh/AppData/Roaming/Code/User/globalStorage/github.copilot-chat/copilotCli/lld-link.com"
+      - "C:/Users/guilh/AppData/Roaming/Code/User/globalStorage/github.copilot-chat/copilotCli/lld-link.exe"
+      - "C:/Users/guilh/AppData/Roaming/Code/User/globalStorage/github.copilot-chat/copilotCli/lld-link"
+      - "C:/Users/guilh/AppData/Local/Programs/Microsoft VS Code/lld-link.com"
+      - "C:/Users/guilh/AppData/Local/Programs/Microsoft VS Code/lld-link.exe"
+      - "C:/Users/guilh/AppData/Local/Programs/Microsoft VS Code/lld-link"
       - "C:/Windows/System32/lld-link.com"
       - "C:/Windows/System32/lld-link.exe"
       - "C:/Windows/System32/lld-link"
@@ -275,9 +300,15 @@ events:
       - "C:/Users/guilh/AppData/Roaming/npm/lld-link.com"
       - "C:/Users/guilh/AppData/Roaming/npm/lld-link.exe"
       - "C:/Users/guilh/AppData/Roaming/npm/lld-link"
+      - "C:/Users/guilh/.vscode/extensions/ms-python.debugpy-2025.18.0-win32-x64/bundled/scripts/noConfigScripts/lld-link.com"
+      - "C:/Users/guilh/.vscode/extensions/ms-python.debugpy-2025.18.0-win32-x64/bundled/scripts/noConfigScripts/lld-link.exe"
+      - "C:/Users/guilh/.vscode/extensions/ms-python.debugpy-2025.18.0-win32-x64/bundled/scripts/noConfigScripts/lld-link"
     found: false
     search_context:
       ENV{PATH}:
+        - "c:\\Users\\guilh\\AppData\\Roaming\\Code\\User\\globalStorage\\github.copilot-chat\\debugCommand"
+        - "c:\\Users\\guilh\\AppData\\Roaming\\Code\\User\\globalStorage\\github.copilot-chat\\copilotCli"
+        - "C:\\Users\\guilh\\AppData\\Local\\Programs\\Microsoft VS Code"
         - "C:\\WINDOWS\\system32"
         - "C:\\WINDOWS"
         - "C:\\WINDOWS\\System32\\Wbem"
@@ -296,6 +327,7 @@ events:
         - "C:\\MinGW\\bin"
         - "C:\\MinGW"
         - "C:\\Users\\guilh\\AppData\\Roaming\\npm"
+        - "c:\\Users\\guilh\\.vscode\\extensions\\ms-python.debugpy-2025.18.0-win32-x64\\bundled\\scripts\\noConfigScripts"
   -
     kind: "find-v1"
     backtrace:
@@ -317,6 +349,9 @@ events:
       - "link"
     candidate_directories:
       - "C:/Program Files/Microsoft Visual Studio/18/Community/VC/Tools/MSVC/14.50.35717/bin/Hostx64/x64/"
+      - "C:/Users/guilh/AppData/Roaming/Code/User/globalStorage/github.copilot-chat/debugCommand/"
+      - "C:/Users/guilh/AppData/Roaming/Code/User/globalStorage/github.copilot-chat/copilotCli/"
+      - "C:/Users/guilh/AppData/Local/Programs/Microsoft VS Code/"
       - "C:/Windows/System32/"
       - "C:/Windows/"
       - "C:/Windows/System32/wbem/"
@@ -334,11 +369,15 @@ events:
       - "C:/MinGW/bin/"
       - "C:/MinGW/"
       - "C:/Users/guilh/AppData/Roaming/npm/"
+      - "C:/Users/guilh/.vscode/extensions/ms-python.debugpy-2025.18.0-win32-x64/bundled/scripts/noConfigScripts/"
     searched_directories:
       - "C:/Program Files/Microsoft Visual Studio/18/Community/VC/Tools/MSVC/14.50.35717/bin/Hostx64/x64/link.com"
     found: "C:/Program Files/Microsoft Visual Studio/18/Community/VC/Tools/MSVC/14.50.35717/bin/Hostx64/x64/link.exe"
     search_context:
       ENV{PATH}:
+        - "c:\\Users\\guilh\\AppData\\Roaming\\Code\\User\\globalStorage\\github.copilot-chat\\debugCommand"
+        - "c:\\Users\\guilh\\AppData\\Roaming\\Code\\User\\globalStorage\\github.copilot-chat\\copilotCli"
+        - "C:\\Users\\guilh\\AppData\\Local\\Programs\\Microsoft VS Code"
         - "C:\\WINDOWS\\system32"
         - "C:\\WINDOWS"
         - "C:\\WINDOWS\\System32\\Wbem"
@@ -357,6 +396,7 @@ events:
         - "C:\\MinGW\\bin"
         - "C:\\MinGW"
         - "C:\\Users\\guilh\\AppData\\Roaming\\npm"
+        - "c:\\Users\\guilh\\.vscode\\extensions\\ms-python.debugpy-2025.18.0-win32-x64\\bundled\\scripts\\noConfigScripts"
   -
     kind: "find-v1"
     backtrace:
@@ -378,6 +418,9 @@ events:
       - "mt"
     candidate_directories:
       - "C:/Program Files/Microsoft Visual Studio/18/Community/VC/Tools/MSVC/14.50.35717/bin/Hostx64/x64/"
+      - "C:/Users/guilh/AppData/Roaming/Code/User/globalStorage/github.copilot-chat/debugCommand/"
+      - "C:/Users/guilh/AppData/Roaming/Code/User/globalStorage/github.copilot-chat/copilotCli/"
+      - "C:/Users/guilh/AppData/Local/Programs/Microsoft VS Code/"
       - "C:/Windows/System32/"
       - "C:/Windows/"
       - "C:/Windows/System32/wbem/"
@@ -395,10 +438,20 @@ events:
       - "C:/MinGW/bin/"
       - "C:/MinGW/"
       - "C:/Users/guilh/AppData/Roaming/npm/"
+      - "C:/Users/guilh/.vscode/extensions/ms-python.debugpy-2025.18.0-win32-x64/bundled/scripts/noConfigScripts/"
     searched_directories:
       - "C:/Program Files/Microsoft Visual Studio/18/Community/VC/Tools/MSVC/14.50.35717/bin/Hostx64/x64/mt.com"
       - "C:/Program Files/Microsoft Visual Studio/18/Community/VC/Tools/MSVC/14.50.35717/bin/Hostx64/x64/mt.exe"
       - "C:/Program Files/Microsoft Visual Studio/18/Community/VC/Tools/MSVC/14.50.35717/bin/Hostx64/x64/mt"
+      - "C:/Users/guilh/AppData/Roaming/Code/User/globalStorage/github.copilot-chat/debugCommand/mt.com"
+      - "C:/Users/guilh/AppData/Roaming/Code/User/globalStorage/github.copilot-chat/debugCommand/mt.exe"
+      - "C:/Users/guilh/AppData/Roaming/Code/User/globalStorage/github.copilot-chat/debugCommand/mt"
+      - "C:/Users/guilh/AppData/Roaming/Code/User/globalStorage/github.copilot-chat/copilotCli/mt.com"
+      - "C:/Users/guilh/AppData/Roaming/Code/User/globalStorage/github.copilot-chat/copilotCli/mt.exe"
+      - "C:/Users/guilh/AppData/Roaming/Code/User/globalStorage/github.copilot-chat/copilotCli/mt"
+      - "C:/Users/guilh/AppData/Local/Programs/Microsoft VS Code/mt.com"
+      - "C:/Users/guilh/AppData/Local/Programs/Microsoft VS Code/mt.exe"
+      - "C:/Users/guilh/AppData/Local/Programs/Microsoft VS Code/mt"
       - "C:/Windows/System32/mt.com"
       - "C:/Windows/System32/mt.exe"
       - "C:/Windows/System32/mt"
@@ -450,9 +503,15 @@ events:
       - "C:/Users/guilh/AppData/Roaming/npm/mt.com"
       - "C:/Users/guilh/AppData/Roaming/npm/mt.exe"
       - "C:/Users/guilh/AppData/Roaming/npm/mt"
+      - "C:/Users/guilh/.vscode/extensions/ms-python.debugpy-2025.18.0-win32-x64/bundled/scripts/noConfigScripts/mt.com"
+      - "C:/Users/guilh/.vscode/extensions/ms-python.debugpy-2025.18.0-win32-x64/bundled/scripts/noConfigScripts/mt.exe"
+      - "C:/Users/guilh/.vscode/extensions/ms-python.debugpy-2025.18.0-win32-x64/bundled/scripts/noConfigScripts/mt"
     found: false
     search_context:
       ENV{PATH}:
+        - "c:\\Users\\guilh\\AppData\\Roaming\\Code\\User\\globalStorage\\github.copilot-chat\\debugCommand"
+        - "c:\\Users\\guilh\\AppData\\Roaming\\Code\\User\\globalStorage\\github.copilot-chat\\copilotCli"
+        - "C:\\Users\\guilh\\AppData\\Local\\Programs\\Microsoft VS Code"
         - "C:\\WINDOWS\\system32"
         - "C:\\WINDOWS"
         - "C:\\WINDOWS\\System32\\Wbem"
@@ -471,6 +530,7 @@ events:
         - "C:\\MinGW\\bin"
         - "C:\\MinGW"
         - "C:\\Users\\guilh\\AppData\\Roaming\\npm"
+        - "c:\\Users\\guilh\\.vscode\\extensions\\ms-python.debugpy-2025.18.0-win32-x64\\bundled\\scripts\\noConfigScripts"
   -
     kind: "find-v1"
     backtrace:
@@ -492,6 +552,9 @@ events:
       - "lib"
     candidate_directories:
       - "C:/Program Files/Microsoft Visual Studio/18/Community/VC/Tools/MSVC/14.50.35717/bin/Hostx64/x64/"
+      - "C:/Users/guilh/AppData/Roaming/Code/User/globalStorage/github.copilot-chat/debugCommand/"
+      - "C:/Users/guilh/AppData/Roaming/Code/User/globalStorage/github.copilot-chat/copilotCli/"
+      - "C:/Users/guilh/AppData/Local/Programs/Microsoft VS Code/"
       - "C:/Windows/System32/"
       - "C:/Windows/"
       - "C:/Windows/System32/wbem/"
@@ -509,11 +572,15 @@ events:
       - "C:/MinGW/bin/"
       - "C:/MinGW/"
       - "C:/Users/guilh/AppData/Roaming/npm/"
+      - "C:/Users/guilh/.vscode/extensions/ms-python.debugpy-2025.18.0-win32-x64/bundled/scripts/noConfigScripts/"
     searched_directories:
       - "C:/Program Files/Microsoft Visual Studio/18/Community/VC/Tools/MSVC/14.50.35717/bin/Hostx64/x64/lib.com"
     found: "C:/Program Files/Microsoft Visual Studio/18/Community/VC/Tools/MSVC/14.50.35717/bin/Hostx64/x64/lib.exe"
     search_context:
       ENV{PATH}:
+        - "c:\\Users\\guilh\\AppData\\Roaming\\Code\\User\\globalStorage\\github.copilot-chat\\debugCommand"
+        - "c:\\Users\\guilh\\AppData\\Roaming\\Code\\User\\globalStorage\\github.copilot-chat\\copilotCli"
+        - "C:\\Users\\guilh\\AppData\\Local\\Programs\\Microsoft VS Code"
         - "C:\\WINDOWS\\system32"
         - "C:\\WINDOWS"
         - "C:\\WINDOWS\\System32\\Wbem"
@@ -532,6 +599,7 @@ events:
         - "C:\\MinGW\\bin"
         - "C:\\MinGW"
         - "C:\\Users\\guilh\\AppData\\Roaming\\npm"
+        - "c:\\Users\\guilh\\.vscode\\extensions\\ms-python.debugpy-2025.18.0-win32-x64\\bundled\\scripts\\noConfigScripts"
   -
     kind: "find-v1"
     backtrace:
@@ -555,6 +623,9 @@ events:
     names:
       - "rc"
     candidate_directories:
+      - "C:/Users/guilh/AppData/Roaming/Code/User/globalStorage/github.copilot-chat/debugCommand/"
+      - "C:/Users/guilh/AppData/Roaming/Code/User/globalStorage/github.copilot-chat/copilotCli/"
+      - "C:/Users/guilh/AppData/Local/Programs/Microsoft VS Code/"
       - "C:/Windows/System32/"
       - "C:/Windows/"
       - "C:/Windows/System32/wbem/"
@@ -572,6 +643,7 @@ events:
       - "C:/MinGW/bin/"
       - "C:/MinGW/"
       - "C:/Users/guilh/AppData/Roaming/npm/"
+      - "C:/Users/guilh/.vscode/extensions/ms-python.debugpy-2025.18.0-win32-x64/bundled/scripts/noConfigScripts/"
       - "C:/Program Files/bin/"
       - "C:/Program Files/sbin/"
       - "C:/Program Files/"
@@ -585,6 +657,15 @@ events:
       - "C:/Program Files (x86)/KNS/sbin/"
       - "C:/Program Files (x86)/KNS/"
     searched_directories:
+      - "C:/Users/guilh/AppData/Roaming/Code/User/globalStorage/github.copilot-chat/debugCommand/rc.com"
+      - "C:/Users/guilh/AppData/Roaming/Code/User/globalStorage/github.copilot-chat/debugCommand/rc.exe"
+      - "C:/Users/guilh/AppData/Roaming/Code/User/globalStorage/github.copilot-chat/debugCommand/rc"
+      - "C:/Users/guilh/AppData/Roaming/Code/User/globalStorage/github.copilot-chat/copilotCli/rc.com"
+      - "C:/Users/guilh/AppData/Roaming/Code/User/globalStorage/github.copilot-chat/copilotCli/rc.exe"
+      - "C:/Users/guilh/AppData/Roaming/Code/User/globalStorage/github.copilot-chat/copilotCli/rc"
+      - "C:/Users/guilh/AppData/Local/Programs/Microsoft VS Code/rc.com"
+      - "C:/Users/guilh/AppData/Local/Programs/Microsoft VS Code/rc.exe"
+      - "C:/Users/guilh/AppData/Local/Programs/Microsoft VS Code/rc"
       - "C:/Windows/System32/rc.com"
       - "C:/Windows/System32/rc.exe"
       - "C:/Windows/System32/rc"
@@ -636,6 +717,9 @@ events:
       - "C:/Users/guilh/AppData/Roaming/npm/rc.com"
       - "C:/Users/guilh/AppData/Roaming/npm/rc.exe"
       - "C:/Users/guilh/AppData/Roaming/npm/rc"
+      - "C:/Users/guilh/.vscode/extensions/ms-python.debugpy-2025.18.0-win32-x64/bundled/scripts/noConfigScripts/rc.com"
+      - "C:/Users/guilh/.vscode/extensions/ms-python.debugpy-2025.18.0-win32-x64/bundled/scripts/noConfigScripts/rc.exe"
+      - "C:/Users/guilh/.vscode/extensions/ms-python.debugpy-2025.18.0-win32-x64/bundled/scripts/noConfigScripts/rc"
       - "C:/Program Files/bin/rc.com"
       - "C:/Program Files/bin/rc.exe"
       - "C:/Program Files/bin/rc"
@@ -675,6 +759,9 @@ events:
     found: false
     search_context:
       ENV{PATH}:
+        - "c:\\Users\\guilh\\AppData\\Roaming\\Code\\User\\globalStorage\\github.copilot-chat\\debugCommand"
+        - "c:\\Users\\guilh\\AppData\\Roaming\\Code\\User\\globalStorage\\github.copilot-chat\\copilotCli"
+        - "C:\\Users\\guilh\\AppData\\Local\\Programs\\Microsoft VS Code"
         - "C:\\WINDOWS\\system32"
         - "C:\\WINDOWS"
         - "C:\\WINDOWS\\System32\\Wbem"
@@ -693,6 +780,7 @@ events:
         - "C:\\MinGW\\bin"
         - "C:\\MinGW"
         - "C:\\Users\\guilh\\AppData\\Roaming\\npm"
+        - "c:\\Users\\guilh\\.vscode\\extensions\\ms-python.debugpy-2025.18.0-win32-x64\\bundled\\scripts\\noConfigScripts"
       CMAKE_INSTALL_PREFIX: "C:/Program Files (x86)/KNS"
       CMAKE_SYSTEM_PREFIX_PATH:
         - "C:/Program Files"
@@ -708,8 +796,8 @@ events:
     checks:
       - "Detecting CXX compiler ABI info"
     directories:
-      source: "C:/Users/guilh/Desktop/KNS/build/CMakeFiles/CMakeScratch/TryCompile-125hts"
-      binary: "C:/Users/guilh/Desktop/KNS/build/CMakeFiles/CMakeScratch/TryCompile-125hts"
+      source: "C:/Users/guilh/Desktop/KNS/build/CMakeFiles/CMakeScratch/TryCompile-8byb4h"
+      binary: "C:/Users/guilh/Desktop/KNS/build/CMakeFiles/CMakeScratch/TryCompile-8byb4h"
     cmakeVariables:
       CMAKE_CXX_FLAGS: "/DWIN32 /D_WINDOWS /EHsc"
       CMAKE_CXX_FLAGS_DEBUG: "/Zi /Ob0 /Od /RTC1"
@@ -719,48 +807,48 @@ events:
       variable: "CMAKE_CXX_ABI_COMPILED"
       cached: true
       stdout: |
-        Change Dir: 'C:/Users/guilh/Desktop/KNS/build/CMakeFiles/CMakeScratch/TryCompile-125hts'
+        Change Dir: 'C:/Users/guilh/Desktop/KNS/build/CMakeFiles/CMakeScratch/TryCompile-8byb4h'
         
-        Run Build Command(s): "C:/Program Files/Microsoft Visual Studio/18/Community/MSBuild/Current/Bin/amd64/MSBuild.exe" cmTC_26fcd.vcxproj /p:Configuration=Debug /p:Platform=x64 /p:VisualStudioVersion=18.0 /v:n
+        Run Build Command(s): "C:/Program Files/Microsoft Visual Studio/18/Community/MSBuild/Current/Bin/amd64/MSBuild.exe" cmTC_8093d.vcxproj /p:Configuration=Debug /p:Platform=x64 /p:VisualStudioVersion=18.0 /v:n
         Vers├úo do MSBuild 18.4.0+6e61e96ac para .NET Framework
-        Compila├º├úo de 10/04/2026 23:22:27 iniciada.
+        Compila├º├úo de 11/04/2026 17:58:31 iniciada.
         
-        Projeto "C:\\Users\\guilh\\Desktop\\KNS\\build\\CMakeFiles\\CMakeScratch\\TryCompile-125hts\\cmTC_26fcd.vcxproj" no n├│ 1 (destinos padr├úo).
+        Projeto "C:\\Users\\guilh\\Desktop\\KNS\\build\\CMakeFiles\\CMakeScratch\\TryCompile-8byb4h\\cmTC_8093d.vcxproj" no n├│ 1 (destinos padr├úo).
         PrepareForBuild:
           A sa├¡da estruturada est├í habilitada. A formata├º├úo do diagn├│stico do compilador refletir├í a hierarquia de erros. Consulte https://aka.ms/cpp/structured-output para obter mais detalhes.
-          Criando o diret├│rio "C:\\Users\\guilh\\Desktop\\KNS\\build\\CMakeFiles\\CMakeScratch\\TryCompile-125hts\\Debug\\".
-          Criando o diret├│rio "cmTC_26fcd.dir\\Debug\\cmTC_26fcd.tlog\\".
+          Criando o diret├│rio "C:\\Users\\guilh\\Desktop\\KNS\\build\\CMakeFiles\\CMakeScratch\\TryCompile-8byb4h\\Debug\\".
+          Criando o diret├│rio "cmTC_8093d.dir\\Debug\\cmTC_8093d.tlog\\".
         InitializeBuildStatus:
-          Criando "cmTC_26fcd.dir\\Debug\\cmTC_26fcd.tlog\\unsuccessfulbuild" porque "AlwaysCreate" foi especificado.
-          Tocando "cmTC_26fcd.dir\\Debug\\cmTC_26fcd.tlog\\unsuccessfulbuild".
+          Criando "cmTC_8093d.dir\\Debug\\cmTC_8093d.tlog\\unsuccessfulbuild" porque "AlwaysCreate" foi especificado.
+          Tocando "cmTC_8093d.dir\\Debug\\cmTC_8093d.tlog\\unsuccessfulbuild".
         VcpkgTripletSelection:
           Using triplet "x64-windows" from "C:\\Users\\guilh\\Desktop\\vcpkg\\installed\\x64-windows\\"
           Using normalized configuration "Debug"
         ClCompile:
-          C:\\Program Files\\Microsoft Visual Studio\\18\\Community\\VC\\Tools\\MSVC\\14.50.35717\\bin\\HostX64\\x64\\CL.exe /c /I"C:\\Users\\guilh\\Desktop\\vcpkg\\installed\\x64-windows\\include" /Zi /W1 /WX- /diagnostics:column /Od /Ob0 /D _MBCS /D WIN32 /D _WINDOWS /D _MBCS /D "CMAKE_INTDIR=\\"Debug\\"" /EHsc /RTC1 /MDd /Fo"cmTC_26fcd.dir\\Debug\\\\" /Fd"cmTC_26fcd.dir\\Debug\\vc145.pdb" /external:W1 /TP /errorReport:queue "C:\\Program Files\\CMake\\share\\cmake-4.2\\Modules\\CMakeCXXCompilerABI.cpp"
+          C:\\Program Files\\Microsoft Visual Studio\\18\\Community\\VC\\Tools\\MSVC\\14.50.35717\\bin\\HostX64\\x64\\CL.exe /c /I"C:\\Users\\guilh\\Desktop\\vcpkg\\installed\\x64-windows\\include" /Zi /W1 /WX- /diagnostics:column /Od /Ob0 /D _MBCS /D WIN32 /D _WINDOWS /D _MBCS /D "CMAKE_INTDIR=\\"Debug\\"" /EHsc /RTC1 /MDd /Fo"cmTC_8093d.dir\\Debug\\\\" /Fd"cmTC_8093d.dir\\Debug\\vc145.pdb" /external:W1 /TP /errorReport:queue "C:\\Program Files\\CMake\\share\\cmake-4.2\\Modules\\CMakeCXXCompilerABI.cpp"
           Microsoft (R) C/C++ Optimizing Compiler Vers├úo 19.50.35728 para x64
           Copyright (C) Microsoft Corporation. Todos os direitos reservados.
-          cl /c /I"C:\\Users\\guilh\\Desktop\\vcpkg\\installed\\x64-windows\\include" /Zi /W1 /WX- /diagnostics:column /Od /Ob0 /D _MBCS /D WIN32 /D _WINDOWS /D _MBCS /D "CMAKE_INTDIR=\\"Debug\\"" /EHsc /RTC1 /MDd /Fo"cmTC_26fcd.dir\\Debug\\\\" /Fd"cmTC_26fcd.dir\\Debug\\vc145.pdb" /external:W1 /TP /errorReport:queue "C:\\Program Files\\CMake\\share\\cmake-4.2\\Modules\\CMakeCXXCompilerABI.cpp"
+          cl /c /I"C:\\Users\\guilh\\Desktop\\vcpkg\\installed\\x64-windows\\include" /Zi /W1 /WX- /diagnostics:column /Od /Ob0 /D _MBCS /D WIN32 /D _WINDOWS /D _MBCS /D "CMAKE_INTDIR=\\"Debug\\"" /EHsc /RTC1 /MDd /Fo"cmTC_8093d.dir\\Debug\\\\" /Fd"cmTC_8093d.dir\\Debug\\vc145.pdb" /external:W1 /TP /errorReport:queue "C:\\Program Files\\CMake\\share\\cmake-4.2\\Modules\\CMakeCXXCompilerABI.cpp"
           CMakeCXXCompilerABI.cpp
         Link:
-          C:\\Program Files\\Microsoft Visual Studio\\18\\Community\\VC\\Tools\\MSVC\\14.50.35717\\bin\\HostX64\\x64\\link.exe /OUT:"C:\\Users\\guilh\\Desktop\\KNS\\build\\CMakeFiles\\CMakeScratch\\TryCompile-125hts\\Debug\\cmTC_26fcd.exe" /INCREMENTAL /ILK:"cmTC_26fcd.dir\\Debug\\cmTC_26fcd.ilk" /NOLOGO /LIBPATH:"C:\\Users\\guilh\\Desktop\\vcpkg\\installed\\x64-windows\\debug\\lib" /LIBPATH:"C:\\Users\\guilh\\Desktop\\vcpkg\\installed\\x64-windows\\debug\\lib\\manual-link" kernel32.lib user32.lib gdi32.lib winspool.lib shell32.lib ole32.lib oleaut32.lib uuid.lib comdlg32.lib advapi32.lib "C:\\Users\\guilh\\Desktop\\vcpkg\\installed\\x64-windows\\debug\\lib\\*.lib" /MANIFEST /MANIFESTUAC:"level='asInvoker' uiAccess='false'" /manifest:embed /DEBUG /PDB:"C:/Users/guilh/Desktop/KNS/build/CMakeFiles/CMakeScratch/TryCompile-125hts/Debug/cmTC_26fcd.pdb" /SUBSYSTEM:CONSOLE /TLBID:1 /IMPLIB:"C:/Users/guilh/Desktop/KNS/build/CMakeFiles/CMakeScratch/TryCompile-125hts/Debug/cmTC_26fcd.lib" /MACHINE:X64  /machine:x64 cmTC_26fcd.dir\\Debug\\CMakeCXXCompilerABI.obj
-          cmTC_26fcd.vcxproj -> C:\\Users\\guilh\\Desktop\\KNS\\build\\CMakeFiles\\CMakeScratch\\TryCompile-125hts\\Debug\\cmTC_26fcd.exe
+          C:\\Program Files\\Microsoft Visual Studio\\18\\Community\\VC\\Tools\\MSVC\\14.50.35717\\bin\\HostX64\\x64\\link.exe /OUT:"C:\\Users\\guilh\\Desktop\\KNS\\build\\CMakeFiles\\CMakeScratch\\TryCompile-8byb4h\\Debug\\cmTC_8093d.exe" /INCREMENTAL /ILK:"cmTC_8093d.dir\\Debug\\cmTC_8093d.ilk" /NOLOGO /LIBPATH:"C:\\Users\\guilh\\Desktop\\vcpkg\\installed\\x64-windows\\debug\\lib" /LIBPATH:"C:\\Users\\guilh\\Desktop\\vcpkg\\installed\\x64-windows\\debug\\lib\\manual-link" kernel32.lib user32.lib gdi32.lib winspool.lib shell32.lib ole32.lib oleaut32.lib uuid.lib comdlg32.lib advapi32.lib "C:\\Users\\guilh\\Desktop\\vcpkg\\installed\\x64-windows\\debug\\lib\\*.lib" /MANIFEST /MANIFESTUAC:"level='asInvoker' uiAccess='false'" /manifest:embed /DEBUG /PDB:"C:/Users/guilh/Desktop/KNS/build/CMakeFiles/CMakeScratch/TryCompile-8byb4h/Debug/cmTC_8093d.pdb" /SUBSYSTEM:CONSOLE /TLBID:1 /IMPLIB:"C:/Users/guilh/Desktop/KNS/build/CMakeFiles/CMakeScratch/TryCompile-8byb4h/Debug/cmTC_8093d.lib" /MACHINE:X64  /machine:x64 cmTC_8093d.dir\\Debug\\CMakeCXXCompilerABI.obj
+          cmTC_8093d.vcxproj -> C:\\Users\\guilh\\Desktop\\KNS\\build\\CMakeFiles\\CMakeScratch\\TryCompile-8byb4h\\Debug\\cmTC_8093d.exe
         AppLocalFromInstalled:
-          pwsh.exe -ExecutionPolicy Bypass -noprofile -File "C:\\Users\\guilh\\Desktop\\vcpkg\\scripts\\buildsystems\\msbuild\\applocal.ps1" "C:\\Users\\guilh\\Desktop\\KNS\\build\\CMakeFiles\\CMakeScratch\\TryCompile-125hts\\Debug\\cmTC_26fcd.exe" "C:\\Users\\guilh\\Desktop\\vcpkg\\installed\\x64-windows\\debug\\bin" "cmTC_26fcd.dir\\Debug\\cmTC_26fcd.tlog\\cmTC_26fcd.write.1u.tlog" "cmTC_26fcd.dir\\Debug\\vcpkg.applocal.log"
+          pwsh.exe -ExecutionPolicy Bypass -noprofile -File "C:\\Users\\guilh\\Desktop\\vcpkg\\scripts\\buildsystems\\msbuild\\applocal.ps1" "C:\\Users\\guilh\\Desktop\\KNS\\build\\CMakeFiles\\CMakeScratch\\TryCompile-8byb4h\\Debug\\cmTC_8093d.exe" "C:\\Users\\guilh\\Desktop\\vcpkg\\installed\\x64-windows\\debug\\bin" "cmTC_8093d.dir\\Debug\\cmTC_8093d.tlog\\cmTC_8093d.write.1u.tlog" "cmTC_8093d.dir\\Debug\\vcpkg.applocal.log"
           'pwsh.exe' n├úo ├® reconhecido como um comando interno
           ou externo, um programa oper├ível ou um arquivo em lotes.
-          O comando "pwsh.exe -ExecutionPolicy Bypass -noprofile -File "C:\\Users\\guilh\\Desktop\\vcpkg\\scripts\\buildsystems\\msbuild\\applocal.ps1" "C:\\Users\\guilh\\Desktop\\KNS\\build\\CMakeFiles\\CMakeScratch\\TryCompile-125hts\\Debug\\cmTC_26fcd.exe" "C:\\Users\\guilh\\Desktop\\vcpkg\\installed\\x64-windows\\debug\\bin" "cmTC_26fcd.dir\\Debug\\cmTC_26fcd.tlog\\cmTC_26fcd.write.1u.tlog" "cmTC_26fcd.dir\\Debug\\vcpkg.applocal.log"" foi encerrado com o c├│digo 9009.
-          "C:\\WINDOWS\\System32\\WindowsPowerShell\\v1.0\\powershell.exe" -ExecutionPolicy Bypass -noprofile -File "C:\\Users\\guilh\\Desktop\\vcpkg\\scripts\\buildsystems\\msbuild\\applocal.ps1" "C:\\Users\\guilh\\Desktop\\KNS\\build\\CMakeFiles\\CMakeScratch\\TryCompile-125hts\\Debug\\cmTC_26fcd.exe" "C:\\Users\\guilh\\Desktop\\vcpkg\\installed\\x64-windows\\debug\\bin" "cmTC_26fcd.dir\\Debug\\cmTC_26fcd.tlog\\cmTC_26fcd.write.1u.tlog" "cmTC_26fcd.dir\\Debug\\vcpkg.applocal.log"
+          O comando "pwsh.exe -ExecutionPolicy Bypass -noprofile -File "C:\\Users\\guilh\\Desktop\\vcpkg\\scripts\\buildsystems\\msbuild\\applocal.ps1" "C:\\Users\\guilh\\Desktop\\KNS\\build\\CMakeFiles\\CMakeScratch\\TryCompile-8byb4h\\Debug\\cmTC_8093d.exe" "C:\\Users\\guilh\\Desktop\\vcpkg\\installed\\x64-windows\\debug\\bin" "cmTC_8093d.dir\\Debug\\cmTC_8093d.tlog\\cmTC_8093d.write.1u.tlog" "cmTC_8093d.dir\\Debug\\vcpkg.applocal.log"" foi encerrado com o c├│digo 9009.
+          "C:\\WINDOWS\\System32\\WindowsPowerShell\\v1.0\\powershell.exe" -ExecutionPolicy Bypass -noprofile -File "C:\\Users\\guilh\\Desktop\\vcpkg\\scripts\\buildsystems\\msbuild\\applocal.ps1" "C:\\Users\\guilh\\Desktop\\KNS\\build\\CMakeFiles\\CMakeScratch\\TryCompile-8byb4h\\Debug\\cmTC_8093d.exe" "C:\\Users\\guilh\\Desktop\\vcpkg\\installed\\x64-windows\\debug\\bin" "cmTC_8093d.dir\\Debug\\cmTC_8093d.tlog\\cmTC_8093d.write.1u.tlog" "cmTC_8093d.dir\\Debug\\vcpkg.applocal.log"
         FinalizeBuildStatus:
-          Excluindo o arquivo "cmTC_26fcd.dir\\Debug\\cmTC_26fcd.tlog\\unsuccessfulbuild".
-          Tocando "cmTC_26fcd.dir\\Debug\\cmTC_26fcd.tlog\\cmTC_26fcd.lastbuildstate".
-        Projeto de compila├º├úo pronto "C:\\Users\\guilh\\Desktop\\KNS\\build\\CMakeFiles\\CMakeScratch\\TryCompile-125hts\\cmTC_26fcd.vcxproj" (destinos padr├úo).
+          Excluindo o arquivo "cmTC_8093d.dir\\Debug\\cmTC_8093d.tlog\\unsuccessfulbuild".
+          Tocando "cmTC_8093d.dir\\Debug\\cmTC_8093d.tlog\\cmTC_8093d.lastbuildstate".
+        Projeto de compila├º├úo pronto "C:\\Users\\guilh\\Desktop\\KNS\\build\\CMakeFiles\\CMakeScratch\\TryCompile-8byb4h\\cmTC_8093d.vcxproj" (destinos padr├úo).
         
         Compila├º├úo com ├¬xito.
             0 Aviso(s)
             0 Erro(s)
         
-        Tempo Decorrido 00:00:00.72
+        Tempo Decorrido 00:00:00.75
         
       exitCode: 0
   -
@@ -810,6 +898,9 @@ events:
     names:
       - "git"
     candidate_directories:
+      - "C:/Users/guilh/AppData/Roaming/Code/User/globalStorage/github.copilot-chat/debugCommand/"
+      - "C:/Users/guilh/AppData/Roaming/Code/User/globalStorage/github.copilot-chat/copilotCli/"
+      - "C:/Users/guilh/AppData/Local/Programs/Microsoft VS Code/"
       - "C:/Windows/System32/"
       - "C:/Windows/"
       - "C:/Windows/System32/wbem/"
@@ -827,6 +918,7 @@ events:
       - "C:/MinGW/bin/"
       - "C:/MinGW/"
       - "C:/Users/guilh/AppData/Roaming/npm/"
+      - "C:/Users/guilh/.vscode/extensions/ms-python.debugpy-2025.18.0-win32-x64/bundled/scripts/noConfigScripts/"
       - "C:/Program Files/bin/"
       - "C:/Program Files/sbin/"
       - "C:/Program Files/"
@@ -840,6 +932,15 @@ events:
       - "C:/Program Files (x86)/KNS/sbin/"
       - "C:/Program Files (x86)/KNS/"
     searched_directories:
+      - "C:/Users/guilh/AppData/Roaming/Code/User/globalStorage/github.copilot-chat/debugCommand/git.com"
+      - "C:/Users/guilh/AppData/Roaming/Code/User/globalStorage/github.copilot-chat/debugCommand/git.exe"
+      - "C:/Users/guilh/AppData/Roaming/Code/User/globalStorage/github.copilot-chat/debugCommand/git"
+      - "C:/Users/guilh/AppData/Roaming/Code/User/globalStorage/github.copilot-chat/copilotCli/git.com"
+      - "C:/Users/guilh/AppData/Roaming/Code/User/globalStorage/github.copilot-chat/copilotCli/git.exe"
+      - "C:/Users/guilh/AppData/Roaming/Code/User/globalStorage/github.copilot-chat/copilotCli/git"
+      - "C:/Users/guilh/AppData/Local/Programs/Microsoft VS Code/git.com"
+      - "C:/Users/guilh/AppData/Local/Programs/Microsoft VS Code/git.exe"
+      - "C:/Users/guilh/AppData/Local/Programs/Microsoft VS Code/git"
       - "C:/Windows/System32/git.com"
       - "C:/Windows/System32/git.exe"
       - "C:/Windows/System32/git"
@@ -859,6 +960,9 @@ events:
     found: "C:/Program Files/Git/cmd/git.exe"
     search_context:
       ENV{PATH}:
+        - "c:\\Users\\guilh\\AppData\\Roaming\\Code\\User\\globalStorage\\github.copilot-chat\\debugCommand"
+        - "c:\\Users\\guilh\\AppData\\Roaming\\Code\\User\\globalStorage\\github.copilot-chat\\copilotCli"
+        - "C:\\Users\\guilh\\AppData\\Local\\Programs\\Microsoft VS Code"
         - "C:\\WINDOWS\\system32"
         - "C:\\WINDOWS"
         - "C:\\WINDOWS\\System32\\Wbem"
@@ -877,6 +981,7 @@ events:
         - "C:\\MinGW\\bin"
         - "C:\\MinGW"
         - "C:\\Users\\guilh\\AppData\\Roaming\\npm"
+        - "c:\\Users\\guilh\\.vscode\\extensions\\ms-python.debugpy-2025.18.0-win32-x64\\bundled\\scripts\\noConfigScripts"
       CMAKE_INSTALL_PREFIX: "C:/Program Files (x86)/KNS"
       CMAKE_SYSTEM_PREFIX_PATH:
         - "C:/Program Files"
@@ -907,6 +1012,9 @@ events:
       - "cuda-memcheck"
       - "compute-sanitizer"
     candidate_directories:
+      - "C:/Users/guilh/AppData/Roaming/Code/User/globalStorage/github.copilot-chat/debugCommand/"
+      - "C:/Users/guilh/AppData/Roaming/Code/User/globalStorage/github.copilot-chat/copilotCli/"
+      - "C:/Users/guilh/AppData/Local/Programs/Microsoft VS Code/"
       - "C:/Windows/System32/"
       - "C:/Windows/"
       - "C:/Windows/System32/wbem/"
@@ -924,6 +1032,7 @@ events:
       - "C:/MinGW/bin/"
       - "C:/MinGW/"
       - "C:/Users/guilh/AppData/Roaming/npm/"
+      - "C:/Users/guilh/.vscode/extensions/ms-python.debugpy-2025.18.0-win32-x64/bundled/scripts/noConfigScripts/"
       - "C:/Program Files/bin/"
       - "C:/Program Files/sbin/"
       - "C:/Program Files/"
@@ -938,6 +1047,15 @@ events:
       - "C:/Program Files (x86)/KNS/"
       - "/REGISTRY-NOTFOUND/"
     searched_directories:
+      - "C:/Users/guilh/AppData/Roaming/Code/User/globalStorage/github.copilot-chat/debugCommand/purify.com"
+      - "C:/Users/guilh/AppData/Roaming/Code/User/globalStorage/github.copilot-chat/debugCommand/purify.exe"
+      - "C:/Users/guilh/AppData/Roaming/Code/User/globalStorage/github.copilot-chat/debugCommand/purify"
+      - "C:/Users/guilh/AppData/Roaming/Code/User/globalStorage/github.copilot-chat/copilotCli/purify.com"
+      - "C:/Users/guilh/AppData/Roaming/Code/User/globalStorage/github.copilot-chat/copilotCli/purify.exe"
+      - "C:/Users/guilh/AppData/Roaming/Code/User/globalStorage/github.copilot-chat/copilotCli/purify"
+      - "C:/Users/guilh/AppData/Local/Programs/Microsoft VS Code/purify.com"
+      - "C:/Users/guilh/AppData/Local/Programs/Microsoft VS Code/purify.exe"
+      - "C:/Users/guilh/AppData/Local/Programs/Microsoft VS Code/purify"
       - "C:/Windows/System32/purify.com"
       - "C:/Windows/System32/purify.exe"
       - "C:/Windows/System32/purify"
@@ -989,6 +1107,9 @@ events:
       - "C:/Users/guilh/AppData/Roaming/npm/purify.com"
       - "C:/Users/guilh/AppData/Roaming/npm/purify.exe"
       - "C:/Users/guilh/AppData/Roaming/npm/purify"
+      - "C:/Users/guilh/.vscode/extensions/ms-python.debugpy-2025.18.0-win32-x64/bundled/scripts/noConfigScripts/purify.com"
+      - "C:/Users/guilh/.vscode/extensions/ms-python.debugpy-2025.18.0-win32-x64/bundled/scripts/noConfigScripts/purify.exe"
+      - "C:/Users/guilh/.vscode/extensions/ms-python.debugpy-2025.18.0-win32-x64/bundled/scripts/noConfigScripts/purify"
       - "C:/Program Files/bin/purify.com"
       - "C:/Program Files/bin/purify.exe"
       - "C:/Program Files/bin/purify"
@@ -1028,6 +1149,15 @@ events:
       - "/REGISTRY-NOTFOUND/purify.com"
       - "/REGISTRY-NOTFOUND/purify.exe"
       - "/REGISTRY-NOTFOUND/purify"
+      - "C:/Users/guilh/AppData/Roaming/Code/User/globalStorage/github.copilot-chat/debugCommand/valgrind.com"
+      - "C:/Users/guilh/AppData/Roaming/Code/User/globalStorage/github.copilot-chat/debugCommand/valgrind.exe"
+      - "C:/Users/guilh/AppData/Roaming/Code/User/globalStorage/github.copilot-chat/debugCommand/valgrind"
+      - "C:/Users/guilh/AppData/Roaming/Code/User/globalStorage/github.copilot-chat/copilotCli/valgrind.com"
+      - "C:/Users/guilh/AppData/Roaming/Code/User/globalStorage/github.copilot-chat/copilotCli/valgrind.exe"
+      - "C:/Users/guilh/AppData/Roaming/Code/User/globalStorage/github.copilot-chat/copilotCli/valgrind"
+      - "C:/Users/guilh/AppData/Local/Programs/Microsoft VS Code/valgrind.com"
+      - "C:/Users/guilh/AppData/Local/Programs/Microsoft VS Code/valgrind.exe"
+      - "C:/Users/guilh/AppData/Local/Programs/Microsoft VS Code/valgrind"
       - "C:/Windows/System32/valgrind.com"
       - "C:/Windows/System32/valgrind.exe"
       - "C:/Windows/System32/valgrind"
@@ -1079,6 +1209,9 @@ events:
       - "C:/Users/guilh/AppData/Roaming/npm/valgrind.com"
       - "C:/Users/guilh/AppData/Roaming/npm/valgrind.exe"
       - "C:/Users/guilh/AppData/Roaming/npm/valgrind"
+      - "C:/Users/guilh/.vscode/extensions/ms-python.debugpy-2025.18.0-win32-x64/bundled/scripts/noConfigScripts/valgrind.com"
+      - "C:/Users/guilh/.vscode/extensions/ms-python.debugpy-2025.18.0-win32-x64/bundled/scripts/noConfigScripts/valgrind.exe"
+      - "C:/Users/guilh/.vscode/extensions/ms-python.debugpy-2025.18.0-win32-x64/bundled/scripts/noConfigScripts/valgrind"
       - "C:/Program Files/bin/valgrind.com"
       - "C:/Program Files/bin/valgrind.exe"
       - "C:/Program Files/bin/valgrind"
@@ -1118,6 +1251,15 @@ events:
       - "/REGISTRY-NOTFOUND/valgrind.com"
       - "/REGISTRY-NOTFOUND/valgrind.exe"
       - "/REGISTRY-NOTFOUND/valgrind"
+      - "C:/Users/guilh/AppData/Roaming/Code/User/globalStorage/github.copilot-chat/debugCommand/boundscheck.com"
+      - "C:/Users/guilh/AppData/Roaming/Code/User/globalStorage/github.copilot-chat/debugCommand/boundscheck.exe"
+      - "C:/Users/guilh/AppData/Roaming/Code/User/globalStorage/github.copilot-chat/debugCommand/boundscheck"
+      - "C:/Users/guilh/AppData/Roaming/Code/User/globalStorage/github.copilot-chat/copilotCli/boundscheck.com"
+      - "C:/Users/guilh/AppData/Roaming/Code/User/globalStorage/github.copilot-chat/copilotCli/boundscheck.exe"
+      - "C:/Users/guilh/AppData/Roaming/Code/User/globalStorage/github.copilot-chat/copilotCli/boundscheck"
+      - "C:/Users/guilh/AppData/Local/Programs/Microsoft VS Code/boundscheck.com"
+      - "C:/Users/guilh/AppData/Local/Programs/Microsoft VS Code/boundscheck.exe"
+      - "C:/Users/guilh/AppData/Local/Programs/Microsoft VS Code/boundscheck"
       - "C:/Windows/System32/boundscheck.com"
       - "C:/Windows/System32/boundscheck.exe"
       - "C:/Windows/System32/boundscheck"
@@ -1169,6 +1311,9 @@ events:
       - "C:/Users/guilh/AppData/Roaming/npm/boundscheck.com"
       - "C:/Users/guilh/AppData/Roaming/npm/boundscheck.exe"
       - "C:/Users/guilh/AppData/Roaming/npm/boundscheck"
+      - "C:/Users/guilh/.vscode/extensions/ms-python.debugpy-2025.18.0-win32-x64/bundled/scripts/noConfigScripts/boundscheck.com"
+      - "C:/Users/guilh/.vscode/extensions/ms-python.debugpy-2025.18.0-win32-x64/bundled/scripts/noConfigScripts/boundscheck.exe"
+      - "C:/Users/guilh/.vscode/extensions/ms-python.debugpy-2025.18.0-win32-x64/bundled/scripts/noConfigScripts/boundscheck"
       - "C:/Program Files/bin/boundscheck.com"
       - "C:/Program Files/bin/boundscheck.exe"
       - "C:/Program Files/bin/boundscheck"
@@ -1208,6 +1353,15 @@ events:
       - "/REGISTRY-NOTFOUND/boundscheck.com"
       - "/REGISTRY-NOTFOUND/boundscheck.exe"
       - "/REGISTRY-NOTFOUND/boundscheck"
+      - "C:/Users/guilh/AppData/Roaming/Code/User/globalStorage/github.copilot-chat/debugCommand/drmemory.com"
+      - "C:/Users/guilh/AppData/Roaming/Code/User/globalStorage/github.copilot-chat/debugCommand/drmemory.exe"
+      - "C:/Users/guilh/AppData/Roaming/Code/User/globalStorage/github.copilot-chat/debugCommand/drmemory"
+      - "C:/Users/guilh/AppData/Roaming/Code/User/globalStorage/github.copilot-chat/copilotCli/drmemory.com"
+      - "C:/Users/guilh/AppData/Roaming/Code/User/globalStorage/github.copilot-chat/copilotCli/drmemory.exe"
+      - "C:/Users/guilh/AppData/Roaming/Code/User/globalStorage/github.copilot-chat/copilotCli/drmemory"
+      - "C:/Users/guilh/AppData/Local/Programs/Microsoft VS Code/drmemory.com"
+      - "C:/Users/guilh/AppData/Local/Programs/Microsoft VS Code/drmemory.exe"
+      - "C:/Users/guilh/AppData/Local/Programs/Microsoft VS Code/drmemory"
       - "C:/Windows/System32/drmemory.com"
       - "C:/Windows/System32/drmemory.exe"
       - "C:/Windows/System32/drmemory"
@@ -1259,6 +1413,9 @@ events:
       - "C:/Users/guilh/AppData/Roaming/npm/drmemory.com"
       - "C:/Users/guilh/AppData/Roaming/npm/drmemory.exe"
       - "C:/Users/guilh/AppData/Roaming/npm/drmemory"
+      - "C:/Users/guilh/.vscode/extensions/ms-python.debugpy-2025.18.0-win32-x64/bundled/scripts/noConfigScripts/drmemory.com"
+      - "C:/Users/guilh/.vscode/extensions/ms-python.debugpy-2025.18.0-win32-x64/bundled/scripts/noConfigScripts/drmemory.exe"
+      - "C:/Users/guilh/.vscode/extensions/ms-python.debugpy-2025.18.0-win32-x64/bundled/scripts/noConfigScripts/drmemory"
       - "C:/Program Files/bin/drmemory.com"
       - "C:/Program Files/bin/drmemory.exe"
       - "C:/Program Files/bin/drmemory"
@@ -1298,6 +1455,15 @@ events:
       - "/REGISTRY-NOTFOUND/drmemory.com"
       - "/REGISTRY-NOTFOUND/drmemory.exe"
       - "/REGISTRY-NOTFOUND/drmemory"
+      - "C:/Users/guilh/AppData/Roaming/Code/User/globalStorage/github.copilot-chat/debugCommand/cuda-memcheck.com"
+      - "C:/Users/guilh/AppData/Roaming/Code/User/globalStorage/github.copilot-chat/debugCommand/cuda-memcheck.exe"
+      - "C:/Users/guilh/AppData/Roaming/Code/User/globalStorage/github.copilot-chat/debugCommand/cuda-memcheck"
+      - "C:/Users/guilh/AppData/Roaming/Code/User/globalStorage/github.copilot-chat/copilotCli/cuda-memcheck.com"
+      - "C:/Users/guilh/AppData/Roaming/Code/User/globalStorage/github.copilot-chat/copilotCli/cuda-memcheck.exe"
+      - "C:/Users/guilh/AppData/Roaming/Code/User/globalStorage/github.copilot-chat/copilotCli/cuda-memcheck"
+      - "C:/Users/guilh/AppData/Local/Programs/Microsoft VS Code/cuda-memcheck.com"
+      - "C:/Users/guilh/AppData/Local/Programs/Microsoft VS Code/cuda-memcheck.exe"
+      - "C:/Users/guilh/AppData/Local/Programs/Microsoft VS Code/cuda-memcheck"
       - "C:/Windows/System32/cuda-memcheck.com"
       - "C:/Windows/System32/cuda-memcheck.exe"
       - "C:/Windows/System32/cuda-memcheck"
@@ -1349,6 +1515,9 @@ events:
       - "C:/Users/guilh/AppData/Roaming/npm/cuda-memcheck.com"
       - "C:/Users/guilh/AppData/Roaming/npm/cuda-memcheck.exe"
       - "C:/Users/guilh/AppData/Roaming/npm/cuda-memcheck"
+      - "C:/Users/guilh/.vscode/extensions/ms-python.debugpy-2025.18.0-win32-x64/bundled/scripts/noConfigScripts/cuda-memcheck.com"
+      - "C:/Users/guilh/.vscode/extensions/ms-python.debugpy-2025.18.0-win32-x64/bundled/scripts/noConfigScripts/cuda-memcheck.exe"
+      - "C:/Users/guilh/.vscode/extensions/ms-python.debugpy-2025.18.0-win32-x64/bundled/scripts/noConfigScripts/cuda-memcheck"
       - "C:/Program Files/bin/cuda-memcheck.com"
       - "C:/Program Files/bin/cuda-memcheck.exe"
       - "C:/Program Files/bin/cuda-memcheck"
@@ -1388,6 +1557,15 @@ events:
       - "/REGISTRY-NOTFOUND/cuda-memcheck.com"
       - "/REGISTRY-NOTFOUND/cuda-memcheck.exe"
       - "/REGISTRY-NOTFOUND/cuda-memcheck"
+      - "C:/Users/guilh/AppData/Roaming/Code/User/globalStorage/github.copilot-chat/debugCommand/compute-sanitizer.com"
+      - "C:/Users/guilh/AppData/Roaming/Code/User/globalStorage/github.copilot-chat/debugCommand/compute-sanitizer.exe"
+      - "C:/Users/guilh/AppData/Roaming/Code/User/globalStorage/github.copilot-chat/debugCommand/compute-sanitizer"
+      - "C:/Users/guilh/AppData/Roaming/Code/User/globalStorage/github.copilot-chat/copilotCli/compute-sanitizer.com"
+      - "C:/Users/guilh/AppData/Roaming/Code/User/globalStorage/github.copilot-chat/copilotCli/compute-sanitizer.exe"
+      - "C:/Users/guilh/AppData/Roaming/Code/User/globalStorage/github.copilot-chat/copilotCli/compute-sanitizer"
+      - "C:/Users/guilh/AppData/Local/Programs/Microsoft VS Code/compute-sanitizer.com"
+      - "C:/Users/guilh/AppData/Local/Programs/Microsoft VS Code/compute-sanitizer.exe"
+      - "C:/Users/guilh/AppData/Local/Programs/Microsoft VS Code/compute-sanitizer"
       - "C:/Windows/System32/compute-sanitizer.com"
       - "C:/Windows/System32/compute-sanitizer.exe"
       - "C:/Windows/System32/compute-sanitizer"
@@ -1439,6 +1617,9 @@ events:
       - "C:/Users/guilh/AppData/Roaming/npm/compute-sanitizer.com"
       - "C:/Users/guilh/AppData/Roaming/npm/compute-sanitizer.exe"
       - "C:/Users/guilh/AppData/Roaming/npm/compute-sanitizer"
+      - "C:/Users/guilh/.vscode/extensions/ms-python.debugpy-2025.18.0-win32-x64/bundled/scripts/noConfigScripts/compute-sanitizer.com"
+      - "C:/Users/guilh/.vscode/extensions/ms-python.debugpy-2025.18.0-win32-x64/bundled/scripts/noConfigScripts/compute-sanitizer.exe"
+      - "C:/Users/guilh/.vscode/extensions/ms-python.debugpy-2025.18.0-win32-x64/bundled/scripts/noConfigScripts/compute-sanitizer"
       - "C:/Program Files/bin/compute-sanitizer.com"
       - "C:/Program Files/bin/compute-sanitizer.exe"
       - "C:/Program Files/bin/compute-sanitizer"
@@ -1481,6 +1662,9 @@ events:
     found: false
     search_context:
       ENV{PATH}:
+        - "c:\\Users\\guilh\\AppData\\Roaming\\Code\\User\\globalStorage\\github.copilot-chat\\debugCommand"
+        - "c:\\Users\\guilh\\AppData\\Roaming\\Code\\User\\globalStorage\\github.copilot-chat\\copilotCli"
+        - "C:\\Users\\guilh\\AppData\\Local\\Programs\\Microsoft VS Code"
         - "C:\\WINDOWS\\system32"
         - "C:\\WINDOWS"
         - "C:\\WINDOWS\\System32\\Wbem"
@@ -1499,6 +1683,7 @@ events:
         - "C:\\MinGW\\bin"
         - "C:\\MinGW"
         - "C:\\Users\\guilh\\AppData\\Roaming\\npm"
+        - "c:\\Users\\guilh\\.vscode\\extensions\\ms-python.debugpy-2025.18.0-win32-x64\\bundled\\scripts\\noConfigScripts"
       CMAKE_INSTALL_PREFIX: "C:/Program Files (x86)/KNS"
       CMAKE_SYSTEM_PREFIX_PATH:
         - "C:/Program Files"
@@ -1524,6 +1709,9 @@ events:
     names:
       - "gcov"
     candidate_directories:
+      - "C:/Users/guilh/AppData/Roaming/Code/User/globalStorage/github.copilot-chat/debugCommand/"
+      - "C:/Users/guilh/AppData/Roaming/Code/User/globalStorage/github.copilot-chat/copilotCli/"
+      - "C:/Users/guilh/AppData/Local/Programs/Microsoft VS Code/"
       - "C:/Windows/System32/"
       - "C:/Windows/"
       - "C:/Windows/System32/wbem/"
@@ -1541,6 +1729,7 @@ events:
       - "C:/MinGW/bin/"
       - "C:/MinGW/"
       - "C:/Users/guilh/AppData/Roaming/npm/"
+      - "C:/Users/guilh/.vscode/extensions/ms-python.debugpy-2025.18.0-win32-x64/bundled/scripts/noConfigScripts/"
       - "C:/Program Files/bin/"
       - "C:/Program Files/sbin/"
       - "C:/Program Files/"
@@ -1554,6 +1743,15 @@ events:
       - "C:/Program Files (x86)/KNS/sbin/"
       - "C:/Program Files (x86)/KNS/"
     searched_directories:
+      - "C:/Users/guilh/AppData/Roaming/Code/User/globalStorage/github.copilot-chat/debugCommand/gcov.com"
+      - "C:/Users/guilh/AppData/Roaming/Code/User/globalStorage/github.copilot-chat/debugCommand/gcov.exe"
+      - "C:/Users/guilh/AppData/Roaming/Code/User/globalStorage/github.copilot-chat/debugCommand/gcov"
+      - "C:/Users/guilh/AppData/Roaming/Code/User/globalStorage/github.copilot-chat/copilotCli/gcov.com"
+      - "C:/Users/guilh/AppData/Roaming/Code/User/globalStorage/github.copilot-chat/copilotCli/gcov.exe"
+      - "C:/Users/guilh/AppData/Roaming/Code/User/globalStorage/github.copilot-chat/copilotCli/gcov"
+      - "C:/Users/guilh/AppData/Local/Programs/Microsoft VS Code/gcov.com"
+      - "C:/Users/guilh/AppData/Local/Programs/Microsoft VS Code/gcov.exe"
+      - "C:/Users/guilh/AppData/Local/Programs/Microsoft VS Code/gcov"
       - "C:/Windows/System32/gcov.com"
       - "C:/Windows/System32/gcov.exe"
       - "C:/Windows/System32/gcov"
@@ -1600,6 +1798,9 @@ events:
     found: "C:/MinGW/bin/gcov.exe"
     search_context:
       ENV{PATH}:
+        - "c:\\Users\\guilh\\AppData\\Roaming\\Code\\User\\globalStorage\\github.copilot-chat\\debugCommand"
+        - "c:\\Users\\guilh\\AppData\\Roaming\\Code\\User\\globalStorage\\github.copilot-chat\\copilotCli"
+        - "C:\\Users\\guilh\\AppData\\Local\\Programs\\Microsoft VS Code"
         - "C:\\WINDOWS\\system32"
         - "C:\\WINDOWS"
         - "C:\\WINDOWS\\System32\\Wbem"
@@ -1618,6 +1819,7 @@ events:
         - "C:\\MinGW\\bin"
         - "C:\\MinGW"
         - "C:\\Users\\guilh\\AppData\\Roaming\\npm"
+        - "c:\\Users\\guilh\\.vscode\\extensions\\ms-python.debugpy-2025.18.0-win32-x64\\bundled\\scripts\\noConfigScripts"
       CMAKE_INSTALL_PREFIX: "C:/Program Files (x86)/KNS"
       CMAKE_SYSTEM_PREFIX_PATH:
         - "C:/Program Files"
@@ -1649,6 +1851,9 @@ events:
       - "git.cmd"
       - "git"
     candidate_directories:
+      - "C:/Users/guilh/AppData/Roaming/Code/User/globalStorage/github.copilot-chat/debugCommand/"
+      - "C:/Users/guilh/AppData/Roaming/Code/User/globalStorage/github.copilot-chat/copilotCli/"
+      - "C:/Users/guilh/AppData/Local/Programs/Microsoft VS Code/"
       - "C:/Windows/System32/"
       - "C:/Windows/"
       - "C:/Windows/System32/wbem/"
@@ -1666,6 +1871,7 @@ events:
       - "C:/MinGW/bin/"
       - "C:/MinGW/"
       - "C:/Users/guilh/AppData/Roaming/npm/"
+      - "C:/Users/guilh/.vscode/extensions/ms-python.debugpy-2025.18.0-win32-x64/bundled/scripts/noConfigScripts/"
       - "C:/Program Files/bin/"
       - "C:/Program Files/sbin/"
       - "C:/Program Files/"
@@ -1680,6 +1886,15 @@ events:
       - "C:/Program Files (x86)/KNS/"
       - "C:/Users/guilh/AppData/Local/Atlassian/SourceTree/git_local/bin/"
     searched_directories:
+      - "C:/Users/guilh/AppData/Roaming/Code/User/globalStorage/github.copilot-chat/debugCommand/git.cmd.com"
+      - "C:/Users/guilh/AppData/Roaming/Code/User/globalStorage/github.copilot-chat/debugCommand/git.cmd.exe"
+      - "C:/Users/guilh/AppData/Roaming/Code/User/globalStorage/github.copilot-chat/debugCommand/git.cmd"
+      - "C:/Users/guilh/AppData/Roaming/Code/User/globalStorage/github.copilot-chat/copilotCli/git.cmd.com"
+      - "C:/Users/guilh/AppData/Roaming/Code/User/globalStorage/github.copilot-chat/copilotCli/git.cmd.exe"
+      - "C:/Users/guilh/AppData/Roaming/Code/User/globalStorage/github.copilot-chat/copilotCli/git.cmd"
+      - "C:/Users/guilh/AppData/Local/Programs/Microsoft VS Code/git.cmd.com"
+      - "C:/Users/guilh/AppData/Local/Programs/Microsoft VS Code/git.cmd.exe"
+      - "C:/Users/guilh/AppData/Local/Programs/Microsoft VS Code/git.cmd"
       - "C:/Windows/System32/git.cmd.com"
       - "C:/Windows/System32/git.cmd.exe"
       - "C:/Windows/System32/git.cmd"
@@ -1731,6 +1946,9 @@ events:
       - "C:/Users/guilh/AppData/Roaming/npm/git.cmd.com"
       - "C:/Users/guilh/AppData/Roaming/npm/git.cmd.exe"
       - "C:/Users/guilh/AppData/Roaming/npm/git.cmd"
+      - "C:/Users/guilh/.vscode/extensions/ms-python.debugpy-2025.18.0-win32-x64/bundled/scripts/noConfigScripts/git.cmd.com"
+      - "C:/Users/guilh/.vscode/extensions/ms-python.debugpy-2025.18.0-win32-x64/bundled/scripts/noConfigScripts/git.cmd.exe"
+      - "C:/Users/guilh/.vscode/extensions/ms-python.debugpy-2025.18.0-win32-x64/bundled/scripts/noConfigScripts/git.cmd"
       - "C:/Program Files/bin/git.cmd.com"
       - "C:/Program Files/bin/git.cmd.exe"
       - "C:/Program Files/bin/git.cmd"
@@ -1770,6 +1988,15 @@ events:
       - "C:/Users/guilh/AppData/Local/Atlassian/SourceTree/git_local/bin/git.cmd.com"
       - "C:/Users/guilh/AppData/Local/Atlassian/SourceTree/git_local/bin/git.cmd.exe"
       - "C:/Users/guilh/AppData/Local/Atlassian/SourceTree/git_local/bin/git.cmd"
+      - "C:/Users/guilh/AppData/Roaming/Code/User/globalStorage/github.copilot-chat/debugCommand/git.com"
+      - "C:/Users/guilh/AppData/Roaming/Code/User/globalStorage/github.copilot-chat/debugCommand/git.exe"
+      - "C:/Users/guilh/AppData/Roaming/Code/User/globalStorage/github.copilot-chat/debugCommand/git"
+      - "C:/Users/guilh/AppData/Roaming/Code/User/globalStorage/github.copilot-chat/copilotCli/git.com"
+      - "C:/Users/guilh/AppData/Roaming/Code/User/globalStorage/github.copilot-chat/copilotCli/git.exe"
+      - "C:/Users/guilh/AppData/Roaming/Code/User/globalStorage/github.copilot-chat/copilotCli/git"
+      - "C:/Users/guilh/AppData/Local/Programs/Microsoft VS Code/git.com"
+      - "C:/Users/guilh/AppData/Local/Programs/Microsoft VS Code/git.exe"
+      - "C:/Users/guilh/AppData/Local/Programs/Microsoft VS Code/git"
       - "C:/Windows/System32/git.com"
       - "C:/Windows/System32/git.exe"
       - "C:/Windows/System32/git"
@@ -1789,6 +2016,9 @@ events:
     found: "C:/Program Files/Git/cmd/git.exe"
     search_context:
       ENV{PATH}:
+        - "c:\\Users\\guilh\\AppData\\Roaming\\Code\\User\\globalStorage\\github.copilot-chat\\debugCommand"
+        - "c:\\Users\\guilh\\AppData\\Roaming\\Code\\User\\globalStorage\\github.copilot-chat\\copilotCli"
+        - "C:\\Users\\guilh\\AppData\\Local\\Programs\\Microsoft VS Code"
         - "C:\\WINDOWS\\system32"
         - "C:\\WINDOWS"
         - "C:\\WINDOWS\\System32\\Wbem"
@@ -1807,6 +2037,7 @@ events:
         - "C:\\MinGW\\bin"
         - "C:\\MinGW"
         - "C:\\Users\\guilh\\AppData\\Roaming\\npm"
+        - "c:\\Users\\guilh\\.vscode\\extensions\\ms-python.debugpy-2025.18.0-win32-x64\\bundled\\scripts\\noConfigScripts"
       CMAKE_INSTALL_PREFIX: "C:/Program Files (x86)/KNS"
       CMAKE_SYSTEM_PREFIX_PATH:
         - "C:/Program Files"

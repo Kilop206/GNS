@@ -1,2 +1,2 @@
 Packets Sent,Packets Delivered,Packets Lost,Delivery Rate,Loss Rate,Average Latency,Seed
-100,79,21,0.79,0.21,0.00954481,1
+100,72,28,0.72,0.28,0.00941611,42
