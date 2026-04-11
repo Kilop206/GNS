@@ -32,4 +32,8 @@ namespace kns {
 		return num_nodes;
 
 	}
+
+	std::vector<std::vector<Link>>& Topology::getLinks() {
+		return adjacency_list;
+	}
 }
