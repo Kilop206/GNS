@@ -8,6 +8,8 @@
 #include <iostream>
 #include <string>
 #include <cstdlib>
+#include <vector>
+#include <stdexcept>
 
 using namespace kns;
 
@@ -21,6 +23,10 @@ int main(int argc, char* argv[]) {
 
     kns::RunConfig runConfig = {"results.csv", 1};
 
+	std::string path = argv[1];
+
+    Topology topo = TopologyLoader::load_topology(path);
+
     for (int i = 0; i < argc; i++) {
 
         if (i+1 < argc) {
@@ -30,13 +36,22 @@ int main(int argc, char* argv[]) {
 
             } else if (std::string(argv[i]) == "--out") {
                 runConfig.filename = argv[i+1];
+
+            } else if (std::string(argv[i]) == "--loss_prob") {
+                if (std::stod(argv[i+1]) >= 0.0 && std::stod(argv[i+1]) <= 1.0) {
+                    std::vector<std::vector<Link>>& links = topo.getLinks();
+
+                    for (int j = 0; j < links.size(); j++) {
+                        for (int k = 0; k < links[j].size(); k++) {
+                            links.at(j).at(k).loss_prob = std::stod(argv[i+1]);
+                        }
+                    }
+                } else {
+                    throw std::runtime_error("Invalid value for loss_prob (should be between 0.0 and 1.0)");
+                }
             }
         }
     }
-
-	std::string path = argv[1];
-
-    Topology topo = TopologyLoader::load_topology(path);
 
     SimulationEngine engine(topo);
 

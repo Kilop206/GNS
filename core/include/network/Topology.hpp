@@ -1,7 +1,8 @@
 #pragma once
 
-#include <vector>
 #include "network/Link.hpp"
+
+#include <vector>
 
 namespace kns {
 	class Topology {
@@ -26,5 +27,7 @@ namespace kns {
 
 		// Method to get the total number of nodes in the topology
 		int size() const;
+
+		std::vector<std::vector<Link>>& getLinks();
 	};
 }
