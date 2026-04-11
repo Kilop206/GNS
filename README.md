@@ -28,6 +28,7 @@ Build the motor of a network simulator based on discret events that lets:
 	|-- app/ # Main executable
 	|-- core/ # Main components for the simulation motor
 	|-- docs/ # DOcuments explaining the project
+	|-- results/ # Contains the reuslts of previous experiments
 	|-- scripts/ # Scripts that automatically run and create graphs
 	|-- tests / # Unitaty tests
 	|-- topologies / # JSON files of topologies models
