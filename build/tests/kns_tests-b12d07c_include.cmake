@@ -1,5 +1,0 @@
-if(EXISTS "C:/Users/guilh/Desktop/KNS/build/tests/kns_tests-b12d07c_tests.cmake")
-  include("C:/Users/guilh/Desktop/KNS/build/tests/kns_tests-b12d07c_tests.cmake")
-else()
-  add_test(kns_tests_NOT_BUILT-b12d07c kns_tests_NOT_BUILT-b12d07c)
-endif()
