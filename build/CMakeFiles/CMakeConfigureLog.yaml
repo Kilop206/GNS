@@ -35,9 +35,6 @@ events:
     found: "C:/Program Files/CMake/share/cmake-4.2/Modules/CMakeCXXCompilerId.cpp.in"
     search_context:
       ENV{PATH}:
-        - "c:\\Users\\guilh\\AppData\\Roaming\\Code\\User\\globalStorage\\github.copilot-chat\\debugCommand"
-        - "c:\\Users\\guilh\\AppData\\Roaming\\Code\\User\\globalStorage\\github.copilot-chat\\copilotCli"
-        - "C:\\Users\\guilh\\AppData\\Local\\Programs\\Microsoft VS Code"
         - "C:\\WINDOWS\\system32"
         - "C:\\WINDOWS"
         - "C:\\WINDOWS\\System32\\Wbem"
@@ -72,7 +69,7 @@ events:
       The output was:
       0
       Vers├úo do MSBuild 18.4.0+6e61e96ac para .NET Framework
-      Compila├º├úo de 09/04/2026 17:25:37 iniciada.
+      Compila├º├úo de 10/04/2026 23:22:26 iniciada.
       
       Projeto "C:\\Users\\guilh\\Desktop\\KNS\\build\\CMakeFiles\\4.2.3\\CompilerIdCXX\\CompilerIdCXX.vcxproj" no n├│ 1 (destinos padr├úo).
       PrepareForBuild:
@@ -110,7 +107,7 @@ events:
           0 Aviso(s)
           0 Erro(s)
       
-      Tempo Decorrido 00:00:01.40
+      Tempo Decorrido 00:00:00.89
       
       
       Compilation of the CXX compiler identification source "CMakeCXXCompilerId.cpp" produced "CompilerIdCXX.exe"
@@ -143,9 +140,6 @@ events:
       - "link"
     candidate_directories:
       - "C:/Program Files/Microsoft Visual Studio/18/Community/VC/Tools/MSVC/14.50.35717/bin/Hostx64/x64/"
-      - "C:/Users/guilh/AppData/Roaming/Code/User/globalStorage/github.copilot-chat/debugCommand/"
-      - "C:/Users/guilh/AppData/Roaming/Code/User/globalStorage/github.copilot-chat/copilotCli/"
-      - "C:/Users/guilh/AppData/Local/Programs/Microsoft VS Code/"
       - "C:/Windows/System32/"
       - "C:/Windows/"
       - "C:/Windows/System32/wbem/"
@@ -168,9 +162,6 @@ events:
     found: "C:/Program Files/Microsoft Visual Studio/18/Community/VC/Tools/MSVC/14.50.35717/bin/Hostx64/x64/link.exe"
     search_context:
       ENV{PATH}:
-        - "c:\\Users\\guilh\\AppData\\Roaming\\Code\\User\\globalStorage\\github.copilot-chat\\debugCommand"
-        - "c:\\Users\\guilh\\AppData\\Roaming\\Code\\User\\globalStorage\\github.copilot-chat\\copilotCli"
-        - "C:\\Users\\guilh\\AppData\\Local\\Programs\\Microsoft VS Code"
         - "C:\\WINDOWS\\system32"
         - "C:\\WINDOWS"
         - "C:\\WINDOWS\\System32\\Wbem"
@@ -212,9 +203,6 @@ events:
       - "lld-link"
     candidate_directories:
       - "C:/Program Files/Microsoft Visual Studio/18/Community/VC/Tools/MSVC/14.50.35717/bin/Hostx64/x64/"
-      - "C:/Users/guilh/AppData/Roaming/Code/User/globalStorage/github.copilot-chat/debugCommand/"
-      - "C:/Users/guilh/AppData/Roaming/Code/User/globalStorage/github.copilot-chat/copilotCli/"
-      - "C:/Users/guilh/AppData/Local/Programs/Microsoft VS Code/"
       - "C:/Windows/System32/"
       - "C:/Windows/"
       - "C:/Windows/System32/wbem/"
@@ -236,15 +224,6 @@ events:
       - "C:/Program Files/Microsoft Visual Studio/18/Community/VC/Tools/MSVC/14.50.35717/bin/Hostx64/x64/lld-link.com"
       - "C:/Program Files/Microsoft Visual Studio/18/Community/VC/Tools/MSVC/14.50.35717/bin/Hostx64/x64/lld-link.exe"
       - "C:/Program Files/Microsoft Visual Studio/18/Community/VC/Tools/MSVC/14.50.35717/bin/Hostx64/x64/lld-link"
-      - "C:/Users/guilh/AppData/Roaming/Code/User/globalStorage/github.copilot-chat/debugCommand/lld-link.com"
-      - "C:/Users/guilh/AppData/Roaming/Code/User/globalStorage/github.copilot-chat/debugCommand/lld-link.exe"
-      - "C:/Users/guilh/AppData/Roaming/Code/User/globalStorage/github.copilot-chat/debugCommand/lld-link"
-      - "C:/Users/guilh/AppData/Roaming/Code/User/globalStorage/github.copilot-chat/copilotCli/lld-link.com"
-      - "C:/Users/guilh/AppData/Roaming/Code/User/globalStorage/github.copilot-chat/copilotCli/lld-link.exe"
-      - "C:/Users/guilh/AppData/Roaming/Code/User/globalStorage/github.copilot-chat/copilotCli/lld-link"
-      - "C:/Users/guilh/AppData/Local/Programs/Microsoft VS Code/lld-link.com"
-      - "C:/Users/guilh/AppData/Local/Programs/Microsoft VS Code/lld-link.exe"
-      - "C:/Users/guilh/AppData/Local/Programs/Microsoft VS Code/lld-link"
       - "C:/Windows/System32/lld-link.com"
       - "C:/Windows/System32/lld-link.exe"
       - "C:/Windows/System32/lld-link"
@@ -299,9 +278,6 @@ events:
     found: false
     search_context:
       ENV{PATH}:
-        - "c:\\Users\\guilh\\AppData\\Roaming\\Code\\User\\globalStorage\\github.copilot-chat\\debugCommand"
-        - "c:\\Users\\guilh\\AppData\\Roaming\\Code\\User\\globalStorage\\github.copilot-chat\\copilotCli"
-        - "C:\\Users\\guilh\\AppData\\Local\\Programs\\Microsoft VS Code"
         - "C:\\WINDOWS\\system32"
         - "C:\\WINDOWS"
         - "C:\\WINDOWS\\System32\\Wbem"
@@ -341,9 +317,6 @@ events:
       - "link"
     candidate_directories:
       - "C:/Program Files/Microsoft Visual Studio/18/Community/VC/Tools/MSVC/14.50.35717/bin/Hostx64/x64/"
-      - "C:/Users/guilh/AppData/Roaming/Code/User/globalStorage/github.copilot-chat/debugCommand/"
-      - "C:/Users/guilh/AppData/Roaming/Code/User/globalStorage/github.copilot-chat/copilotCli/"
-      - "C:/Users/guilh/AppData/Local/Programs/Microsoft VS Code/"
       - "C:/Windows/System32/"
       - "C:/Windows/"
       - "C:/Windows/System32/wbem/"
@@ -366,9 +339,6 @@ events:
     found: "C:/Program Files/Microsoft Visual Studio/18/Community/VC/Tools/MSVC/14.50.35717/bin/Hostx64/x64/link.exe"
     search_context:
       ENV{PATH}:
-        - "c:\\Users\\guilh\\AppData\\Roaming\\Code\\User\\globalStorage\\github.copilot-chat\\debugCommand"
-        - "c:\\Users\\guilh\\AppData\\Roaming\\Code\\User\\globalStorage\\github.copilot-chat\\copilotCli"
-        - "C:\\Users\\guilh\\AppData\\Local\\Programs\\Microsoft VS Code"
         - "C:\\WINDOWS\\system32"
         - "C:\\WINDOWS"
         - "C:\\WINDOWS\\System32\\Wbem"
@@ -408,9 +378,6 @@ events:
       - "mt"
     candidate_directories:
       - "C:/Program Files/Microsoft Visual Studio/18/Community/VC/Tools/MSVC/14.50.35717/bin/Hostx64/x64/"
-      - "C:/Users/guilh/AppData/Roaming/Code/User/globalStorage/github.copilot-chat/debugCommand/"
-      - "C:/Users/guilh/AppData/Roaming/Code/User/globalStorage/github.copilot-chat/copilotCli/"
-      - "C:/Users/guilh/AppData/Local/Programs/Microsoft VS Code/"
       - "C:/Windows/System32/"
       - "C:/Windows/"
       - "C:/Windows/System32/wbem/"
@@ -432,15 +399,6 @@ events:
       - "C:/Program Files/Microsoft Visual Studio/18/Community/VC/Tools/MSVC/14.50.35717/bin/Hostx64/x64/mt.com"
       - "C:/Program Files/Microsoft Visual Studio/18/Community/VC/Tools/MSVC/14.50.35717/bin/Hostx64/x64/mt.exe"
       - "C:/Program Files/Microsoft Visual Studio/18/Community/VC/Tools/MSVC/14.50.35717/bin/Hostx64/x64/mt"
-      - "C:/Users/guilh/AppData/Roaming/Code/User/globalStorage/github.copilot-chat/debugCommand/mt.com"
-      - "C:/Users/guilh/AppData/Roaming/Code/User/globalStorage/github.copilot-chat/debugCommand/mt.exe"
-      - "C:/Users/guilh/AppData/Roaming/Code/User/globalStorage/github.copilot-chat/debugCommand/mt"
-      - "C:/Users/guilh/AppData/Roaming/Code/User/globalStorage/github.copilot-chat/copilotCli/mt.com"
-      - "C:/Users/guilh/AppData/Roaming/Code/User/globalStorage/github.copilot-chat/copilotCli/mt.exe"
-      - "C:/Users/guilh/AppData/Roaming/Code/User/globalStorage/github.copilot-chat/copilotCli/mt"
-      - "C:/Users/guilh/AppData/Local/Programs/Microsoft VS Code/mt.com"
-      - "C:/Users/guilh/AppData/Local/Programs/Microsoft VS Code/mt.exe"
-      - "C:/Users/guilh/AppData/Local/Programs/Microsoft VS Code/mt"
       - "C:/Windows/System32/mt.com"
       - "C:/Windows/System32/mt.exe"
       - "C:/Windows/System32/mt"
@@ -495,9 +453,6 @@ events:
     found: false
     search_context:
       ENV{PATH}:
-        - "c:\\Users\\guilh\\AppData\\Roaming\\Code\\User\\globalStorage\\github.copilot-chat\\debugCommand"
-        - "c:\\Users\\guilh\\AppData\\Roaming\\Code\\User\\globalStorage\\github.copilot-chat\\copilotCli"
-        - "C:\\Users\\guilh\\AppData\\Local\\Programs\\Microsoft VS Code"
         - "C:\\WINDOWS\\system32"
         - "C:\\WINDOWS"
         - "C:\\WINDOWS\\System32\\Wbem"
@@ -537,9 +492,6 @@ events:
       - "lib"
     candidate_directories:
       - "C:/Program Files/Microsoft Visual Studio/18/Community/VC/Tools/MSVC/14.50.35717/bin/Hostx64/x64/"
-      - "C:/Users/guilh/AppData/Roaming/Code/User/globalStorage/github.copilot-chat/debugCommand/"
-      - "C:/Users/guilh/AppData/Roaming/Code/User/globalStorage/github.copilot-chat/copilotCli/"
-      - "C:/Users/guilh/AppData/Local/Programs/Microsoft VS Code/"
       - "C:/Windows/System32/"
       - "C:/Windows/"
       - "C:/Windows/System32/wbem/"
@@ -562,9 +514,6 @@ events:
     found: "C:/Program Files/Microsoft Visual Studio/18/Community/VC/Tools/MSVC/14.50.35717/bin/Hostx64/x64/lib.exe"
     search_context:
       ENV{PATH}:
-        - "c:\\Users\\guilh\\AppData\\Roaming\\Code\\User\\globalStorage\\github.copilot-chat\\debugCommand"
-        - "c:\\Users\\guilh\\AppData\\Roaming\\Code\\User\\globalStorage\\github.copilot-chat\\copilotCli"
-        - "C:\\Users\\guilh\\AppData\\Local\\Programs\\Microsoft VS Code"
         - "C:\\WINDOWS\\system32"
         - "C:\\WINDOWS"
         - "C:\\WINDOWS\\System32\\Wbem"
@@ -606,9 +555,6 @@ events:
     names:
       - "rc"
     candidate_directories:
-      - "C:/Users/guilh/AppData/Roaming/Code/User/globalStorage/github.copilot-chat/debugCommand/"
-      - "C:/Users/guilh/AppData/Roaming/Code/User/globalStorage/github.copilot-chat/copilotCli/"
-      - "C:/Users/guilh/AppData/Local/Programs/Microsoft VS Code/"
       - "C:/Windows/System32/"
       - "C:/Windows/"
       - "C:/Windows/System32/wbem/"
@@ -639,15 +585,6 @@ events:
       - "C:/Program Files (x86)/KNS/sbin/"
       - "C:/Program Files (x86)/KNS/"
     searched_directories:
-      - "C:/Users/guilh/AppData/Roaming/Code/User/globalStorage/github.copilot-chat/debugCommand/rc.com"
-      - "C:/Users/guilh/AppData/Roaming/Code/User/globalStorage/github.copilot-chat/debugCommand/rc.exe"
-      - "C:/Users/guilh/AppData/Roaming/Code/User/globalStorage/github.copilot-chat/debugCommand/rc"
-      - "C:/Users/guilh/AppData/Roaming/Code/User/globalStorage/github.copilot-chat/copilotCli/rc.com"
-      - "C:/Users/guilh/AppData/Roaming/Code/User/globalStorage/github.copilot-chat/copilotCli/rc.exe"
-      - "C:/Users/guilh/AppData/Roaming/Code/User/globalStorage/github.copilot-chat/copilotCli/rc"
-      - "C:/Users/guilh/AppData/Local/Programs/Microsoft VS Code/rc.com"
-      - "C:/Users/guilh/AppData/Local/Programs/Microsoft VS Code/rc.exe"
-      - "C:/Users/guilh/AppData/Local/Programs/Microsoft VS Code/rc"
       - "C:/Windows/System32/rc.com"
       - "C:/Windows/System32/rc.exe"
       - "C:/Windows/System32/rc"
@@ -738,9 +675,6 @@ events:
     found: false
     search_context:
       ENV{PATH}:
-        - "c:\\Users\\guilh\\AppData\\Roaming\\Code\\User\\globalStorage\\github.copilot-chat\\debugCommand"
-        - "c:\\Users\\guilh\\AppData\\Roaming\\Code\\User\\globalStorage\\github.copilot-chat\\copilotCli"
-        - "C:\\Users\\guilh\\AppData\\Local\\Programs\\Microsoft VS Code"
         - "C:\\WINDOWS\\system32"
         - "C:\\WINDOWS"
         - "C:\\WINDOWS\\System32\\Wbem"
@@ -774,8 +708,8 @@ events:
     checks:
       - "Detecting CXX compiler ABI info"
     directories:
-      source: "C:/Users/guilh/Desktop/KNS/build/CMakeFiles/CMakeScratch/TryCompile-ua33fw"
-      binary: "C:/Users/guilh/Desktop/KNS/build/CMakeFiles/CMakeScratch/TryCompile-ua33fw"
+      source: "C:/Users/guilh/Desktop/KNS/build/CMakeFiles/CMakeScratch/TryCompile-125hts"
+      binary: "C:/Users/guilh/Desktop/KNS/build/CMakeFiles/CMakeScratch/TryCompile-125hts"
     cmakeVariables:
       CMAKE_CXX_FLAGS: "/DWIN32 /D_WINDOWS /EHsc"
       CMAKE_CXX_FLAGS_DEBUG: "/Zi /Ob0 /Od /RTC1"
@@ -785,48 +719,48 @@ events:
       variable: "CMAKE_CXX_ABI_COMPILED"
       cached: true
       stdout: |
-        Change Dir: 'C:/Users/guilh/Desktop/KNS/build/CMakeFiles/CMakeScratch/TryCompile-ua33fw'
+        Change Dir: 'C:/Users/guilh/Desktop/KNS/build/CMakeFiles/CMakeScratch/TryCompile-125hts'
         
-        Run Build Command(s): "C:/Program Files/Microsoft Visual Studio/18/Community/MSBuild/Current/Bin/amd64/MSBuild.exe" cmTC_fc375.vcxproj /p:Configuration=Debug /p:Platform=x64 /p:VisualStudioVersion=18.0 /v:n
+        Run Build Command(s): "C:/Program Files/Microsoft Visual Studio/18/Community/MSBuild/Current/Bin/amd64/MSBuild.exe" cmTC_26fcd.vcxproj /p:Configuration=Debug /p:Platform=x64 /p:VisualStudioVersion=18.0 /v:n
         Vers├úo do MSBuild 18.4.0+6e61e96ac para .NET Framework
-        Compila├º├úo de 09/04/2026 17:25:38 iniciada.
+        Compila├º├úo de 10/04/2026 23:22:27 iniciada.
         
-        Projeto "C:\\Users\\guilh\\Desktop\\KNS\\build\\CMakeFiles\\CMakeScratch\\TryCompile-ua33fw\\cmTC_fc375.vcxproj" no n├│ 1 (destinos padr├úo).
+        Projeto "C:\\Users\\guilh\\Desktop\\KNS\\build\\CMakeFiles\\CMakeScratch\\TryCompile-125hts\\cmTC_26fcd.vcxproj" no n├│ 1 (destinos padr├úo).
         PrepareForBuild:
           A sa├¡da estruturada est├í habilitada. A formata├º├úo do diagn├│stico do compilador refletir├í a hierarquia de erros. Consulte https://aka.ms/cpp/structured-output para obter mais detalhes.
-          Criando o diret├│rio "C:\\Users\\guilh\\Desktop\\KNS\\build\\CMakeFiles\\CMakeScratch\\TryCompile-ua33fw\\Debug\\".
-          Criando o diret├│rio "cmTC_fc375.dir\\Debug\\cmTC_fc375.tlog\\".
+          Criando o diret├│rio "C:\\Users\\guilh\\Desktop\\KNS\\build\\CMakeFiles\\CMakeScratch\\TryCompile-125hts\\Debug\\".
+          Criando o diret├│rio "cmTC_26fcd.dir\\Debug\\cmTC_26fcd.tlog\\".
         InitializeBuildStatus:
-          Criando "cmTC_fc375.dir\\Debug\\cmTC_fc375.tlog\\unsuccessfulbuild" porque "AlwaysCreate" foi especificado.
-          Tocando "cmTC_fc375.dir\\Debug\\cmTC_fc375.tlog\\unsuccessfulbuild".
+          Criando "cmTC_26fcd.dir\\Debug\\cmTC_26fcd.tlog\\unsuccessfulbuild" porque "AlwaysCreate" foi especificado.
+          Tocando "cmTC_26fcd.dir\\Debug\\cmTC_26fcd.tlog\\unsuccessfulbuild".
         VcpkgTripletSelection:
           Using triplet "x64-windows" from "C:\\Users\\guilh\\Desktop\\vcpkg\\installed\\x64-windows\\"
           Using normalized configuration "Debug"
         ClCompile:
-          C:\\Program Files\\Microsoft Visual Studio\\18\\Community\\VC\\Tools\\MSVC\\14.50.35717\\bin\\HostX64\\x64\\CL.exe /c /I"C:\\Users\\guilh\\Desktop\\vcpkg\\installed\\x64-windows\\include" /Zi /W1 /WX- /diagnostics:column /Od /Ob0 /D _MBCS /D WIN32 /D _WINDOWS /D _MBCS /D "CMAKE_INTDIR=\\"Debug\\"" /EHsc /RTC1 /MDd /Fo"cmTC_fc375.dir\\Debug\\\\" /Fd"cmTC_fc375.dir\\Debug\\vc145.pdb" /external:W1 /TP /errorReport:queue "C:\\Program Files\\CMake\\share\\cmake-4.2\\Modules\\CMakeCXXCompilerABI.cpp"
+          C:\\Program Files\\Microsoft Visual Studio\\18\\Community\\VC\\Tools\\MSVC\\14.50.35717\\bin\\HostX64\\x64\\CL.exe /c /I"C:\\Users\\guilh\\Desktop\\vcpkg\\installed\\x64-windows\\include" /Zi /W1 /WX- /diagnostics:column /Od /Ob0 /D _MBCS /D WIN32 /D _WINDOWS /D _MBCS /D "CMAKE_INTDIR=\\"Debug\\"" /EHsc /RTC1 /MDd /Fo"cmTC_26fcd.dir\\Debug\\\\" /Fd"cmTC_26fcd.dir\\Debug\\vc145.pdb" /external:W1 /TP /errorReport:queue "C:\\Program Files\\CMake\\share\\cmake-4.2\\Modules\\CMakeCXXCompilerABI.cpp"
           Microsoft (R) C/C++ Optimizing Compiler Vers├úo 19.50.35728 para x64
           Copyright (C) Microsoft Corporation. Todos os direitos reservados.
-          cl /c /I"C:\\Users\\guilh\\Desktop\\vcpkg\\installed\\x64-windows\\include" /Zi /W1 /WX- /diagnostics:column /Od /Ob0 /D _MBCS /D WIN32 /D _WINDOWS /D _MBCS /D "CMAKE_INTDIR=\\"Debug\\"" /EHsc /RTC1 /MDd /Fo"cmTC_fc375.dir\\Debug\\\\" /Fd"cmTC_fc375.dir\\Debug\\vc145.pdb" /external:W1 /TP /errorReport:queue "C:\\Program Files\\CMake\\share\\cmake-4.2\\Modules\\CMakeCXXCompilerABI.cpp"
+          cl /c /I"C:\\Users\\guilh\\Desktop\\vcpkg\\installed\\x64-windows\\include" /Zi /W1 /WX- /diagnostics:column /Od /Ob0 /D _MBCS /D WIN32 /D _WINDOWS /D _MBCS /D "CMAKE_INTDIR=\\"Debug\\"" /EHsc /RTC1 /MDd /Fo"cmTC_26fcd.dir\\Debug\\\\" /Fd"cmTC_26fcd.dir\\Debug\\vc145.pdb" /external:W1 /TP /errorReport:queue "C:\\Program Files\\CMake\\share\\cmake-4.2\\Modules\\CMakeCXXCompilerABI.cpp"
           CMakeCXXCompilerABI.cpp
         Link:
-          C:\\Program Files\\Microsoft Visual Studio\\18\\Community\\VC\\Tools\\MSVC\\14.50.35717\\bin\\HostX64\\x64\\link.exe /OUT:"C:\\Users\\guilh\\Desktop\\KNS\\build\\CMakeFiles\\CMakeScratch\\TryCompile-ua33fw\\Debug\\cmTC_fc375.exe" /INCREMENTAL /ILK:"cmTC_fc375.dir\\Debug\\cmTC_fc375.ilk" /NOLOGO /LIBPATH:"C:\\Users\\guilh\\Desktop\\vcpkg\\installed\\x64-windows\\debug\\lib" /LIBPATH:"C:\\Users\\guilh\\Desktop\\vcpkg\\installed\\x64-windows\\debug\\lib\\manual-link" kernel32.lib user32.lib gdi32.lib winspool.lib shell32.lib ole32.lib oleaut32.lib uuid.lib comdlg32.lib advapi32.lib "C:\\Users\\guilh\\Desktop\\vcpkg\\installed\\x64-windows\\debug\\lib\\*.lib" /MANIFEST /MANIFESTUAC:"level='asInvoker' uiAccess='false'" /manifest:embed /DEBUG /PDB:"C:/Users/guilh/Desktop/KNS/build/CMakeFiles/CMakeScratch/TryCompile-ua33fw/Debug/cmTC_fc375.pdb" /SUBSYSTEM:CONSOLE /TLBID:1 /IMPLIB:"C:/Users/guilh/Desktop/KNS/build/CMakeFiles/CMakeScratch/TryCompile-ua33fw/Debug/cmTC_fc375.lib" /MACHINE:X64  /machine:x64 cmTC_fc375.dir\\Debug\\CMakeCXXCompilerABI.obj
-          cmTC_fc375.vcxproj -> C:\\Users\\guilh\\Desktop\\KNS\\build\\CMakeFiles\\CMakeScratch\\TryCompile-ua33fw\\Debug\\cmTC_fc375.exe
+          C:\\Program Files\\Microsoft Visual Studio\\18\\Community\\VC\\Tools\\MSVC\\14.50.35717\\bin\\HostX64\\x64\\link.exe /OUT:"C:\\Users\\guilh\\Desktop\\KNS\\build\\CMakeFiles\\CMakeScratch\\TryCompile-125hts\\Debug\\cmTC_26fcd.exe" /INCREMENTAL /ILK:"cmTC_26fcd.dir\\Debug\\cmTC_26fcd.ilk" /NOLOGO /LIBPATH:"C:\\Users\\guilh\\Desktop\\vcpkg\\installed\\x64-windows\\debug\\lib" /LIBPATH:"C:\\Users\\guilh\\Desktop\\vcpkg\\installed\\x64-windows\\debug\\lib\\manual-link" kernel32.lib user32.lib gdi32.lib winspool.lib shell32.lib ole32.lib oleaut32.lib uuid.lib comdlg32.lib advapi32.lib "C:\\Users\\guilh\\Desktop\\vcpkg\\installed\\x64-windows\\debug\\lib\\*.lib" /MANIFEST /MANIFESTUAC:"level='asInvoker' uiAccess='false'" /manifest:embed /DEBUG /PDB:"C:/Users/guilh/Desktop/KNS/build/CMakeFiles/CMakeScratch/TryCompile-125hts/Debug/cmTC_26fcd.pdb" /SUBSYSTEM:CONSOLE /TLBID:1 /IMPLIB:"C:/Users/guilh/Desktop/KNS/build/CMakeFiles/CMakeScratch/TryCompile-125hts/Debug/cmTC_26fcd.lib" /MACHINE:X64  /machine:x64 cmTC_26fcd.dir\\Debug\\CMakeCXXCompilerABI.obj
+          cmTC_26fcd.vcxproj -> C:\\Users\\guilh\\Desktop\\KNS\\build\\CMakeFiles\\CMakeScratch\\TryCompile-125hts\\Debug\\cmTC_26fcd.exe
         AppLocalFromInstalled:
-          pwsh.exe -ExecutionPolicy Bypass -noprofile -File "C:\\Users\\guilh\\Desktop\\vcpkg\\scripts\\buildsystems\\msbuild\\applocal.ps1" "C:\\Users\\guilh\\Desktop\\KNS\\build\\CMakeFiles\\CMakeScratch\\TryCompile-ua33fw\\Debug\\cmTC_fc375.exe" "C:\\Users\\guilh\\Desktop\\vcpkg\\installed\\x64-windows\\debug\\bin" "cmTC_fc375.dir\\Debug\\cmTC_fc375.tlog\\cmTC_fc375.write.1u.tlog" "cmTC_fc375.dir\\Debug\\vcpkg.applocal.log"
+          pwsh.exe -ExecutionPolicy Bypass -noprofile -File "C:\\Users\\guilh\\Desktop\\vcpkg\\scripts\\buildsystems\\msbuild\\applocal.ps1" "C:\\Users\\guilh\\Desktop\\KNS\\build\\CMakeFiles\\CMakeScratch\\TryCompile-125hts\\Debug\\cmTC_26fcd.exe" "C:\\Users\\guilh\\Desktop\\vcpkg\\installed\\x64-windows\\debug\\bin" "cmTC_26fcd.dir\\Debug\\cmTC_26fcd.tlog\\cmTC_26fcd.write.1u.tlog" "cmTC_26fcd.dir\\Debug\\vcpkg.applocal.log"
           'pwsh.exe' n├úo ├® reconhecido como um comando interno
           ou externo, um programa oper├ível ou um arquivo em lotes.
-          O comando "pwsh.exe -ExecutionPolicy Bypass -noprofile -File "C:\\Users\\guilh\\Desktop\\vcpkg\\scripts\\buildsystems\\msbuild\\applocal.ps1" "C:\\Users\\guilh\\Desktop\\KNS\\build\\CMakeFiles\\CMakeScratch\\TryCompile-ua33fw\\Debug\\cmTC_fc375.exe" "C:\\Users\\guilh\\Desktop\\vcpkg\\installed\\x64-windows\\debug\\bin" "cmTC_fc375.dir\\Debug\\cmTC_fc375.tlog\\cmTC_fc375.write.1u.tlog" "cmTC_fc375.dir\\Debug\\vcpkg.applocal.log"" foi encerrado com o c├│digo 9009.
-          "C:\\WINDOWS\\System32\\WindowsPowerShell\\v1.0\\powershell.exe" -ExecutionPolicy Bypass -noprofile -File "C:\\Users\\guilh\\Desktop\\vcpkg\\scripts\\buildsystems\\msbuild\\applocal.ps1" "C:\\Users\\guilh\\Desktop\\KNS\\build\\CMakeFiles\\CMakeScratch\\TryCompile-ua33fw\\Debug\\cmTC_fc375.exe" "C:\\Users\\guilh\\Desktop\\vcpkg\\installed\\x64-windows\\debug\\bin" "cmTC_fc375.dir\\Debug\\cmTC_fc375.tlog\\cmTC_fc375.write.1u.tlog" "cmTC_fc375.dir\\Debug\\vcpkg.applocal.log"
+          O comando "pwsh.exe -ExecutionPolicy Bypass -noprofile -File "C:\\Users\\guilh\\Desktop\\vcpkg\\scripts\\buildsystems\\msbuild\\applocal.ps1" "C:\\Users\\guilh\\Desktop\\KNS\\build\\CMakeFiles\\CMakeScratch\\TryCompile-125hts\\Debug\\cmTC_26fcd.exe" "C:\\Users\\guilh\\Desktop\\vcpkg\\installed\\x64-windows\\debug\\bin" "cmTC_26fcd.dir\\Debug\\cmTC_26fcd.tlog\\cmTC_26fcd.write.1u.tlog" "cmTC_26fcd.dir\\Debug\\vcpkg.applocal.log"" foi encerrado com o c├│digo 9009.
+          "C:\\WINDOWS\\System32\\WindowsPowerShell\\v1.0\\powershell.exe" -ExecutionPolicy Bypass -noprofile -File "C:\\Users\\guilh\\Desktop\\vcpkg\\scripts\\buildsystems\\msbuild\\applocal.ps1" "C:\\Users\\guilh\\Desktop\\KNS\\build\\CMakeFiles\\CMakeScratch\\TryCompile-125hts\\Debug\\cmTC_26fcd.exe" "C:\\Users\\guilh\\Desktop\\vcpkg\\installed\\x64-windows\\debug\\bin" "cmTC_26fcd.dir\\Debug\\cmTC_26fcd.tlog\\cmTC_26fcd.write.1u.tlog" "cmTC_26fcd.dir\\Debug\\vcpkg.applocal.log"
         FinalizeBuildStatus:
-          Excluindo o arquivo "cmTC_fc375.dir\\Debug\\cmTC_fc375.tlog\\unsuccessfulbuild".
-          Tocando "cmTC_fc375.dir\\Debug\\cmTC_fc375.tlog\\cmTC_fc375.lastbuildstate".
-        Projeto de compila├º├úo pronto "C:\\Users\\guilh\\Desktop\\KNS\\build\\CMakeFiles\\CMakeScratch\\TryCompile-ua33fw\\cmTC_fc375.vcxproj" (destinos padr├úo).
+          Excluindo o arquivo "cmTC_26fcd.dir\\Debug\\cmTC_26fcd.tlog\\unsuccessfulbuild".
+          Tocando "cmTC_26fcd.dir\\Debug\\cmTC_26fcd.tlog\\cmTC_26fcd.lastbuildstate".
+        Projeto de compila├º├úo pronto "C:\\Users\\guilh\\Desktop\\KNS\\build\\CMakeFiles\\CMakeScratch\\TryCompile-125hts\\cmTC_26fcd.vcxproj" (destinos padr├úo).
         
         Compila├º├úo com ├¬xito.
             0 Aviso(s)
             0 Erro(s)
         
-        Tempo Decorrido 00:00:00.69
+        Tempo Decorrido 00:00:00.72
         
       exitCode: 0
   -
@@ -876,9 +810,6 @@ events:
     names:
       - "git"
     candidate_directories:
-      - "C:/Users/guilh/AppData/Roaming/Code/User/globalStorage/github.copilot-chat/debugCommand/"
-      - "C:/Users/guilh/AppData/Roaming/Code/User/globalStorage/github.copilot-chat/copilotCli/"
-      - "C:/Users/guilh/AppData/Local/Programs/Microsoft VS Code/"
       - "C:/Windows/System32/"
       - "C:/Windows/"
       - "C:/Windows/System32/wbem/"
@@ -909,15 +840,6 @@ events:
       - "C:/Program Files (x86)/KNS/sbin/"
       - "C:/Program Files (x86)/KNS/"
     searched_directories:
-      - "C:/Users/guilh/AppData/Roaming/Code/User/globalStorage/github.copilot-chat/debugCommand/git.com"
-      - "C:/Users/guilh/AppData/Roaming/Code/User/globalStorage/github.copilot-chat/debugCommand/git.exe"
-      - "C:/Users/guilh/AppData/Roaming/Code/User/globalStorage/github.copilot-chat/debugCommand/git"
-      - "C:/Users/guilh/AppData/Roaming/Code/User/globalStorage/github.copilot-chat/copilotCli/git.com"
-      - "C:/Users/guilh/AppData/Roaming/Code/User/globalStorage/github.copilot-chat/copilotCli/git.exe"
-      - "C:/Users/guilh/AppData/Roaming/Code/User/globalStorage/github.copilot-chat/copilotCli/git"
-      - "C:/Users/guilh/AppData/Local/Programs/Microsoft VS Code/git.com"
-      - "C:/Users/guilh/AppData/Local/Programs/Microsoft VS Code/git.exe"
-      - "C:/Users/guilh/AppData/Local/Programs/Microsoft VS Code/git"
       - "C:/Windows/System32/git.com"
       - "C:/Windows/System32/git.exe"
       - "C:/Windows/System32/git"
@@ -937,9 +859,6 @@ events:
     found: "C:/Program Files/Git/cmd/git.exe"
     search_context:
       ENV{PATH}:
-        - "c:\\Users\\guilh\\AppData\\Roaming\\Code\\User\\globalStorage\\github.copilot-chat\\debugCommand"
-        - "c:\\Users\\guilh\\AppData\\Roaming\\Code\\User\\globalStorage\\github.copilot-chat\\copilotCli"
-        - "C:\\Users\\guilh\\AppData\\Local\\Programs\\Microsoft VS Code"
         - "C:\\WINDOWS\\system32"
         - "C:\\WINDOWS"
         - "C:\\WINDOWS\\System32\\Wbem"
@@ -988,9 +907,6 @@ events:
       - "cuda-memcheck"
       - "compute-sanitizer"
     candidate_directories:
-      - "C:/Users/guilh/AppData/Roaming/Code/User/globalStorage/github.copilot-chat/debugCommand/"
-      - "C:/Users/guilh/AppData/Roaming/Code/User/globalStorage/github.copilot-chat/copilotCli/"
-      - "C:/Users/guilh/AppData/Local/Programs/Microsoft VS Code/"
       - "C:/Windows/System32/"
       - "C:/Windows/"
       - "C:/Windows/System32/wbem/"
@@ -1022,15 +938,6 @@ events:
       - "C:/Program Files (x86)/KNS/"
       - "/REGISTRY-NOTFOUND/"
     searched_directories:
-      - "C:/Users/guilh/AppData/Roaming/Code/User/globalStorage/github.copilot-chat/debugCommand/purify.com"
-      - "C:/Users/guilh/AppData/Roaming/Code/User/globalStorage/github.copilot-chat/debugCommand/purify.exe"
-      - "C:/Users/guilh/AppData/Roaming/Code/User/globalStorage/github.copilot-chat/debugCommand/purify"
-      - "C:/Users/guilh/AppData/Roaming/Code/User/globalStorage/github.copilot-chat/copilotCli/purify.com"
-      - "C:/Users/guilh/AppData/Roaming/Code/User/globalStorage/github.copilot-chat/copilotCli/purify.exe"
-      - "C:/Users/guilh/AppData/Roaming/Code/User/globalStorage/github.copilot-chat/copilotCli/purify"
-      - "C:/Users/guilh/AppData/Local/Programs/Microsoft VS Code/purify.com"
-      - "C:/Users/guilh/AppData/Local/Programs/Microsoft VS Code/purify.exe"
-      - "C:/Users/guilh/AppData/Local/Programs/Microsoft VS Code/purify"
       - "C:/Windows/System32/purify.com"
       - "C:/Windows/System32/purify.exe"
       - "C:/Windows/System32/purify"
@@ -1121,15 +1028,6 @@ events:
       - "/REGISTRY-NOTFOUND/purify.com"
       - "/REGISTRY-NOTFOUND/purify.exe"
       - "/REGISTRY-NOTFOUND/purify"
-      - "C:/Users/guilh/AppData/Roaming/Code/User/globalStorage/github.copilot-chat/debugCommand/valgrind.com"
-      - "C:/Users/guilh/AppData/Roaming/Code/User/globalStorage/github.copilot-chat/debugCommand/valgrind.exe"
-      - "C:/Users/guilh/AppData/Roaming/Code/User/globalStorage/github.copilot-chat/debugCommand/valgrind"
-      - "C:/Users/guilh/AppData/Roaming/Code/User/globalStorage/github.copilot-chat/copilotCli/valgrind.com"
-      - "C:/Users/guilh/AppData/Roaming/Code/User/globalStorage/github.copilot-chat/copilotCli/valgrind.exe"
-      - "C:/Users/guilh/AppData/Roaming/Code/User/globalStorage/github.copilot-chat/copilotCli/valgrind"
-      - "C:/Users/guilh/AppData/Local/Programs/Microsoft VS Code/valgrind.com"
-      - "C:/Users/guilh/AppData/Local/Programs/Microsoft VS Code/valgrind.exe"
-      - "C:/Users/guilh/AppData/Local/Programs/Microsoft VS Code/valgrind"
       - "C:/Windows/System32/valgrind.com"
       - "C:/Windows/System32/valgrind.exe"
       - "C:/Windows/System32/valgrind"
@@ -1220,15 +1118,6 @@ events:
       - "/REGISTRY-NOTFOUND/valgrind.com"
       - "/REGISTRY-NOTFOUND/valgrind.exe"
       - "/REGISTRY-NOTFOUND/valgrind"
-      - "C:/Users/guilh/AppData/Roaming/Code/User/globalStorage/github.copilot-chat/debugCommand/boundscheck.com"
-      - "C:/Users/guilh/AppData/Roaming/Code/User/globalStorage/github.copilot-chat/debugCommand/boundscheck.exe"
-      - "C:/Users/guilh/AppData/Roaming/Code/User/globalStorage/github.copilot-chat/debugCommand/boundscheck"
-      - "C:/Users/guilh/AppData/Roaming/Code/User/globalStorage/github.copilot-chat/copilotCli/boundscheck.com"
-      - "C:/Users/guilh/AppData/Roaming/Code/User/globalStorage/github.copilot-chat/copilotCli/boundscheck.exe"
-      - "C:/Users/guilh/AppData/Roaming/Code/User/globalStorage/github.copilot-chat/copilotCli/boundscheck"
-      - "C:/Users/guilh/AppData/Local/Programs/Microsoft VS Code/boundscheck.com"
-      - "C:/Users/guilh/AppData/Local/Programs/Microsoft VS Code/boundscheck.exe"
-      - "C:/Users/guilh/AppData/Local/Programs/Microsoft VS Code/boundscheck"
       - "C:/Windows/System32/boundscheck.com"
       - "C:/Windows/System32/boundscheck.exe"
       - "C:/Windows/System32/boundscheck"
@@ -1319,15 +1208,6 @@ events:
       - "/REGISTRY-NOTFOUND/boundscheck.com"
       - "/REGISTRY-NOTFOUND/boundscheck.exe"
       - "/REGISTRY-NOTFOUND/boundscheck"
-      - "C:/Users/guilh/AppData/Roaming/Code/User/globalStorage/github.copilot-chat/debugCommand/drmemory.com"
-      - "C:/Users/guilh/AppData/Roaming/Code/User/globalStorage/github.copilot-chat/debugCommand/drmemory.exe"
-      - "C:/Users/guilh/AppData/Roaming/Code/User/globalStorage/github.copilot-chat/debugCommand/drmemory"
-      - "C:/Users/guilh/AppData/Roaming/Code/User/globalStorage/github.copilot-chat/copilotCli/drmemory.com"
-      - "C:/Users/guilh/AppData/Roaming/Code/User/globalStorage/github.copilot-chat/copilotCli/drmemory.exe"
-      - "C:/Users/guilh/AppData/Roaming/Code/User/globalStorage/github.copilot-chat/copilotCli/drmemory"
-      - "C:/Users/guilh/AppData/Local/Programs/Microsoft VS Code/drmemory.com"
-      - "C:/Users/guilh/AppData/Local/Programs/Microsoft VS Code/drmemory.exe"
-      - "C:/Users/guilh/AppData/Local/Programs/Microsoft VS Code/drmemory"
       - "C:/Windows/System32/drmemory.com"
       - "C:/Windows/System32/drmemory.exe"
       - "C:/Windows/System32/drmemory"
@@ -1418,15 +1298,6 @@ events:
       - "/REGISTRY-NOTFOUND/drmemory.com"
       - "/REGISTRY-NOTFOUND/drmemory.exe"
       - "/REGISTRY-NOTFOUND/drmemory"
-      - "C:/Users/guilh/AppData/Roaming/Code/User/globalStorage/github.copilot-chat/debugCommand/cuda-memcheck.com"
-      - "C:/Users/guilh/AppData/Roaming/Code/User/globalStorage/github.copilot-chat/debugCommand/cuda-memcheck.exe"
-      - "C:/Users/guilh/AppData/Roaming/Code/User/globalStorage/github.copilot-chat/debugCommand/cuda-memcheck"
-      - "C:/Users/guilh/AppData/Roaming/Code/User/globalStorage/github.copilot-chat/copilotCli/cuda-memcheck.com"
-      - "C:/Users/guilh/AppData/Roaming/Code/User/globalStorage/github.copilot-chat/copilotCli/cuda-memcheck.exe"
-      - "C:/Users/guilh/AppData/Roaming/Code/User/globalStorage/github.copilot-chat/copilotCli/cuda-memcheck"
-      - "C:/Users/guilh/AppData/Local/Programs/Microsoft VS Code/cuda-memcheck.com"
-      - "C:/Users/guilh/AppData/Local/Programs/Microsoft VS Code/cuda-memcheck.exe"
-      - "C:/Users/guilh/AppData/Local/Programs/Microsoft VS Code/cuda-memcheck"
       - "C:/Windows/System32/cuda-memcheck.com"
       - "C:/Windows/System32/cuda-memcheck.exe"
       - "C:/Windows/System32/cuda-memcheck"
@@ -1517,15 +1388,6 @@ events:
       - "/REGISTRY-NOTFOUND/cuda-memcheck.com"
       - "/REGISTRY-NOTFOUND/cuda-memcheck.exe"
       - "/REGISTRY-NOTFOUND/cuda-memcheck"
-      - "C:/Users/guilh/AppData/Roaming/Code/User/globalStorage/github.copilot-chat/debugCommand/compute-sanitizer.com"
-      - "C:/Users/guilh/AppData/Roaming/Code/User/globalStorage/github.copilot-chat/debugCommand/compute-sanitizer.exe"
-      - "C:/Users/guilh/AppData/Roaming/Code/User/globalStorage/github.copilot-chat/debugCommand/compute-sanitizer"
-      - "C:/Users/guilh/AppData/Roaming/Code/User/globalStorage/github.copilot-chat/copilotCli/compute-sanitizer.com"
-      - "C:/Users/guilh/AppData/Roaming/Code/User/globalStorage/github.copilot-chat/copilotCli/compute-sanitizer.exe"
-      - "C:/Users/guilh/AppData/Roaming/Code/User/globalStorage/github.copilot-chat/copilotCli/compute-sanitizer"
-      - "C:/Users/guilh/AppData/Local/Programs/Microsoft VS Code/compute-sanitizer.com"
-      - "C:/Users/guilh/AppData/Local/Programs/Microsoft VS Code/compute-sanitizer.exe"
-      - "C:/Users/guilh/AppData/Local/Programs/Microsoft VS Code/compute-sanitizer"
       - "C:/Windows/System32/compute-sanitizer.com"
       - "C:/Windows/System32/compute-sanitizer.exe"
       - "C:/Windows/System32/compute-sanitizer"
@@ -1619,9 +1481,6 @@ events:
     found: false
     search_context:
       ENV{PATH}:
-        - "c:\\Users\\guilh\\AppData\\Roaming\\Code\\User\\globalStorage\\github.copilot-chat\\debugCommand"
-        - "c:\\Users\\guilh\\AppData\\Roaming\\Code\\User\\globalStorage\\github.copilot-chat\\copilotCli"
-        - "C:\\Users\\guilh\\AppData\\Local\\Programs\\Microsoft VS Code"
         - "C:\\WINDOWS\\system32"
         - "C:\\WINDOWS"
         - "C:\\WINDOWS\\System32\\Wbem"
@@ -1665,9 +1524,6 @@ events:
     names:
       - "gcov"
     candidate_directories:
-      - "C:/Users/guilh/AppData/Roaming/Code/User/globalStorage/github.copilot-chat/debugCommand/"
-      - "C:/Users/guilh/AppData/Roaming/Code/User/globalStorage/github.copilot-chat/copilotCli/"
-      - "C:/Users/guilh/AppData/Local/Programs/Microsoft VS Code/"
       - "C:/Windows/System32/"
       - "C:/Windows/"
       - "C:/Windows/System32/wbem/"
@@ -1698,15 +1554,6 @@ events:
       - "C:/Program Files (x86)/KNS/sbin/"
       - "C:/Program Files (x86)/KNS/"
     searched_directories:
-      - "C:/Users/guilh/AppData/Roaming/Code/User/globalStorage/github.copilot-chat/debugCommand/gcov.com"
-      - "C:/Users/guilh/AppData/Roaming/Code/User/globalStorage/github.copilot-chat/debugCommand/gcov.exe"
-      - "C:/Users/guilh/AppData/Roaming/Code/User/globalStorage/github.copilot-chat/debugCommand/gcov"
-      - "C:/Users/guilh/AppData/Roaming/Code/User/globalStorage/github.copilot-chat/copilotCli/gcov.com"
-      - "C:/Users/guilh/AppData/Roaming/Code/User/globalStorage/github.copilot-chat/copilotCli/gcov.exe"
-      - "C:/Users/guilh/AppData/Roaming/Code/User/globalStorage/github.copilot-chat/copilotCli/gcov"
-      - "C:/Users/guilh/AppData/Local/Programs/Microsoft VS Code/gcov.com"
-      - "C:/Users/guilh/AppData/Local/Programs/Microsoft VS Code/gcov.exe"
-      - "C:/Users/guilh/AppData/Local/Programs/Microsoft VS Code/gcov"
       - "C:/Windows/System32/gcov.com"
       - "C:/Windows/System32/gcov.exe"
       - "C:/Windows/System32/gcov"
@@ -1753,9 +1600,6 @@ events:
     found: "C:/MinGW/bin/gcov.exe"
     search_context:
       ENV{PATH}:
-        - "c:\\Users\\guilh\\AppData\\Roaming\\Code\\User\\globalStorage\\github.copilot-chat\\debugCommand"
-        - "c:\\Users\\guilh\\AppData\\Roaming\\Code\\User\\globalStorage\\github.copilot-chat\\copilotCli"
-        - "C:\\Users\\guilh\\AppData\\Local\\Programs\\Microsoft VS Code"
         - "C:\\WINDOWS\\system32"
         - "C:\\WINDOWS"
         - "C:\\WINDOWS\\System32\\Wbem"
@@ -1805,9 +1649,6 @@ events:
       - "git.cmd"
       - "git"
     candidate_directories:
-      - "C:/Users/guilh/AppData/Roaming/Code/User/globalStorage/github.copilot-chat/debugCommand/"
-      - "C:/Users/guilh/AppData/Roaming/Code/User/globalStorage/github.copilot-chat/copilotCli/"
-      - "C:/Users/guilh/AppData/Local/Programs/Microsoft VS Code/"
       - "C:/Windows/System32/"
       - "C:/Windows/"
       - "C:/Windows/System32/wbem/"
@@ -1839,15 +1680,6 @@ events:
       - "C:/Program Files (x86)/KNS/"
       - "C:/Users/guilh/AppData/Local/Atlassian/SourceTree/git_local/bin/"
     searched_directories:
-      - "C:/Users/guilh/AppData/Roaming/Code/User/globalStorage/github.copilot-chat/debugCommand/git.cmd.com"
-      - "C:/Users/guilh/AppData/Roaming/Code/User/globalStorage/github.copilot-chat/debugCommand/git.cmd.exe"
-      - "C:/Users/guilh/AppData/Roaming/Code/User/globalStorage/github.copilot-chat/debugCommand/git.cmd"
-      - "C:/Users/guilh/AppData/Roaming/Code/User/globalStorage/github.copilot-chat/copilotCli/git.cmd.com"
-      - "C:/Users/guilh/AppData/Roaming/Code/User/globalStorage/github.copilot-chat/copilotCli/git.cmd.exe"
-      - "C:/Users/guilh/AppData/Roaming/Code/User/globalStorage/github.copilot-chat/copilotCli/git.cmd"
-      - "C:/Users/guilh/AppData/Local/Programs/Microsoft VS Code/git.cmd.com"
-      - "C:/Users/guilh/AppData/Local/Programs/Microsoft VS Code/git.cmd.exe"
-      - "C:/Users/guilh/AppData/Local/Programs/Microsoft VS Code/git.cmd"
       - "C:/Windows/System32/git.cmd.com"
       - "C:/Windows/System32/git.cmd.exe"
       - "C:/Windows/System32/git.cmd"
@@ -1938,15 +1770,6 @@ events:
       - "C:/Users/guilh/AppData/Local/Atlassian/SourceTree/git_local/bin/git.cmd.com"
       - "C:/Users/guilh/AppData/Local/Atlassian/SourceTree/git_local/bin/git.cmd.exe"
       - "C:/Users/guilh/AppData/Local/Atlassian/SourceTree/git_local/bin/git.cmd"
-      - "C:/Users/guilh/AppData/Roaming/Code/User/globalStorage/github.copilot-chat/debugCommand/git.com"
-      - "C:/Users/guilh/AppData/Roaming/Code/User/globalStorage/github.copilot-chat/debugCommand/git.exe"
-      - "C:/Users/guilh/AppData/Roaming/Code/User/globalStorage/github.copilot-chat/debugCommand/git"
-      - "C:/Users/guilh/AppData/Roaming/Code/User/globalStorage/github.copilot-chat/copilotCli/git.com"
-      - "C:/Users/guilh/AppData/Roaming/Code/User/globalStorage/github.copilot-chat/copilotCli/git.exe"
-      - "C:/Users/guilh/AppData/Roaming/Code/User/globalStorage/github.copilot-chat/copilotCli/git"
-      - "C:/Users/guilh/AppData/Local/Programs/Microsoft VS Code/git.com"
-      - "C:/Users/guilh/AppData/Local/Programs/Microsoft VS Code/git.exe"
-      - "C:/Users/guilh/AppData/Local/Programs/Microsoft VS Code/git"
       - "C:/Windows/System32/git.com"
       - "C:/Windows/System32/git.exe"
       - "C:/Windows/System32/git"
@@ -1966,9 +1789,6 @@ events:
     found: "C:/Program Files/Git/cmd/git.exe"
     search_context:
       ENV{PATH}:
-        - "c:\\Users\\guilh\\AppData\\Roaming\\Code\\User\\globalStorage\\github.copilot-chat\\debugCommand"
-        - "c:\\Users\\guilh\\AppData\\Roaming\\Code\\User\\globalStorage\\github.copilot-chat\\copilotCli"
-        - "C:\\Users\\guilh\\AppData\\Local\\Programs\\Microsoft VS Code"
         - "C:\\WINDOWS\\system32"
         - "C:\\WINDOWS"
         - "C:\\WINDOWS\\System32\\Wbem"
