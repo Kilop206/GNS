@@ -1,5 +1,10 @@
 $ROOT = "$PSScriptRoot\.."
-$PYTHON = "C:\Users\guilh\AppData\Local\Programs\Python\Python313\python.exe"
+$env:PATH = [System.Environment]::GetEnvironmentVariable("PATH", "Machine") + ";" + [System.Environment]::GetEnvironmentVariable("PATH", "User")
+$PYTHON = (Get-Command python -ErrorAction SilentlyContinue).Source
+if (-not $PYTHON) {
+    Write-Error "Python 3 not found. Please add Python to PATH."
+    exit 1
+}
 
 New-Item -ItemType Directory -Force -Path "$ROOT\build"
 Set-Location $ROOT\build

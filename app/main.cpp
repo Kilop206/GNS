@@ -15,47 +15,76 @@ using namespace kns;
 
 int main(int argc, char* argv[]) {
 
-    std::cout << "Starting..." << std::endl;
+    std::cout << "Starting...\n";
 
-	if (argc < 2) {
-		std::cerr << "Usage: ./kns_app <topology_file> (e.g: if you are in app, then use ./topologies/mesh.json)\n";
-		return 1;
-	}
+    if (argc < 2) {
+        std::cerr << "Usage: ./kns_app <topology_file> "
+                     "(e.g: ./topologies/mesh.json)\n";
+        return 1;
+    }
 
+    kns::RunConfig runConfig{"results.csv", 1};
 
-    kns::RunConfig runConfig = {"results.csv", 1};
+    std::string path = argv[1];
 
-	std::string path = argv[1];
+    for (int i = 1; i < argc; i++) {
 
-    Topology topo = TopologyLoader::load_topology(path);
+        if (i + 1 >= argc) continue;
 
-    for (int i = 0; i < argc; i++) {
+        std::string arg = argv[i];
+        std::string value = argv[i + 1];
 
-        if (i+1 < argc) {
+        if (arg == "--seed") {
+            runConfig.seed = std::stoi(value);
 
-            if (std::string(argv[i]) == "--seed") {
-                runConfig.seed = std::stoi(argv[i+1]);
+        } 
+        else if (arg == "--out") {
+            runConfig.filename = value;
+        }
+        else if (arg == "--packet_size") {
 
-            } else if (std::string(argv[i]) == "--out") {
-                runConfig.filename = argv[i+1];
+            int size = std::stoi(value);
 
-            } else if (std::string(argv[i]) == "--loss_prob") {
-                if (std::stod(argv[i+1]) >= 0.0 && std::stod(argv[i+1]) <= 1.0) {
-                    std::vector<std::vector<Link>>& links = topo.getLinks();
-
-                    for (int j = 0; j < links.size(); j++) {
-                        for (int k = 0; k < links[j].size(); k++) {
-                            links.at(j).at(k).loss_prob = std::stod(argv[i+1]);
-                        }
-                    }
-                } else {
-                    throw std::runtime_error("Invalid value for loss_prob (should be between 0.0 and 1.0)");
-                }
+            if (size <= 0) {
+                throw std::runtime_error("packet_size must be > 0");
             }
+
+            runConfig.packet_size = size;
         }
     }
 
+    Topology topo = TopologyLoader::load_topology(path);
+
     SimulationEngine engine(topo);
+
+    for (int i = 1; i < argc; i++) {
+
+        if (i + 1 >= argc) continue;
+
+        std::string arg = argv[i];
+        std::string value = argv[i + 1];
+
+        if (arg == "--loss_prob") {
+
+            double prob = std::stod(value);
+
+            if (prob < 0.0 || prob > 1.0) {
+                throw std::runtime_error(
+                    "loss_prob must be between 0.0 and 1.0"
+                );
+            }
+
+            auto& links = topo.getLinks();
+
+            for (auto& row : links) {
+                for (auto& link : row) {
+                    link.loss_prob = prob;
+                }
+            }
+        } 
+    }
+
+    srand(runConfig.seed);
 
     for (int i = 0; i < 100; i++) {
         int source = i % topo.size();
@@ -65,13 +94,11 @@ int main(int argc, char* argv[]) {
             i * 0.01,
             source,
             dest,
-            1500
+            runConfig.packet_size
         );
 
         engine.schedule(std::move(event));
     }
-    
-    srand(runConfig.seed);
 
     engine.run();
 
