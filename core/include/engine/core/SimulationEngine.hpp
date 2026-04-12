@@ -70,6 +70,9 @@ namespace kns {
         // Runs the simulation by processing events from the event queue.
         void run();
 
+       // Runs a single event
+        void processEvent();
+
         // Returns the current simulation time.
         double now() const;
 
