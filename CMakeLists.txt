@@ -18,6 +18,31 @@ FetchContent_MakeAvailable(Catch2)
 list(APPEND CMAKE_MODULE_PATH ${catch2_SOURCE_DIR}/extras)
 include(Catch)
 
+set(GLFW_DIR ${CMAKE_SOURCE_DIR}/external/glfw/include/glfw-3.4.bin.WIN64)
+
+add_library(glfw STATIC IMPORTED)
+set_target_properties(glfw PROPERTIES
+    IMPORTED_LOCATION ${GLFW_DIR}/lib-vc2022/glfw3.lib
+    INTERFACE_INCLUDE_DIRECTORIES ${GLFW_DIR}/include
+)
+
+set(IMGUI_DIR ${CMAKE_SOURCE_DIR}/external/imgui)
+
+add_library(imgui STATIC
+    ${IMGUI_DIR}/imgui.cpp
+    ${IMGUI_DIR}/imgui_draw.cpp
+    ${IMGUI_DIR}/imgui_tables.cpp
+    ${IMGUI_DIR}/imgui_widgets.cpp
+    ${IMGUI_DIR}/imgui_impl_glfw.cpp
+    ${IMGUI_DIR}/imgui_impl_opengl3.cpp
+)
+
+target_include_directories(imgui PUBLIC 
+    ${IMGUI_DIR}
+    ${GLFW_DIR}/include
+)
+target_link_libraries(imgui PUBLIC glfw)
+
 add_subdirectory(core)
 add_subdirectory(app)
 
