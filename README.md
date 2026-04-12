@@ -1,5 +1,15 @@
 # KNS — Kilop's Network Simulator
 
+## Quick Start
+```bash
+.\scripts\demo.ps1
+```
+
+Prerequisits:
+ - CMake
+ - Visual Studio
+ - Python 3
+
 ## Overview
 
 KNS is a network simulator oriented to events, focusing on determinism, modularity and solid scientific base.
@@ -27,8 +37,8 @@ Build the motor of a network simulator based on discret events that lets:
 	KNS/
 	|-- app/ # Main executable
 	|-- core/ # Main components for the simulation motor
-	|-- docs/ # DOcuments explaining the project
-	|-- results/ # Contains the reuslts of previous experiments
+	|-- docs/ # Documents explaining the project
+	|-- results/ # Contains the results of previous experiments
 	|-- scripts/ # Scripts that automatically run and create graphs
 	|-- tests / # Unitaty tests
 	|-- topologies / # JSON files of topologies models
@@ -40,7 +50,7 @@ Build the motor of a network simulator based on discret events that lets:
 
 On this section we will describe how you should run the scripts in order to have automated tests for your topology
 
-### 1st Enter scripts direcotry
+### 1st Enter scripts directory
 ```bash
 cd scripts
 ```
@@ -55,7 +65,7 @@ cd scripts
 py plot_results.py
 ```
 
-## Runned experiments
+## Results experiments
 
 ![Loss Rate vs Loss Probability](results/loss_rate_vs_loss_prob.png)
 ![Latency vs Loss Probability](results/latency_vs_loss_prob.png)
@@ -68,7 +78,7 @@ py plot_results.py
 
 - C++20
 - CMake
-- Catch2 (unitary tests)
+- Catch2 (unit tests)
 - Ctest
 
 ---

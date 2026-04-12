@@ -14,3 +14,11 @@ they traverse fewer hops.
 And on the second graph, named Loss Rate vs Loss Probability, the loss rate goes up as the loss probability
 goes up, and that relation is simple to be explained. That happens because, as more packets have the chance
 to be dropped, more packets are dropped, and so, the loss rate goes up.
+
+# Experiment 2: Packet Size
+
+On the third graph, being named Latency vs Packet Size, it was tested the relation between latency and 
+the size of the packets. Initially, it was thought that that the latency would grow as the packet sizes grows.
+ We can see that the packet sizes grow linearly as the latency grows, and that makes sense since the 
+latency is based on the packet size according to the formula transmission = (size * 8) / bandwidth.
+It was tested with the values 1500, 3000, 4500 and 6000.
