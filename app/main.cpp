@@ -3,6 +3,10 @@
 #include "imgui_impl_opengl3.h"
 #include <GLFW/glfw3.h>
 #include <iostream>
+#include <cmath>
+#include <vector>
+#include <utility>
+#include <numbers>
 
 #include "network/TopologyLoader.hpp"
 #include "network/Topology.hpp"
@@ -28,7 +32,7 @@ int main(int argc, char* argv[]) {
         ));
     }
 
-    GLFWwindow* window = glfwCreateWindow(720, 1280, "KNS Simulator", nullptr, nullptr);
+    GLFWwindow* window = glfwCreateWindow(1280, 720, "KNS", nullptr, nullptr);
     
     if (window == nullptr) return 1;
 
@@ -40,6 +44,15 @@ int main(int argc, char* argv[]) {
     ImGui_ImplGlfw_InitForOpenGL(window, true);
     ImGui_ImplOpenGL3_Init("#version 130");
 
+    std::vector<std::pair<float, float>> positions;
+
+    for (int i = 0; i < topo.size(); i++) {
+        std::pair pair = {
+            640 + 120 * std::cos(2 * std::numbers::pi * i / topo.size()),
+            260 + 120 * std::sin(2 * std::numbers::pi * i / topo.size())};
+        positions.push_back(pair);
+    }
+
     while (!glfwWindowShouldClose(window)) {
         engine.processEvent();
 
@@ -50,6 +63,12 @@ int main(int argc, char* argv[]) {
         ImGui::NewFrame();
         
         Stats stats = engine.getStats();
+
+        ImDrawList* draw_list = ImGui::GetBackgroundDrawList();
+
+        for (int i = 0; i < topo.size(); i++) {
+            draw_list->AddCircleFilled(ImVec2(positions[i].first, positions[i].second), 10.0f, IM_COL32(100, 200, 100, 255));
+        }
 
         ImGui::Begin("KNS");
         ImGui::Text("Packets sent: %d\nPackets Deliveried: %d\nPackets Lost: %d\nAverage Latency: %f", 
