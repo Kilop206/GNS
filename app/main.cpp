@@ -70,10 +70,27 @@ int main(int argc, char* argv[]) {
             draw_list->AddCircleFilled(ImVec2(positions[i].first, positions[i].second), 10.0f, IM_COL32(100, 200, 100, 255));
         }
 
-        ImGui::Begin("KNS");
-        ImGui::Text("Packets sent: %d\nPackets Deliveried: %d\nPackets Lost: %d\nAverage Latency: %f", 
-            stats.packets_sent, stats.packets_delivered, stats.packets_lost, (stats.total_latency / stats.packets_delivered));
-        ImGui::End();
+        for (int i = 0; i < topo.size(); i ++) {
+            for (int j = 0; j < 2; j++) {
+
+                ImVec2 p1;
+                ImVec2 p2;
+
+                p1 = ImVec2(positions[i].first, positions[i].second);
+
+                if (i == topo.size() - 1) {
+                    p2 = ImVec2(positions[0].first, positions[0].second);
+                } else {
+                    p2 = ImVec2(positions[i+1].first, positions[i+1].second);
+                }
+
+
+                ImU32 color = IM_COL32(255, 255, 0, 255);
+                float thickness = 2.0f;
+
+                draw_list->AddLine(p1, p2, color, thickness);
+            }
+        }
         
         ImGui::Render();
         glClear(GL_COLOR_BUFFER_BIT);
