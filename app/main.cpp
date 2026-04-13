@@ -54,7 +54,9 @@ int main(int argc, char* argv[]) {
     }
 
     while (!glfwWindowShouldClose(window)) {
-        engine.processEvent();
+        if (engine.hasEvents()) {
+            engine.processEvent();
+        }
 
         glfwPollEvents();
         
@@ -69,18 +71,11 @@ int main(int argc, char* argv[]) {
         for (int i = 0; i < topo.size(); i ++) {
             for (int j = 0; j < topo.getLinksFromNode(i).size(); j++) {
 
-                ImVec2 p1;
-                ImVec2 p2;
+                Link link = topo.getLinksFromNode(i)[j];
 
-                p1 = ImVec2(positions[i].first, positions[i].second);
-
-                if (i == topo.size() - 1) {
-                    p2 = ImVec2(positions[0].first, positions[0].second);
-                } else {
-                    p2 = ImVec2(positions[i+1].first, positions[i+1].second);
-                }
-
-
+                ImVec2 p1 = ImVec2(positions[link.from].first, positions[link.from].second);
+                ImVec2 p2 = ImVec2(positions[link.to].first, positions[link.to].second);
+                
                 ImU32 color = IM_COL32(255, 255, 0, 255);
                 float thickness = 2.0f;
 
