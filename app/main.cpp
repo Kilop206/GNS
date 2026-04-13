@@ -66,10 +66,6 @@ int main(int argc, char* argv[]) {
 
         ImDrawList* draw_list = ImGui::GetBackgroundDrawList();
 
-        for (int i = 0; i < topo.size(); i++) {
-            draw_list->AddCircleFilled(ImVec2(positions[i].first, positions[i].second), 10.0f, IM_COL32(100, 200, 100, 255));
-        }
-
         for (int i = 0; i < topo.size(); i ++) {
             for (int j = 0; j < 2; j++) {
 
@@ -90,6 +86,10 @@ int main(int argc, char* argv[]) {
 
                 draw_list->AddLine(p1, p2, color, thickness);
             }
+        }
+
+        for (int i = 0; i < topo.size(); i++) {
+            draw_list->AddCircleFilled(ImVec2(positions[i].first, positions[i].second), 10.0f, IM_COL32(100, 200, 100, 255));
         }
         
         ImGui::Render();
