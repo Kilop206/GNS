@@ -67,7 +67,7 @@ int main(int argc, char* argv[]) {
         ImDrawList* draw_list = ImGui::GetBackgroundDrawList();
 
         for (int i = 0; i < topo.size(); i ++) {
-            for (int j = 0; j < 2; j++) {
+            for (int j = 0; j < topo.getLinksFromNode(i).size(); j++) {
 
                 ImVec2 p1;
                 ImVec2 p2;
