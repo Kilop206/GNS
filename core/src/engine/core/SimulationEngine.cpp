@@ -155,4 +155,8 @@ namespace kns {
             << avg_latency << ","
             << runConfig.seed  << "\n";
     }
+
+    bool SimulationEngine::hasEvents() const {
+        return event_queue_.hasEvents();
+    }
 }

@@ -93,6 +93,8 @@ namespace kns {
 
         // Exports the collected statistics to a CSV file for analysis.
         void exportStatsCSV(const RunConfig& runConfig);
+
+        bool hasEvents() const;
     };
 
 }
