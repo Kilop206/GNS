@@ -9,6 +9,7 @@ namespace kns {
         const int destination;
         int current_node;
         double creation_time;
+        double departure_time;
         std::size_t packet_size_bytes;
         int hop_count = 0;
 
