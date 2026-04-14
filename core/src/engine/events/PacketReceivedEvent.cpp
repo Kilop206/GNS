@@ -52,5 +52,6 @@ namespace kns {
 
         // Schedule the packet to be sent over the selected link. This involves calculating the arrival time of the packet at the next node based on the properties of the link (such as delay and bandwidth) and then scheduling a new PacketReceivedEvent for the next node at that calculated arrival time. The sendPacket method of the simulation engine is responsible for handling the logic of sending the packet, including updating its current node and scheduling the appropriate events.
         engine.sendPacket(packet, *selected_link, timestamp_);
+        engine.removePacketInTransit(packet.departure_time, u, packet.destination);
     }
 }

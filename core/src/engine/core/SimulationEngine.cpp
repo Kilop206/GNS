@@ -118,11 +118,14 @@ namespace kns {
         Packet new_pkt = pkt;
         new_pkt.current_node = next_node;
         new_pkt.hop_count++;
+        new_pkt.departure_time = now;
 
         auto event = std::make_unique<PacketReceivedEvent>(
             arrival_time,
             new_pkt
         );
+
+        packets_in_transit.push_back(PacketTravelInfo(now, arrival_time, link.from, link.to));
 
         event_queue_.schedule(std::move(event));
     }
@@ -158,5 +161,22 @@ namespace kns {
 
     bool SimulationEngine::hasEvents() const {
         return event_queue_.hasEvents();
+    }
+
+    std::vector<PacketTravelInfo>& SimulationEngine::getPacketsInTransit() {
+        return packets_in_transit;
+    }
+
+    void SimulationEngine::removePacketInTransit(double departure_time, int from_node, int to_node) {
+        for (int i = 0; i < packets_in_transit.size(); i++) {
+            if (packets_in_transit[i].departure_time == departure_time &&
+                packets_in_transit[i].from_node == from_node &&
+                packets_in_transit[i].to_node == to_node
+                ) {
+                
+                packets_in_transit.erase(packets_in_transit.begin() + i);
+                break;
+            }
+        }
     }
 }

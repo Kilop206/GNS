@@ -26,6 +26,8 @@ void PacketGenerationEvent::execute(SimulationEngine& engine) {
         packet_size_
     );
 
+    pkt.departure_time = engine.now();
+
     // Get the next hop for the packet from the source to the destination. This is done by querying the routing table in the simulation engine, which provides the next node that the packet should be forwarded to in order to reach its destination. If there is no valid next hop (i.e., if getNextHop returns -1), it means that there is no route from the source to the destination, and we can simply return without scheduling any further events, as the packet cannot be forwarded.
     int next = engine.getNextHop(source_, destination_);
     if (next == -1) return;

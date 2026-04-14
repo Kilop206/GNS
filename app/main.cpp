@@ -23,7 +23,7 @@ int main(int argc, char* argv[]) {
 
     SimulationEngine engine(topo);
 
-    for (int i = 0; i < 10; i++) {
+    for (int i = 0; i < 100; i++) {
         engine.schedule(std::make_unique<PacketGenerationEvent>(
             i * 0.01,
             i % topo.size(),
@@ -85,6 +85,21 @@ int main(int argc, char* argv[]) {
 
         for (int i = 0; i < topo.size(); i++) {
             draw_list->AddCircleFilled(ImVec2(positions[i].first, positions[i].second), 10.0f, IM_COL32(100, 200, 100, 255));
+        }
+
+        for (int i = 0; i < engine.getPacketsInTransit().size(); i++) {
+            double t = (engine.now() - engine.getPacketsInTransit()[i].departure_time) / 
+                (engine.getPacketsInTransit()[i].arrival_time - engine.getPacketsInTransit()[i].departure_time);
+
+            t = std::max(0.0, std::min(1.0, t));
+            
+            double x = positions[engine.getPacketsInTransit()[i].from_node].first + 
+                (positions[engine.getPacketsInTransit()[i].to_node].first - positions[engine.getPacketsInTransit()[i].from_node].first) * t;
+
+            double y = positions[engine.getPacketsInTransit()[i].from_node].second + 
+                (positions[engine.getPacketsInTransit()[i].to_node].second - positions[engine.getPacketsInTransit()[i].from_node].second) * t;
+
+            draw_list->AddCircleFilled(ImVec2(x, y), 10.0f, IM_COL32(200, 100, 200, 255));
         }
         
         ImGui::Render();

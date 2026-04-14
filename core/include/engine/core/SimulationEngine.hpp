@@ -16,6 +16,7 @@
 #include "network/Packet.hpp"
 #include "network/Link.hpp"
 #include "engine/core/RunConfig.hpp"
+#include "network/PacketTravelInfo.hpp"
 
 namespace kns {
 
@@ -54,6 +55,8 @@ namespace kns {
         // Event queue for managing scheduled events
         EventQueue event_queue_;
 
+        //Vector with info about the packets
+        std::vector<PacketTravelInfo> packets_in_transit;
     public:
 
 
@@ -95,6 +98,10 @@ namespace kns {
         void exportStatsCSV(const RunConfig& runConfig);
 
         bool hasEvents() const;
+
+        std::vector<PacketTravelInfo>& getPacketsInTransit();
+
+        void removePacketInTransit(double departure_time, int from_node, int to_node);
     };
 
 }
