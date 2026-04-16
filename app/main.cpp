@@ -14,7 +14,11 @@
 #include "engine/events/PacketGenerationEvent.hpp"
 #include "engine/core/Stats.hpp"
 
+#include "gui/include/MetricsPannel.hpp"
+#include "gui/include/Window.hpp"
+
 using namespace kns;
+using namespace interface;
 
 int main(int argc, char* argv[]) {
     if (!glfwInit()) return 1;
@@ -32,18 +36,6 @@ int main(int argc, char* argv[]) {
         ));
     }
 
-    GLFWwindow* window = glfwCreateWindow(1280, 720, "KNS", nullptr, nullptr);
-    
-    if (window == nullptr) return 1;
-
-    glfwMakeContextCurrent(window);
-    glfwSwapInterval(1);
-    
-    IMGUI_CHECKVERSION();
-    ImGui::CreateContext();
-    ImGui_ImplGlfw_InitForOpenGL(window, true);
-    ImGui_ImplOpenGL3_Init("#version 130");
-
     std::vector<std::pair<float, float>> positions;
 
     for (int i = 0; i < topo.size(); i++) {
@@ -52,6 +44,10 @@ int main(int argc, char* argv[]) {
             260 + 120 * std::sin(2 * std::numbers::pi * i / topo.size())};
         positions.push_back(pair);
     }
+
+    Window windowMethods;
+
+    GLFWwindow* window = windowMethods.generate_window();
 
     while (!glfwWindowShouldClose(window)) {
         if (engine.hasEvents()) {
