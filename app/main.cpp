@@ -17,11 +17,14 @@
 
 #include "gui/include/MetricsPannel.hpp"
 #include "gui/include/Window.hpp"
+#include "engine/core/SimulationState.hpp"
 
 using namespace kns;
 using namespace interface;
 
 int main(int argc, char* argv[]) {
+
+    SimulationState state = SimulationState::Running;
 
     if (argc < 2) {
         throw std::runtime_error("Usage: ./kns_app <topology_file>");
@@ -58,7 +61,8 @@ int main(int argc, char* argv[]) {
     }
 
     while (!glfwWindowShouldClose(window)) {
-        if (engine.hasEvents()) {
+
+        if (state == SimulationState::Running && engine.hasEvents()) {
             engine.processEvent();
         }
 
@@ -71,6 +75,19 @@ int main(int argc, char* argv[]) {
         Stats stats = engine.getStats();
 
         ImGui::Begin("KNS");
+
+        if (ImGui::Button(state == SimulationState::Paused ? "Resume" : "Pause")) {
+            if (state == SimulationState::Paused)
+                state = SimulationState::Running;
+            else
+                state = SimulationState::Paused;
+        }
+
+        if (state == SimulationState::Paused && ImGui::Button("Step")) {
+            if (engine.hasEvents()) {
+                engine.processEvent();
+            }
+        }
 
         MetricsPannel panel;
         panel.render(stats);
