@@ -33,6 +33,14 @@ namespace kns {
 
 	}
 
+	void Topology::setGlobalLossProb(float value) {
+		for (auto& row : adjacency_list) {
+			for (auto& link : row) {
+				link.loss_prob = value;
+			}
+		}
+	}
+
 	std::vector<std::vector<Link>>& Topology::getLinks() {
 		return adjacency_list;
 	}

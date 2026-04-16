@@ -74,14 +74,7 @@ int main(int argc, char* argv[]) {
         
         Stats stats = engine.getStats();
 
-        ImGui::Begin("KNS");
-
-        if (ImGui::Button(state == SimulationState::Paused ? "Resume" : "Pause")) {
-            if (state == SimulationState::Paused)
-                state = SimulationState::Running;
-            else
-                state = SimulationState::Paused;
-        }
+        ImGui::Begin("Stats");
 
         if (state == SimulationState::Paused && ImGui::Button("Step")) {
             if (engine.hasEvents()) {
@@ -91,6 +84,22 @@ int main(int argc, char* argv[]) {
 
         MetricsPannel panel;
         panel.render(stats);
+
+
+        if (ImGui::Button(state == SimulationState::Paused ? "Resume" : "Pause")) {
+            if (state == SimulationState::Paused)
+                state = SimulationState::Running;
+            else
+                state = SimulationState::Paused;
+        }
+
+
+        static float lossProb = 0.0f;
+
+        if (ImGui::SliderFloat("Loss Probability", &lossProb, 0.0f, 1.0f)) {
+            engine.setGlobalLossProb(lossProb);
+        }
+
 
         ImGui::End();
 

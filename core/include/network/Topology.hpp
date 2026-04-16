@@ -29,5 +29,7 @@ namespace kns {
 		int size() const;
 
 		std::vector<std::vector<Link>>& getLinks();
+
+		void setGlobalLossProb(float value);
 	};
 }

@@ -57,6 +57,8 @@ namespace kns {
 
         //Vector with info about the packets
         std::vector<PacketTravelInfo> packets_in_transit;
+
+        float globalLossProb = 0.0f;
     public:
 
 
@@ -102,6 +104,8 @@ namespace kns {
         std::vector<PacketTravelInfo>& getPacketsInTransit();
 
         void removePacketInTransit(double departure_time, int from_node, int to_node);
+
+        void setGlobalLossProb(float value);
     };
 
 }

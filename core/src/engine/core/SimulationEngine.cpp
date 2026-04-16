@@ -179,4 +179,11 @@ namespace kns {
             }
         }
     }
+
+    void SimulationEngine::setGlobalLossProb(float value) {
+        if (globalLossProb == value) return;
+
+        globalLossProb = value;
+        topology_.setGlobalLossProb(value);
+    }
 }
