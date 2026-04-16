@@ -186,4 +186,12 @@ namespace kns {
         globalLossProb = value;
         topology_.setGlobalLossProb(value);
     }
+
+    void SimulationEngine::setGlobalPacketSize(float value) {
+        globalPacketSize = value;
+    }
+
+    int SimulationEngine::getGlobalPacketSize() const {
+        return globalPacketSize;
+    }
 }

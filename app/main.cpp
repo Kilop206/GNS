@@ -31,29 +31,30 @@ int main(int argc, char* argv[]) {
     }
 
     Topology topo = TopologyLoader::load_topology(argv[1]);
-
     SimulationEngine engine(topo);
+
+    static int packetSize = 1000;
+    engine.setGlobalPacketSize(packetSize);
 
     for (int i = 0; i < 100; i++) {
         engine.schedule(std::make_unique<PacketGenerationEvent>(
             i * 0.001,
             i % topo.size(),
-            (i + 1) % topo.size(),
-            i * 1000
+            (i + 1) % topo.size()
         ));
     }
 
     std::vector<std::pair<float, float>> positions;
 
     for (int i = 0; i < topo.size(); i++) {
-        std::pair pair = {
-            640 + 120 * std::cos(2 * std::numbers::pi * i / topo.size()),
-            260 + 120 * std::sin(2 * std::numbers::pi * i / topo.size())};
+        std::pair<float, float> pair = {
+            640.0f + 120.0f * std::cos(2.0 * std::numbers::pi * i / topo.size()),
+            260.0f + 120.0f * std::sin(2.0 * std::numbers::pi * i / topo.size())
+        };
         positions.push_back(pair);
     }
 
     Window windowMethods;
-
     GLFWwindow* window = windowMethods.generate_window();
 
     if (!window) {
@@ -67,11 +68,11 @@ int main(int argc, char* argv[]) {
         }
 
         glfwPollEvents();
-        
+
         ImGui_ImplOpenGL3_NewFrame();
         ImGui_ImplGlfw_NewFrame();
         ImGui::NewFrame();
-        
+
         Stats stats = engine.getStats();
 
         ImGui::Begin("Stats");
@@ -85,34 +86,34 @@ int main(int argc, char* argv[]) {
         MetricsPannel panel;
         panel.render(stats);
 
-
         if (ImGui::Button(state == SimulationState::Paused ? "Resume" : "Pause")) {
-            if (state == SimulationState::Paused)
-                state = SimulationState::Running;
-            else
-                state = SimulationState::Paused;
+            state = (state == SimulationState::Paused)
+                ? SimulationState::Running
+                : SimulationState::Paused;
         }
 
-
         static float lossProb = 0.0f;
-
         if (ImGui::SliderFloat("Loss Probability", &lossProb, 0.0f, 1.0f)) {
             engine.setGlobalLossProb(lossProb);
         }
 
+        if (ImGui::SliderInt("Packet Size (bytes)", &packetSize, 100, 10'000)) {
+            engine.setGlobalPacketSize(packetSize);
+        }
+
+        ImGui::Text("Current packet size: %d bytes", packetSize);
 
         ImGui::End();
 
         ImDrawList* draw_list = ImGui::GetBackgroundDrawList();
 
-        for (int i = 0; i < topo.size(); i ++) {
+        for (int i = 0; i < topo.size(); i++) {
             for (int j = 0; j < topo.getLinksFromNode(i).size(); j++) {
-
                 Link link = topo.getLinksFromNode(i)[j];
 
                 ImVec2 p1 = ImVec2(positions[link.from].first, positions[link.from].second);
                 ImVec2 p2 = ImVec2(positions[link.to].first, positions[link.to].second);
-                
+
                 ImU32 color = IM_COL32(255, 255, 0, 255);
                 float thickness = 2.0f;
 
@@ -121,24 +122,28 @@ int main(int argc, char* argv[]) {
         }
 
         for (int i = 0; i < topo.size(); i++) {
-            draw_list->AddCircleFilled(ImVec2(positions[i].first, positions[i].second), 10.0f, IM_COL32(100, 200, 100, 255));
+            draw_list->AddCircleFilled(
+                ImVec2(positions[i].first, positions[i].second),
+                10.0f,
+                IM_COL32(100, 200, 100, 255)
+            );
         }
 
         for (int i = 0; i < engine.getPacketsInTransit().size(); i++) {
-            double t = (engine.now() - engine.getPacketsInTransit()[i].departure_time) / 
+            double t = (engine.now() - engine.getPacketsInTransit()[i].departure_time) /
                 (engine.getPacketsInTransit()[i].arrival_time - engine.getPacketsInTransit()[i].departure_time);
 
             t = std::max(0.0, std::min(1.0, t));
-            
-            double x = positions[engine.getPacketsInTransit()[i].from_node].first + 
+
+            double x = positions[engine.getPacketsInTransit()[i].from_node].first +
                 (positions[engine.getPacketsInTransit()[i].to_node].first - positions[engine.getPacketsInTransit()[i].from_node].first) * t;
 
-            double y = positions[engine.getPacketsInTransit()[i].from_node].second + 
+            double y = positions[engine.getPacketsInTransit()[i].from_node].second +
                 (positions[engine.getPacketsInTransit()[i].to_node].second - positions[engine.getPacketsInTransit()[i].from_node].second) * t;
 
             draw_list->AddCircleFilled(ImVec2(x, y), 10.0f, IM_COL32(200, 100, 200, 255));
         }
-        
+
         ImGui::Render();
         glClear(GL_COLOR_BUFFER_BIT);
         ImGui_ImplOpenGL3_RenderDrawData(ImGui::GetDrawData());

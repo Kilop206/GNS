@@ -1,7 +1,6 @@
 #pragma once
 
 #include "engine/events/Event.hpp"
-#include "network/Packet.hpp"
 
 namespace kns {
 
@@ -10,8 +9,7 @@ class PacketGenerationEvent : public Event {
         PacketGenerationEvent(
             double timestamp,
             int source,
-            int destination,
-            int packet_size
+            int destination
         );
 
         void execute(SimulationEngine& engine) override;
@@ -19,7 +17,6 @@ class PacketGenerationEvent : public Event {
     private:
         int source_;
         int destination_;
-        int packet_size_;
     };
 
 }
