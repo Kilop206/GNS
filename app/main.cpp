@@ -7,6 +7,7 @@
 #include <vector>
 #include <utility>
 #include <numbers>
+#include <stdexcept>
 
 #include "network/TopologyLoader.hpp"
 #include "network/Topology.hpp"
@@ -21,7 +22,6 @@ using namespace kns;
 using namespace interface;
 
 int main(int argc, char* argv[]) {
-    if (!glfwInit()) return 1;
 
     Topology topo = TopologyLoader::load_topology(argv[1]);
 
@@ -61,6 +61,13 @@ int main(int argc, char* argv[]) {
         ImGui::NewFrame();
         
         Stats stats = engine.getStats();
+
+        ImGui::Begin("KNS");
+
+        MetricsPannel panel;
+        panel.render(stats);
+
+        ImGui::End();
 
         ImDrawList* draw_list = ImGui::GetBackgroundDrawList();
 
