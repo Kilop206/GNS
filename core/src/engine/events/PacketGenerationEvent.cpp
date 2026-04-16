@@ -6,13 +6,11 @@ namespace kns {
 PacketGenerationEvent::PacketGenerationEvent(
     double timestamp,
     int source,
-    int destination,
-    int packet_size
+    int destination
 )
     : Event(timestamp),
       source_(source),
-      destination_(destination),
-      packet_size_(packet_size)
+      destination_(destination)
 {}
 
 void PacketGenerationEvent::execute(SimulationEngine& engine) {
@@ -23,7 +21,7 @@ void PacketGenerationEvent::execute(SimulationEngine& engine) {
         destination_,
         source_,
         engine.now(),
-        packet_size_
+        engine.getGlobalPacketSize()
     );
 
     pkt.departure_time = engine.now();
