@@ -25,7 +25,7 @@ int main(int argc, char* argv[]) {
 
     for (int i = 0; i < 100; i++) {
         engine.schedule(std::make_unique<PacketGenerationEvent>(
-            i * 0.01,
+            i * 0.001,
             i % topo.size(),
             (i + 1) % topo.size(),
             i * 1000
