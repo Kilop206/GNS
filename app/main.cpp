@@ -23,6 +23,10 @@ using namespace interface;
 
 int main(int argc, char* argv[]) {
 
+    if (argc < 2) {
+        throw std::runtime_error("Usage: ./kns_app <topology_file>");
+    }
+
     Topology topo = TopologyLoader::load_topology(argv[1]);
 
     SimulationEngine engine(topo);
@@ -48,6 +52,10 @@ int main(int argc, char* argv[]) {
     Window windowMethods;
 
     GLFWwindow* window = windowMethods.generate_window();
+
+    if (!window) {
+        throw std::runtime_error("Failed to create GLFW window");
+    }
 
     while (!glfwWindowShouldClose(window)) {
         if (engine.hasEvents()) {
