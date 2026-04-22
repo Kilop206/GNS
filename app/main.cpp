@@ -3,6 +3,8 @@
 #include "imgui_impl_opengl3.h"
 #include <GLFW/glfw3.h>
 
+#include "ImGuiFileDialog.h"
+
 #include <iostream>
 #include <cmath>
 #include <vector>
@@ -225,63 +227,71 @@ void renderSelectedNodePanel(
     ImGui::End();
 }
 
-void visualizeWindow(
-    SimulationEngine& engine,
-    const Topology& topo,
-    const std::vector<std::pair<float, float>>& positions,
-    SimulationState& state,
-    GLFWwindow* window,
-    CircularBuffer& buffer,
-    int& packetSize
-) {
+// --- Main Visualization Loop ---
+
+void visualizeWindow(SimulationEngine& engine, Topology& topo, std::vector<std::pair<float, float>>& positions, 
+                     SimulationState& state, GLFWwindow* window, CircularBuffer& buffer, int& packetSize) {
     int selected_node = -1;
     std::vector<Routing::RoutingEntry> routingTable;
     Routing routing;
+    static bool firstFrame = true;
 
     while (!glfwWindowShouldClose(window)) {
-        if (state == SimulationState::Running && engine.hasEvents()) {
-            engine.processEvent();
-        }
-
+        if (state == SimulationState::Running && engine.hasEvents()) engine.processEvent();
         glfwPollEvents();
 
         ImGui_ImplOpenGL3_NewFrame();
         ImGui_ImplGlfw_NewFrame();
         ImGui::NewFrame();
 
-        Stats stats = engine.getStats();
+        if (firstFrame && topo.size() == 0) {
+            ImGuiFileDialog::Instance()->OpenDialog("TopologyKey", "Select Initial Topology", ".json");
+            firstFrame = false;
+        }
 
-        generateWindow(engine, state, stats, buffer, packetSize);
+        generateWindow(engine, state, engine.getStats(), buffer, packetSize);
 
-        // Clique no nó: detecta aqui e atualiza estado persistente.
         if (ImGui::IsMouseClicked(ImGuiMouseButton_Left)) {
-            int clicked = pickNodeAtMouse(positions, 10.0f);
-
-            selected_node = clicked;
-
-            if (selected_node != -1) {
-                routingTable = routing.buildRoutingTable(topo, selected_node);
-            } else {
-                routingTable.clear();
-            }
+            selected_node = pickNodeAtMouse(positions, 10.0f);
+            if (selected_node != -1) routingTable = routing.buildRoutingTable(topo, selected_node);
+            else routingTable.clear();
         }
 
         ImDrawList* draw_list = ImGui::GetBackgroundDrawList();
-
         drawLinks(draw_list, topo, positions);
         drawNodes(draw_list, topo, positions, selected_node);
         drawPackets(draw_list, positions, engine);
 
-        if (ImGui::Button("Open Topology", ImVec2(20, 20))) {
-            
+        ImGui::Begin("Configurações");
+        if (ImGui::Button("Load Topology")) {
+             ImGuiFileDialog::Instance()->OpenDialog("TopologyKey", "Select File", ".json");
         }
 
-        renderSelectedNodePanel(selected_node, routingTable);
+        if (ImGuiFileDialog::Instance()->Display("TopologyKey", ImGuiWindowFlags_NoCollapse, ImVec2(400, 300))) {
+            if (ImGuiFileDialog::Instance()->IsOk()) {
+                std::string completePath = ImGuiFileDialog::Instance()->GetFilePathName();
+                try {
+                    topo = TopologyLoader::load_topology(completePath);
+                    engine = SimulationEngine(topo); 
+                    engine.setGlobalPacketSize(packetSize);
+                    engine.setLatencyObserver([&buffer](double lat) { buffer.addLatencyToBuffer((float)lat); });
+                    positions = generatePositions(topo);
+                    generatePackets(engine, topo);
+                    state = SimulationState::Paused;
+                    selected_node = -1;
+                    routingTable.clear();
+                } catch (const std::exception& e) { std::cerr << "Load error: " << e.what() << std::endl; }
+            }
+            ImGuiFileDialog::Instance()->Close();
+        }
+        ImGui::End();
 
+        renderSelectedNodePanel(selected_node, routingTable);
         ImGui::Render();
         glClear(GL_COLOR_BUFFER_BIT);
         ImGui_ImplOpenGL3_RenderDrawData(ImGui::GetDrawData());
         glfwSwapBuffers(window);
+        firstFrame = false;
     }
 }
 
@@ -294,17 +304,20 @@ void shutdownWindow(GLFWwindow* window) {
 }
 
 int main(int argc, char* argv[]) {
-    if (argc < 2) {
-        throw std::runtime_error("Usage: ./kns_app <topology_file>");
+    if (argc < 2 || argv[1] == nullptr) {
+        std::cerr << "Uso: kns_app <arquivo_topologia.json>" << std::endl;
+        return -1;
     }
 
     SimulationState state = SimulationState::Paused;
+
     Topology topo = TopologyLoader::load_topology(argv[1]);
+
     SimulationEngine engine(topo);
     CircularBuffer buffer;
 
-    engine.setLatencyObserver([&buffer](double latency) {
-        buffer.addLatencyToBuffer(static_cast<float>(latency));
+    engine.setLatencyObserver([&buffer](double lat) {
+        buffer.addLatencyToBuffer(static_cast<float>(lat));
     });
 
     int packetSize = 1000;
@@ -318,7 +331,8 @@ int main(int argc, char* argv[]) {
     GLFWwindow* window = windowMethods.generate_window();
 
     if (!window) {
-        throw std::runtime_error("Failed to create GLFW window");
+        std::cerr << "Falha ao criar janela GLFW" << std::endl;
+        return -1;
     }
 
     visualizeWindow(engine, topo, positions, state, window, buffer, packetSize);
