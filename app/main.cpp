@@ -272,6 +272,10 @@ void visualizeWindow(
         drawNodes(draw_list, topo, positions, selected_node);
         drawPackets(draw_list, positions, engine);
 
+        if (ImGui::Button("Open Topology", ImVec2(20, 20))) {
+            
+        }
+
         renderSelectedNodePanel(selected_node, routingTable);
 
         ImGui::Render();
