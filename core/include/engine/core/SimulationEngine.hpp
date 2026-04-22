@@ -6,6 +6,7 @@
 #include <cstdint>
 #include <string>
 #include <unordered_map>
+#include <functional>
 
 #include "network/Topology.hpp"
 #include "network/Routing.hpp"
@@ -61,6 +62,8 @@ namespace kns {
         float globalLossProb = 0.0f;
 
         int globalPacketSize = 0;
+
+        std::function<void(double)> latencyObserver_;
     public:
 
 
@@ -105,11 +108,14 @@ namespace kns {
 
         std::vector<PacketTravelInfo>& getPacketsInTransit();
 
-        void removePacketInTransit(double departure_time, int from_node, int to_node);
+        void removePacketInTransit(double departure_time, double arrival_time);
 
         void setGlobalLossProb(float value);
 
         void setGlobalPacketSize(float value);
+
+        void setLatencyObserver(std::function<void(double)> observer);
+        void notifyLatencyDelivered(double latency);
 
         int getGlobalPacketSize() const;
     };

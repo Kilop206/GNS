@@ -6,10 +6,11 @@
 #include <GLFW/glfw3.h>
 
 #include "../../../core/include/engine/core/Stats.hpp"
+#include "LatencyChart.hpp"
 
 namespace interface {
     class MetricsPannel {
-        public:
-            void render(const kns::Stats& stats);
+    public:
+        void render(const kns::Stats& stats, const CircularBuffer& buffer);
     };
 }

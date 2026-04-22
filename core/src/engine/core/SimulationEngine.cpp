@@ -1,8 +1,10 @@
 #include <memory>
+#include <cstddef>
 #include <queue>
 #include <cmath>
 #include <iostream>
 #include <fstream>
+#include <utility>
 
 #include "engine/core/SimulationEngine.hpp"
 #include "engine/events/Event.hpp"
@@ -167,13 +169,10 @@ namespace kns {
         return packets_in_transit;
     }
 
-    void SimulationEngine::removePacketInTransit(double departure_time, int from_node, int to_node) {
-        for (int i = 0; i < packets_in_transit.size(); i++) {
+    void SimulationEngine::removePacketInTransit(double departure_time, double arrival_time) {
+        for (std::size_t i = 0; i < packets_in_transit.size(); ++i) {
             if (packets_in_transit[i].departure_time == departure_time &&
-                packets_in_transit[i].from_node == from_node &&
-                packets_in_transit[i].to_node == to_node
-                ) {
-                
+                packets_in_transit[i].arrival_time == arrival_time) {
                 packets_in_transit.erase(packets_in_transit.begin() + i);
                 break;
             }
@@ -189,6 +188,16 @@ namespace kns {
 
     void SimulationEngine::setGlobalPacketSize(float value) {
         globalPacketSize = value;
+    }
+
+    void SimulationEngine::setLatencyObserver(std::function<void(double)> observer) {
+        latencyObserver_ = std::move(observer);
+    }
+
+    void SimulationEngine::notifyLatencyDelivered(double latency) {
+        if (latencyObserver_) {
+            latencyObserver_(latency);
+        }
     }
 
     int SimulationEngine::getGlobalPacketSize() const {
