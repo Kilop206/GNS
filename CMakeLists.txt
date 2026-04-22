@@ -30,6 +30,7 @@ set(GLFW_BUILD_EXAMPLES OFF CACHE BOOL "" FORCE)
 FetchContent_MakeAvailable(glfw)
 
 set(IMGUI_DIR ${CMAKE_SOURCE_DIR}/external/imgui)
+set(IMGUI_FILE_DIALOG ${CMAKE_SOURCE_DIR}/external/imguifiledialog)
 
 add_library(imgui STATIC
     ${IMGUI_DIR}/imgui.cpp
@@ -38,11 +39,19 @@ add_library(imgui STATIC
     ${IMGUI_DIR}/imgui_widgets.cpp
     ${IMGUI_DIR}/imgui_impl_glfw.cpp
     ${IMGUI_DIR}/imgui_impl_opengl3.cpp
+    ${IMGUI_FILE_DIALOG}/ImGuiFileDialog.cpp
 )
 
-target_include_directories(imgui PUBLIC ${IMGUI_DIR})
+target_include_directories(imgui PUBLIC 
+    ${IMGUI_DIR}
+    ${IMGUI_FILE_DIALOG}
+)
 
 target_link_libraries(imgui PUBLIC glfw)
+
+if(NOT WIN32)
+    target_link_libraries(imgui PUBLIC ${CMAKE_DL_LIBS})
+endif()
 
 add_subdirectory(core)
 add_subdirectory(app)
