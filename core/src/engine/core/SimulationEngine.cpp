@@ -25,8 +25,10 @@ namespace kns {
 
     // Constructor that initializes the simulation engine with a given topology
     SimulationEngine::SimulationEngine(const Topology& topology)
-        : topology_(topology) {
+    : topology_(topology)
+    {
         int n = topology_.size();
+
         routing_tables_.resize(n);
 
         Routing routing;
@@ -58,7 +60,7 @@ namespace kns {
 
     // Get the next hop from the current node to the destination
     int SimulationEngine::getNextHop(int current, int destination) const {
-        return routing_tables_[current][destination];
+        return routing_tables_[current][destination].next_hop;
     }
 
     // Run the simulation until there are no more events to process
