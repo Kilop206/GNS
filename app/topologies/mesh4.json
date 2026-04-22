@@ -24,17 +24,10 @@
     },
     {
       "from": 3,
-      "to": 4,
+      "to": 0,
       "delay": 6,
       "bandwidth": 100,
       "loss": 0.005
-    },
-    {
-      "from": 4,
-      "to": 0,
-      "delay": 20,
-      "bandwidth": 50,
-      "loss": 0.03
     }
   ]
 }

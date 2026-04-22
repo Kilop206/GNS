@@ -24,7 +24,7 @@
     },
     {
       "from": 3,
-      "to": 40,
+      "to": 0,
       "delay": 6,
       "bandwidth": 100,
       "loss": 0.005
