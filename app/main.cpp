@@ -15,9 +15,9 @@
 #include "engine/core/SimulationEngine.hpp"
 #include "engine/events/PacketGenerationEvent.hpp"
 #include "engine/core/Stats.hpp"
-
 #include "gui/include/MetricsPannel.hpp"
 #include "gui/include/Window.hpp"
+#include "gui/include/LatencyChart.hpp"
 #include "engine/core/SimulationState.hpp"
 
 using namespace kns;
@@ -25,7 +25,7 @@ using namespace interface;
 
 // Helper Functions
 void generatePackets(SimulationEngine& engine, const Topology& topo) {
-    for (int i = 0; i < 100; i++) {
+    for (int i = 0; i < 1000; i++) {
         engine.schedule(std::make_unique<PacketGenerationEvent>(
             i * 0.001,
             i % topo.size(),
@@ -49,7 +49,7 @@ std::vector<std::pair<float, float>> generatePositions(const Topology& topo) {
 }
 
 // GUI & Rendering Functions
-void generateWindow(SimulationEngine& engine, SimulationState& state, const Stats& stats, int& packetSize) {
+void generateWindow(SimulationEngine& engine, SimulationState& state, const Stats& stats, CircularBuffer& buffer, int& packetSize) {
     ImGui::Begin("Stats");
 
     if (state == SimulationState::Paused && ImGui::Button("Step")) {
@@ -59,7 +59,7 @@ void generateWindow(SimulationEngine& engine, SimulationState& state, const Stat
     }
 
     MetricsPannel panel;
-    panel.render(stats);
+    panel.render(stats, buffer);
 
     if (ImGui::Button(state == SimulationState::Paused ? "Resume" : "Pause")) {
         state = (state == SimulationState::Paused)
@@ -72,7 +72,6 @@ void generateWindow(SimulationEngine& engine, SimulationState& state, const Stat
         engine.setGlobalLossProb(lossProb);
     }
 
-    // packetSize is now passed by reference, so the slider will correctly update it globally
     if (ImGui::SliderInt("Packet Size (bytes)", &packetSize, 100, 10'000)) {
         engine.setGlobalPacketSize(packetSize);
     }
@@ -129,6 +128,7 @@ void visualizeWindow(SimulationEngine& engine,
                     const std::vector<std::pair<float, float>>& positions, 
                     SimulationState& state, 
                     GLFWwindow* window, 
+                    CircularBuffer& buffer,
                     int& packetSize) {
 
     while (!glfwWindowShouldClose(window)) {
@@ -145,8 +145,7 @@ void visualizeWindow(SimulationEngine& engine,
 
         Stats stats = engine.getStats();
 
-        // Pass by reference fixes apply here
-        generateWindow(engine, state, stats, packetSize);
+        generateWindow(engine, state, stats, buffer, packetSize);
 
         ImDrawList* draw_list = ImGui::GetBackgroundDrawList();
 
@@ -175,9 +174,13 @@ int main(int argc, char* argv[]) {
         throw std::runtime_error("Usage: ./kns_app <topology_file>");
     }
 
-    SimulationState state = SimulationState::Running;
+    SimulationState state = SimulationState::Paused;
     Topology topo = TopologyLoader::load_topology(argv[1]);
     SimulationEngine engine(topo);
+    CircularBuffer buffer;
+    engine.setLatencyObserver([&buffer](double latency) {
+        buffer.addLatencyToBuffer(static_cast<float>(latency));
+    });
 
     int packetSize = 1000;
     engine.setGlobalPacketSize(packetSize);
@@ -193,7 +196,7 @@ int main(int argc, char* argv[]) {
         throw std::runtime_error("Failed to create GLFW window");
     }
 
-    visualizeWindow(engine, topo, positions, state, window, packetSize);
+    visualizeWindow(engine, topo, positions, state, window, buffer, packetSize);
 
     shutdownWindow(window);
 

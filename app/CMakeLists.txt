@@ -1,6 +1,7 @@
 add_executable(kns_app main.cpp
     gui/src/Window.cpp
     gui/src/MetricsPannel.cpp
+    gui/src/LatencyChart.cpp
 )
 
 target_link_libraries(kns_app 
