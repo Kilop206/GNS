@@ -2,6 +2,7 @@
 #include "imgui_impl_glfw.h"
 #include "imgui_impl_opengl3.h"
 #include <GLFW/glfw3.h>
+
 #include <iostream>
 #include <cmath>
 #include <vector>
@@ -9,9 +10,12 @@
 #include <numbers>
 #include <stdexcept>
 #include <algorithm>
+#include <string>
+#include <memory>
 
 #include "network/TopologyLoader.hpp"
 #include "network/Topology.hpp"
+#include "network/Routing.hpp"
 #include "engine/core/SimulationEngine.hpp"
 #include "engine/events/PacketGenerationEvent.hpp"
 #include "engine/core/Stats.hpp"
@@ -25,6 +29,10 @@ using namespace interface;
 
 // Helper Functions
 void generatePackets(SimulationEngine& engine, const Topology& topo) {
+    if (topo.size() <= 0) {
+        return;
+    }
+
     for (int i = 0; i < 1000; i++) {
         engine.schedule(std::make_unique<PacketGenerationEvent>(
             i * 0.001,
@@ -38,18 +46,46 @@ std::vector<std::pair<float, float>> generatePositions(const Topology& topo) {
     std::vector<std::pair<float, float>> positions;
     positions.reserve(topo.size());
 
+    if (topo.size() <= 0) {
+        return positions;
+    }
+
     for (int i = 0; i < topo.size(); i++) {
         std::pair<float, float> pair = {
-            640.0f + 120.0f * std::cos(2.0f * std::numbers::pi * i / topo.size()),
-            260.0f + 120.0f * std::sin(2.0f * std::numbers::pi * i / topo.size())
+            640.0f + 120.0f * std::cos(2.0f * std::numbers::pi_v<float> * i / topo.size()),
+            260.0f + 120.0f * std::sin(2.0f * std::numbers::pi_v<float> * i / topo.size())
         };
         positions.push_back(pair);
     }
     return positions;
 }
 
-// GUI & Rendering Functions
-void generateWindow(SimulationEngine& engine, SimulationState& state, const Stats& stats, CircularBuffer& buffer, int& packetSize) {
+int pickNodeAtMouse(
+    const std::vector<std::pair<float, float>>& positions,
+    float radius
+) {
+    ImVec2 mouse_pos = ImGui::GetMousePos();
+
+    for (int i = 0; i < static_cast<int>(positions.size()); i++) {
+        float dx = mouse_pos.x - positions[i].first;
+        float dy = mouse_pos.y - positions[i].second;
+        float dist2 = dx * dx + dy * dy;
+
+        if (dist2 <= radius * radius) {
+            return i;
+        }
+    }
+
+    return -1;
+}
+
+void generateWindow(
+    SimulationEngine& engine,
+    SimulationState& state,
+    const Stats& stats,
+    CircularBuffer& buffer,
+    int& packetSize
+) {
     ImGui::Begin("Stats");
 
     if (state == SimulationState::Paused && ImGui::Button("Step")) {
@@ -81,7 +117,11 @@ void generateWindow(SimulationEngine& engine, SimulationState& state, const Stat
     ImGui::End();
 }
 
-void drawLinks(ImDrawList* draw_list, const Topology& topo, const std::vector<std::pair<float, float>>& positions) {
+void drawLinks(
+    ImDrawList* draw_list,
+    const Topology& topo,
+    const std::vector<std::pair<float, float>>& positions
+) {
     for (int i = 0; i < topo.size(); i++) {
         const auto& links = topo.getLinksFromNode(i);
         for (const auto& link : links) {
@@ -96,21 +136,45 @@ void drawLinks(ImDrawList* draw_list, const Topology& topo, const std::vector<st
     }
 }
 
-void drawNodes(ImDrawList* draw_list, const Topology& topo, const std::vector<std::pair<float, float>>& positions) {
+void drawNodes(
+    ImDrawList* draw_list,
+    const Topology& topo,
+    const std::vector<std::pair<float, float>>& positions,
+    int selected_node
+) {
     for (int i = 0; i < topo.size(); i++) {
+        ImU32 color = (i == selected_node)
+            ? IM_COL32(255, 255, 0, 255)
+            : IM_COL32(100, 200, 100, 255);
+
         draw_list->AddCircleFilled(
             ImVec2(positions[i].first, positions[i].second),
             10.0f,
-            IM_COL32(100, 200, 100, 255)
+            color
+        );
+
+        draw_list->AddText(
+            ImVec2(positions[i].first + 12.0f, positions[i].second - 6.0f),
+            IM_COL32(255, 255, 255, 255),
+            std::to_string(i).c_str()
         );
     }
 }
 
-void drawPackets(ImDrawList* draw_list, const std::vector<std::pair<float, float>>& positions, SimulationEngine& engine) {
+void drawPackets(
+    ImDrawList* draw_list,
+    const std::vector<std::pair<float, float>>& positions,
+    SimulationEngine& engine
+) {
     const auto& packets = engine.getPacketsInTransit();
-    
+
     for (const auto& packet : packets) {
-        double t = (engine.now() - packet.departure_time) / (packet.arrival_time - packet.departure_time);
+        double denom = (packet.arrival_time - packet.departure_time);
+        if (denom <= 0.0) {
+            continue;
+        }
+
+        double t = (engine.now() - packet.departure_time) / denom;
         t = std::max(0.0, std::min(1.0, t));
 
         double x = positions[packet.from_node].first +
@@ -119,20 +183,62 @@ void drawPackets(ImDrawList* draw_list, const std::vector<std::pair<float, float
         double y = positions[packet.from_node].second +
             (positions[packet.to_node].second - positions[packet.from_node].second) * t;
 
-        draw_list->AddCircleFilled(ImVec2(static_cast<float>(x), static_cast<float>(y)), 10.0f, IM_COL32(200, 100, 200, 255));
+        draw_list->AddCircleFilled(
+            ImVec2(static_cast<float>(x), static_cast<float>(y)),
+            10.0f,
+            IM_COL32(200, 100, 200, 255)
+        );
     }
 }
 
-void visualizeWindow(SimulationEngine& engine, 
-                    const Topology& topo,
-                    const std::vector<std::pair<float, float>>& positions, 
-                    SimulationState& state, 
-                    GLFWwindow* window, 
-                    CircularBuffer& buffer,
-                    int& packetSize) {
+void renderSelectedNodePanel(
+    int selected_node,
+    const std::vector<Routing::RoutingEntry>& routingTable
+) {
+    if (selected_node < 0) {
+        return;
+    }
+
+    std::string title = "Node: " + std::to_string(selected_node);
+    ImGui::Begin(title.c_str());
+
+    ImGui::Text("Selected node: %d", selected_node);
+    ImGui::Separator();
+
+    if (routingTable.empty()) {
+        ImGui::Text("Routing table is empty.");
+    } else {
+        for (const auto& entry : routingTable) {
+            if (entry.distance == std::numeric_limits<double>::infinity()) {
+                ImGui::Text("Dest: %d | Next: - | Dist: inf", entry.destination);
+            } else {
+                ImGui::Text(
+                    "Dest: %d | Next: %d | Dist: %.2f",
+                    entry.destination,
+                    entry.next_hop,
+                    entry.distance
+                );
+            }
+        }
+    }
+
+    ImGui::End();
+}
+
+void visualizeWindow(
+    SimulationEngine& engine,
+    const Topology& topo,
+    const std::vector<std::pair<float, float>>& positions,
+    SimulationState& state,
+    GLFWwindow* window,
+    CircularBuffer& buffer,
+    int& packetSize
+) {
+    int selected_node = -1;
+    std::vector<Routing::RoutingEntry> routingTable;
+    Routing routing;
 
     while (!glfwWindowShouldClose(window)) {
-
         if (state == SimulationState::Running && engine.hasEvents()) {
             engine.processEvent();
         }
@@ -147,11 +253,26 @@ void visualizeWindow(SimulationEngine& engine,
 
         generateWindow(engine, state, stats, buffer, packetSize);
 
+        // Clique no nó: detecta aqui e atualiza estado persistente.
+        if (ImGui::IsMouseClicked(ImGuiMouseButton_Left)) {
+            int clicked = pickNodeAtMouse(positions, 10.0f);
+
+            selected_node = clicked;
+
+            if (selected_node != -1) {
+                routingTable = routing.buildRoutingTable(topo, selected_node);
+            } else {
+                routingTable.clear();
+            }
+        }
+
         ImDrawList* draw_list = ImGui::GetBackgroundDrawList();
 
         drawLinks(draw_list, topo, positions);
-        drawNodes(draw_list, topo, positions);
+        drawNodes(draw_list, topo, positions, selected_node);
         drawPackets(draw_list, positions, engine);
+
+        renderSelectedNodePanel(selected_node, routingTable);
 
         ImGui::Render();
         glClear(GL_COLOR_BUFFER_BIT);
@@ -168,7 +289,6 @@ void shutdownWindow(GLFWwindow* window) {
     glfwTerminate();
 }
 
-// Main Execution
 int main(int argc, char* argv[]) {
     if (argc < 2) {
         throw std::runtime_error("Usage: ./kns_app <topology_file>");
@@ -178,6 +298,7 @@ int main(int argc, char* argv[]) {
     Topology topo = TopologyLoader::load_topology(argv[1]);
     SimulationEngine engine(topo);
     CircularBuffer buffer;
+
     engine.setLatencyObserver([&buffer](double latency) {
         buffer.addLatencyToBuffer(static_cast<float>(latency));
     });
@@ -199,6 +320,5 @@ int main(int argc, char* argv[]) {
     visualizeWindow(engine, topo, positions, state, window, buffer, packetSize);
 
     shutdownWindow(window);
-
     return 0;
 }

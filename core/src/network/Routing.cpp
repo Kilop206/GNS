@@ -2,6 +2,8 @@
 #include <vector>
 #include <queue>
 #include <cassert>
+#include <functional>
+#include <utility>
 
 #include "network/Routing.hpp"
 #include "network/Topology.hpp"
@@ -9,10 +11,7 @@
 
 namespace kns {
 
-	// Dijkstra's algorithm to compute shortest paths from a source node to all other nodes in the topology
-	// Complexity: O((V + E) log V)
 	Routing::DijkstraResult Routing::buildDijkstra(const Topology& topology, int src) {
-
 		int n = topology.size();
 		assert(src >= 0 && src < n);
 
@@ -27,15 +26,16 @@ namespace kns {
 			std::greater<>
 		> pq;
 
-		dist[src] = 0;
-		pq.push({0, src});
+		dist[src] = 0.0;
+		pq.push({0.0, src});
 
 		while (!pq.empty()) {
 			auto [currentDist, u] = pq.top();
 			pq.pop();
 
-			// Skip outdated entries (lazy deletion optimization)
-			if (currentDist > dist[u]) continue;
+			if (currentDist > dist[u]) {
+				continue;
+			}
 
 			const auto& adjacency = topology.getLinksFromNode(u);
 
@@ -54,52 +54,51 @@ namespace kns {
 		return {dist, parent};
 	}
 
-
-	/* Builds the routing table for a given source node.
-	   nextHop[d] = first node after src on the shortest path to d */
-	std::vector<int> Routing::buildRoutingTable(const Topology& topology, int src) {
-
+	std::vector<Routing::RoutingEntry> Routing::buildRoutingTable(const Topology& topology, int src) {
 		int n = topology.size();
 		assert(src >= 0 && src < n);
 
 		DijkstraResult result = buildDijkstra(topology, src);
-
-		std::vector<int> nextHop(n, -1);
 
 		const auto& parent = result.parent;
 		const auto& dist = result.dist;
 
 		const double inf = std::numeric_limits<double>::infinity();
 
-		for (int d = 0; d < n; ++d) {
+		std::vector<RoutingEntry> table;
+		table.reserve(n);
 
-			// No route or same node
+		for (int d = 0; d < n; ++d) {
+			RoutingEntry entry;
+			entry.destination = d;
+			entry.distance = dist[d];
+			entry.next_hop = -1;
+
 			if (d == src || dist[d] == inf) {
-				nextHop[d] = -1;
+				table.push_back(entry);
 				continue;
 			}
 
 			int current = d;
 
-			// Walk back until we reach a direct neighbor of src
 			while (parent[current] != src) {
-
 				current = parent[current];
 
-				// Safety check (should not happen if dist[d] != inf)
 				if (current == -1) {
-					nextHop[d] = -1;
-					break;
+					entry.next_hop = -1;
+					table.push_back(entry);
+					goto next_destination;
 				}
 			}
 
-			// If valid, current is the next hop
-			if (current != -1) {
-				nextHop[d] = current;
-			}
+			entry.next_hop = current;
+			table.push_back(entry);
+
+		next_destination:
+			continue;
 		}
 
-		return nextHop;
+		return table;
 	}
 
 }

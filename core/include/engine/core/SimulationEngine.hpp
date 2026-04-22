@@ -37,7 +37,7 @@ namespace kns {
         Topology topology_;
 
         // Routing tables for each node.
-        std::vector<std::vector<int>> routing_tables_;
+        std::vector<std::vector<Routing::RoutingEntry>> routing_tables_;
 
         // Event comparison functor for priority queue.
         struct EventCompare {
