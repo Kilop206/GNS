@@ -305,7 +305,7 @@ void shutdownWindow(GLFWwindow* window) {
 
 int main(int argc, char* argv[]) {
     if (argc < 2 || argv[1] == nullptr) {
-        std::cerr << "Uso: kns_app <arquivo_topologia.json>" << std::endl;
+        std::cerr << "Usage: kns_app <topology_file.json>" << std::endl;
         return -1;
     }
 
