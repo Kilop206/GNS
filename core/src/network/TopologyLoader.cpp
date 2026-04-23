@@ -41,7 +41,11 @@ namespace kns {
             link.delay_ms = l["delay"];
             link.bandwidth_mbps = l["bandwidth"];
             link.loss_prob = l["loss"];
+<<<<<<< HEAD
             
+=======
+
+>>>>>>> 62cac551fcd6431e59b7eddd1e3601c3ec016cd5
             topology.addLink(link);
         }
 
