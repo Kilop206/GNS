@@ -1,32 +1,67 @@
-import pandas
-import os
-import glob
+from __future__ import annotations
+
+from pathlib import Path
+import re
+
+import matplotlib
+matplotlib.use('Agg')
 import matplotlib.pyplot as plt
+import pandas as pd
 
-packet_sizes = []
-latencies = []
+SCRIPT_DIR = Path(__file__).resolve().parent
+ROOT_DIR = SCRIPT_DIR.parent
+DATA_DIR = ROOT_DIR / 'results' / 'packet_size'
+OUTPUT_DIR = ROOT_DIR / 'results'
+
+PATTERN = re.compile(r'^results_packet_size_(?P<value>.+)$')
 
 
-def generateLatencyLossProb(latencies, packet_sizes) :
+def _load_series() -> tuple[list[float], list[float]]:
+    packet_sizes: list[float] = []
+    latencies: list[float] = []
+
+    for file_path in sorted(DATA_DIR.glob('results_packet_size_*.csv')):
+        match = PATTERN.match(file_path.stem)
+        if not match:
+            continue
+
+        df = pd.read_csv(file_path)
+        if df.empty:
+            continue
+
+        packet_sizes.append(float(match.group('value')))
+        latencies.append(float(df['Average Latency'].iloc[0]))
+
+    if not packet_sizes:
+        raise FileNotFoundError(f'No CSV files found in {DATA_DIR}')
+
+    ordered = sorted(zip(packet_sizes, latencies), key=lambda item: item[0])
+    sizes, lats = zip(*ordered)
+    return list(sizes), list(lats)
+
+
+def _save_plot(x: list[float], y: list[float], title: str, xlabel: str, ylabel: str, output: Path) -> None:
     plt.figure()
-    plt.plot(packet_sizes, latencies)
+    plt.plot(x, y)
+    plt.title(title)
+    plt.xlabel(xlabel)
+    plt.ylabel(ylabel)
+    output.parent.mkdir(parents=True, exist_ok=True)
+    plt.savefig(output, bbox_inches='tight')
+    plt.close()
 
-    plt.title("Packets Sizes x Latencies")
-    plt.xlabel("Packets Sizes")
-    plt.ylabel("Latencies")
 
-    plt.savefig("../results/latency_vs_packet_size.png")
+def main() -> None:
+    packet_sizes, latencies = _load_series()
+    _save_plot(
+        packet_sizes,
+        latencies,
+        'Packet Sizes x Latencies',
+        'Packet Sizes',
+        'Latencies',
+        OUTPUT_DIR / 'latency_vs_packet_size.png',
+    )
 
 
-for file in glob.glob("../results/packet_size/*.csv") :
-    df = pandas.read_csv(file)
-    latencies.append(df["Average Latency"][0])
-
-    parts = file.split("_")
-    packet_size = os.path.splitext(parts[4])[0]
-    packet_sizes.append(float(packet_size))
-
-sorted_data = sorted(zip(packet_sizes, latencies))
-packet_sizes, latencies = zip(*sorted_data)
-
-generateLatencyLossProb(latencies, packet_sizes)
+if __name__ == '__main__':
+    main()
