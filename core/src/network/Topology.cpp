@@ -1,10 +1,7 @@
 #include "network/Topology.hpp"
 
 namespace kns {
-<<<<<<< HEAD
-=======
-
->>>>>>> 62cac551fcd6431e59b7eddd1e3601c3ec016cd5
+	
 	// Constructor to initialize the topology with a given number of nodes
 	Topology::Topology(int nodes) : num_nodes(nodes) {
 
@@ -47,11 +44,4 @@ namespace kns {
 	std::vector<std::vector<Link>>& Topology::getLinks() {
 		return adjacency_list;
 	}
-<<<<<<< HEAD
-
-	void Topology::resize(int new_size){
-		adjacency_list.resize(new_size);
-	}
-=======
->>>>>>> 62cac551fcd6431e59b7eddd1e3601c3ec016cd5
 }
