@@ -16,11 +16,8 @@ namespace kns {
 
 	public:
 
-<<<<<<< HEAD
 		Topology() = default;
 
-=======
->>>>>>> 62cac551fcd6431e59b7eddd1e3601c3ec016cd5
 		// Constructor to initialize the topology with a given number of nodes
 		Topology(int num_nodes);
 
@@ -36,10 +33,5 @@ namespace kns {
 		std::vector<std::vector<Link>>& getLinks();
 
 		void setGlobalLossProb(float value);
-<<<<<<< HEAD
-
-		void resize(int new_size);
-=======
->>>>>>> 62cac551fcd6431e59b7eddd1e3601c3ec016cd5
 	};
 }
