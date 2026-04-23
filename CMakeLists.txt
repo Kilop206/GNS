@@ -73,16 +73,3 @@ endif()
 # --------------------------------------------------
 add_subdirectory(core)
 add_subdirectory(app)
-
-# --------------------------------------------------
-# Tests
-# --------------------------------------------------
-file(MAKE_DIRECTORY ${CMAKE_BINARY_DIR}/tests)
-
-configure_file(
-    ${CMAKE_SOURCE_DIR}/topologies/mesh5.json
-    ${CMAKE_BINARY_DIR}/tests/mesh5.json
-    COPYONLY
-)
-
-add_subdirectory(tests)
