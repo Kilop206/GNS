@@ -179,14 +179,12 @@ py plot_results_packet_size.py  # Plots latency vs. packet size
 
 CSVs are saved to `results/` and the generated plots can be viewed directly.
 
-
-
 ### Results
-[Dashboard](results/v0.9/test_#1/dashboard.png)
-[Drop Heatmap Mesh4.json](results/v0.9/test_#1/drop_heatmap_mes4.png)
-[Drops Over Time](results/v0.9/test_#1/drops_over_time.png)
-[Latency Distribution](results/v0.9/test_#1/latency_distribution.png)
-[Latency Over Time](results/v0.9/test_#1/latency_over_time)
+![Dashboard](results/v0.9/test_1/dashboard.png)
+![Drop Heatmap Mesh4](results/v0.9/test_1/drop_heatmap_mesh4.png)
+![Drops Over Time](results/v0.9/test_1/drops_over_time.png)
+![Latency Distribution](results/v0.9/test_1/latency_distribution.png)
+![Latency Over Time](results/v0.9/test_1/latency_over_time.png)
 
 **Key findings:**
 - Average latency **decreases** as loss probability increases — dropped packets (which typically travel more hops) are excluded from the latency calculation, pulling the average down.
