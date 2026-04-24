@@ -4,7 +4,6 @@ KNS Runner v0.9
 ---------------
 - Gera resultados em ../results/v0.9/test_#N/
 - Funciona em Windows, Linux e macOS (cross-platform)
-- Roda o simulador em segundo plano, sem abrir janela gráfica
 - Gera gráficos e relatórios de latência, tempo e outros dados do sistema
 """
 
@@ -24,7 +23,7 @@ from datetime import datetime
 from pathlib import Path
 
 import matplotlib
-matplotlib.use("Agg")          # backend não-interativo (sem janela)
+matplotlib.use("Agg")
 import matplotlib.pyplot as plt
 import matplotlib.gridspec as gridspec
 import numpy as np
