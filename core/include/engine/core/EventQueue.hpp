@@ -22,6 +22,9 @@ namespace kns {
 		// Returns the number of events currently in the queue.
         std::size_t size() const noexcept;
 
+		// Returns the timestamp of the next event without removing it.
+        double peekTimestamp() const noexcept;
+
 		// Clears all events from the queue, resetting it to an empty state.
         void clear();
 

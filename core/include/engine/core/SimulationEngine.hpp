@@ -63,6 +63,8 @@ namespace kns {
 
         int globalPacketSize = 0;
 
+        double simulation_speed_multiplier_ = 1.0;
+
         std::function<void(double)> latencyObserver_;
     public:
 
@@ -82,6 +84,9 @@ namespace kns {
 
        // Runs a single event
         void processEvent();
+
+        // Returns the timestamp of the next scheduled event, if any.
+        double peekNextEventTime() const;
 
         // Returns the current simulation time.
         double now() const;
