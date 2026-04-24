@@ -77,7 +77,7 @@ def get_test_dir(base: Path) -> Path:
     base.mkdir(parents=True, exist_ok=True)
     i = 1
     while True:
-        d = base / f"test_#{i}"
+        d = base / f"test_{i}"
         if not d.exists():
             d.mkdir(parents=True)
             return d
