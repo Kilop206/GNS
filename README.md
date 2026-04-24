@@ -154,28 +154,15 @@ Inside the GUI you can:
 
 
 
-### Quick start (full demo)
-```powershell
-.\scripts\demo.ps1
+### Experiments & Scripts
+```bash
+cd scripts
+python3 .\run.py ..\app\topologies\
 ```
 
 This script builds the project, runs all experiments, and generates the plots automatically.
 
 ---
-
-
-
-## Experiments & Scripts
-The scripts under `scripts/` automate headless batch simulations and plot generation.
-
-```powershell
-# Run from the project root:
-cd scripts
-.\run_all.ps1                   # Sweeps loss probability (0.0 to 0.30)
-.\run_packet_size.ps1           # Sweeps packet size (1500 to 6000 bytes)
-py plot_results.py              # Plots loss rate and latency vs. loss probability
-py plot_results_packet_size.py  # Plots latency vs. packet size
-```
 
 CSVs are saved to `results/` and the generated plots can be viewed directly.
 
