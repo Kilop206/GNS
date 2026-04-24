@@ -1,19 +1,20 @@
 # KNS — Kilop's Network Simulator
-
 > A discrete-event network simulator focused on determinism, modularity, and a solid scientific foundation.
 
 ---
 
-## Overview
 
+
+## Overview
 KNS is an event-driven network simulator inspired by projects like ns-3 and Cisco Packet Tracer. It started as a learning exercise in C++ and networking, but grew into a more complex project with a high-level architecture, clear separation of concerns, and real-time GUI visualization.
 
 The simulator lets you model network topologies, configure parameters such as packet loss probability and packet size, and observe metrics like latency and loss rate during execution.
 
 ---
 
-## Features
 
+
+## Features
 - **Discrete-event simulation** with deterministic logical time
 - **Dijkstra-based routing**, computed once at topology load time
 - **Configurable topologies** via JSON files
@@ -26,8 +27,9 @@ The simulator lets you model network topologies, configure parameters such as pa
 
 ---
 
-## Architecture
 
+
+## Architecture
 ```
 KNS/
 ├── app/                    # Main executable and GUI (ImGui + GLFW + OpenGL3)
@@ -50,8 +52,9 @@ KNS/
 └── CMakeLists.txt
 ```
 
-### Key modules
 
+
+### Key modules
 **`core/`** — generic, reusable simulation engine:
 - `SimulationEngine` — orchestrates the simulation loop, manages the event queue, routing tables, and statistics.
 - `EventQueue` — priority queue that orders events by timestamp; ties are broken by insertion ID, guaranteeing absolute determinism.
@@ -65,8 +68,9 @@ KNS/
 
 ---
 
-## Design Decisions
 
+
+## Design Decisions
 | Decision | Rationale |
 |---|---|
 | `std::priority_queue` for events | Ensures correct chronological ordering; ties resolved by ID for full determinism |
@@ -77,8 +81,9 @@ KNS/
 
 ---
 
-## Topology Format (JSON)
 
+
+## Topology Format (JSON)
 ```json
 {
   "nodes": 5,
@@ -99,8 +104,9 @@ KNS/
 
 ---
 
-## Prerequisites
 
+
+## Prerequisites
 - **CMake** ≥ 3.20
 - **Visual Studio** (multi-config generator, tested on Windows)
 - **Python 3** (for the plotting scripts)
@@ -109,8 +115,9 @@ KNS/
 
 ---
 
-## Building
 
+
+## Building
 ```bash
 # 1. Generate build files
 cmake -S . -B build
@@ -124,12 +131,16 @@ ctest -C Debug --output-on-failure
 
 ---
 
+
+
 ## Running
 
-### Interactive GUI
 
+
+### Interactive GUI
 ```bash
 .\build\app\Debug\kns_app.exe <path_to_topology.json>
+
 # Example:
 .\build\app\Debug\kns_app.exe .\topologies\mesh5.json
 ```
@@ -141,8 +152,9 @@ Inside the GUI you can:
 - Click any node to inspect its **routing table**
 - Load a different topology via the **Load Topology** button
 
-### Quick start (full demo)
 
+
+### Quick start (full demo)
 ```powershell
 .\scripts\demo.ps1
 ```
@@ -151,8 +163,9 @@ This script builds the project, runs all experiments, and generates the plots au
 
 ---
 
-## Experiments & Scripts
 
+
+## Experiments & Scripts
 The scripts under `scripts/` automate headless batch simulations and plot generation.
 
 ```powershell
@@ -166,8 +179,9 @@ py plot_results_packet_size.py  # Plots latency vs. packet size
 
 CSVs are saved to `results/` and the generated plots can be viewed directly.
 
-### Results
 
+
+### Results
 ![Loss Rate vs Loss Probability](results/loss_rate_vs_loss_prob.png)
 ![Latency vs Loss Probability](results/latency_vs_loss_prob.png)
 
@@ -180,8 +194,9 @@ CSVs are saved to `results/` and the generated plots can be viewed directly.
 
 ---
 
-## Tech Stack
 
+
+## Tech Stack
 | Technology | Role |
 |---|---|
 | **C++20** | Core language |
@@ -195,6 +210,7 @@ CSVs are saved to `results/` and the generated plots can be viewed directly.
 
 ---
 
-## License
 
+
+## License
 Distributed under the terms described in [LICENSE](LICENSE).
