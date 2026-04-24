@@ -1,6 +1,6 @@
 #pragma once
 
-#include <cstdio>
+#include <cstddef>
 
 namespace kns {
     class Packet {

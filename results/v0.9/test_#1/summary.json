@@ -1,63 +1,65 @@
 {
-  "generated_at": "2026-04-23T17:53:44.806375",
+  "generated_at": "2026-04-24T10:46:08.811276",
   "run_config": {
-    "project_root": "C:\\Users\\guilh\\Desktop\\KNS",
-    "topologies_dir": "C:\\Users\\guilh\\Desktop\\KNS\\app\\topologies",
-    "executable": "C:\\Users\\guilh\\Desktop\\KNS\\build\\app\\Debug\\kns_app.exe",
+    "project_root": "/home/guilherme/Desktop/KNS",
+    "topologies_dir": "/home/guilherme/Desktop/KNS/app/topologies",
+    "executable": "/home/guilherme/Desktop/KNS/build/app/kns_app",
     "max_procs": 1,
     "timeout_seconds": null,
-    "platform": "Windows-11-10.0.26200-SP0"
+    "platform": "Linux-6.17.0-22-generic-x86_64-with-glibc2.39"
   },
   "topology_count": 2,
   "successful_runs": 2,
   "failed_runs": 0,
   "graphs": [
-    "C:\\Users\\guilh\\Desktop\\KNS\\results\\v0.9\\test_#1\\dashboard.png",
-    "C:\\Users\\guilh\\Desktop\\KNS\\results\\v0.9\\test_#1\\drops_over_time.png",
-    "C:\\Users\\guilh\\Desktop\\KNS\\results\\v0.9\\test_#1\\drop_heatmap_mesh4.png",
-    "C:\\Users\\guilh\\Desktop\\KNS\\results\\v0.9\\test_#1\\drop_heatmap_mesh5.png"
+    "/home/guilherme/Desktop/KNS/results/v0.9/test_#1/dashboard.png",
+    "/home/guilherme/Desktop/KNS/results/v0.9/test_#1/drops_over_time.png",
+    "/home/guilherme/Desktop/KNS/results/v0.9/test_#1/latency_distribution.png",
+    "/home/guilherme/Desktop/KNS/results/v0.9/test_#1/latency_over_time.png",
+    "/home/guilherme/Desktop/KNS/results/v0.9/test_#1/drop_heatmap_mesh4.png",
+    "/home/guilherme/Desktop/KNS/results/v0.9/test_#1/drop_heatmap_mesh5.png"
   ],
   "runs": [
     {
-      "topology": "C:\\Users\\guilh\\Desktop\\KNS\\app\\topologies\\mesh4.json",
-      "log": "C:\\Users\\guilh\\Desktop\\KNS\\results\\v0.9\\test_#1\\run_0.log",
+      "topology": "/home/guilherme/Desktop/KNS/app/topologies/mesh4.json",
+      "log": "/home/guilherme/Desktop/KNS/results/v0.9/test_#1/run_0.log",
       "csv": null,
       "returncode": 0,
       "stats": {
-        "packets_total": 124,
-        "packets_dropped": 124,
-        "packets_delivered": 0,
-        "drop_rate": 1.0,
-        "delivery_rate": 0.0,
-        "duration_seconds": 17.245679499996186,
-        "throughput_pps": 0.0,
-        "latency_mean_s": null,
-        "latency_median_s": null,
-        "latency_min_s": null,
-        "latency_max_s": null,
-        "latency_p95_s": null,
-        "latency_std_s": null
+        "packets_total": 1000,
+        "packets_dropped": 449,
+        "packets_delivered": 551,
+        "drop_rate": 0.449,
+        "delivery_rate": 0.551,
+        "duration_seconds": 34.1180974050003,
+        "throughput_pps": 16.14978682601587,
+        "latency_mean_s": 0.007698528130671507,
+        "latency_median_s": 0.008439,
+        "latency_min_s": 0.005439,
+        "latency_max_s": 0.010439,
+        "latency_p95_s": 0.010439,
+        "latency_std_s": 0.0019222111234488944
       }
     },
     {
-      "topology": "C:\\Users\\guilh\\Desktop\\KNS\\app\\topologies\\mesh5.json",
-      "log": "C:\\Users\\guilh\\Desktop\\KNS\\results\\v0.9\\test_#1\\run_1.log",
+      "topology": "/home/guilherme/Desktop/KNS/app/topologies/mesh5.json",
+      "log": "/home/guilherme/Desktop/KNS/results/v0.9/test_#1/run_1.log",
       "csv": null,
       "returncode": 0,
       "stats": {
-        "packets_total": 99,
-        "packets_dropped": 99,
-        "packets_delivered": 0,
-        "drop_rate": 1.0,
-        "delivery_rate": 0.0,
-        "duration_seconds": 19.32942219999677,
-        "throughput_pps": 0.0,
-        "latency_mean_s": null,
-        "latency_median_s": null,
-        "latency_min_s": null,
-        "latency_max_s": null,
-        "latency_p95_s": null,
-        "latency_std_s": null
+        "packets_total": 1000,
+        "packets_dropped": 475,
+        "packets_delivered": 525,
+        "drop_rate": 0.475,
+        "delivery_rate": 0.525,
+        "duration_seconds": 33.68309575300009,
+        "throughput_pps": 15.58645333106709,
+        "latency_mean_s": 0.012246809523809523,
+        "latency_median_s": 0.010472,
+        "latency_min_s": 0.005472,
+        "latency_max_s": 0.020945,
+        "latency_p95_s": 0.020945,
+        "latency_std_s": 0.006362079538873819
       }
     }
   ]
