@@ -85,6 +85,10 @@ namespace kns {
         }
     }
 
+    double SimulationEngine::peekNextEventTime() const {
+        return event_queue_.peekTimestamp();
+    }
+
     // Helper function to compute the arrival time of a packet at the next node
     double SimulationEngine::compute_arrival_time(const Packet& pkt, const Link& link, double now) {
 

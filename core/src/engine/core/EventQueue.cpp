@@ -1,7 +1,8 @@
 #include "engine/core/EventQueue.hpp"
-#include "engine/events/Event.hpp" 
+#include "engine/events/Event.hpp"
 
 #include <stdexcept>
+#include <limits>
 
 namespace kns {
     // Comparator for the priority queue to order events by timestamp and ID
@@ -48,6 +49,17 @@ namespace kns {
     {
         return event_list_.size();
     }
+
+
+    double EventQueue::peekTimestamp() const noexcept
+    {
+        if (event_list_.empty()) {
+            return std::numeric_limits<double>::infinity();
+        }
+
+        return event_list_.top()->getTimestamp();
+    }
+
 
     // Clear all events from the queue
     void EventQueue::clear()
