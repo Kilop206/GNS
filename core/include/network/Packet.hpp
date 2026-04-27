@@ -1,5 +1,7 @@
 #pragma once
 
+#include "enums/PacketType.hpp"
+
 #include <cstdio>
 
 namespace kns {
@@ -12,6 +14,9 @@ namespace kns {
         double departure_time;
         std::size_t packet_size_bytes;
         int hop_count = 0;
+        PacketType packet_type;
+        int seq_num;
+        int ack_num;
 
         Packet(
             int source,
