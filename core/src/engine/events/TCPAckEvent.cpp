@@ -17,7 +17,6 @@ namespace kns {
             ack_num(ack_num) {}
 
     void TCPAckEvent::execute(SimulationEngine& engine) {
-        std::cout << "TCPAckEvent::execute() at " << engine.now() << std::endl;
 
         Packet pkt(destination_, source_, destination_, engine.now(), 1000);
 

@@ -18,7 +18,6 @@ TCPHandshakeEvent::TCPHandshakeEvent(double timestamp,
       destination_(destination) {}
 
 void TCPHandshakeEvent::execute(SimulationEngine& engine) {
-    std::cout << "TCPHandshakeEvent::execute() at " << engine.now() << std::endl;
 
     TCPConnection client(
         TCPState::CLOSED,

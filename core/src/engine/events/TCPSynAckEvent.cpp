@@ -21,7 +21,6 @@ namespace kns {
         ack_num(ack_num) {}
 
     void TCPSynAckEvent::execute(SimulationEngine& engine) {
-        std::cout << "TCPSynAckEvent::execute() at " << engine.now() << std::endl;
 
         Packet pkt( destination_, source_, destination_, engine.now(), 1000);
 
