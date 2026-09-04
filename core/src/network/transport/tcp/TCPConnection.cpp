@@ -21,17 +21,20 @@ namespace kns {
         int remote_node
     )
         : state_machine_(state),
-          seq_num_(seq_num),
-          expected_ack_num_(expected_ack_num),
-          send_unacknowledged_(seq_num),
-          send_window_(DEFAULT_SEND_WINDOW),
-          local_node_(local_node),
-          remote_node_(remote_node),
-          receive_buffer_(
-              expected_ack_num,
-              DEFAULT_RECEIVE_WINDOW
-          )
+        seq_num_(seq_num),
+        expected_ack_num_(expected_ack_num),
+        send_unacknowledged_(seq_num),
+        send_window_(DEFAULT_SEND_WINDOW),
+        local_node_(local_node),
+        remote_node_(remote_node),
+        receive_buffer_(
+            expected_ack_num,
+            DEFAULT_RECEIVE_WINDOW
+        )
     {
+        loss_detector_.observeAck(
+            send_unacknowledged_
+        );
     }
 
     TCPState TCPConnection::getTcpState() const noexcept
@@ -292,13 +295,36 @@ namespace kns {
             return false;
         }
 
-        if (remote_ack <= send_unacknowledged_) {
-            return false;
-        }
-
+        /*
+        * ACKs beyond SND.NXT are invalid.
+        */
         if (remote_ack > seq_num_) {
             return false;
         }
+
+        /*
+        * ACKs below SND.UNA are stale ACKs.
+        * They are not duplicate ACKs for fast retransmit purposes.
+        */
+        if (remote_ack < send_unacknowledged_) {
+            return false;
+        }
+
+        /*
+        * ACK equal to SND.UNA is a duplicate ACK.
+        * The loss detector observes it, but no send-buffer
+        * advancement or RTT measurement occurs.
+        */
+        if (remote_ack == send_unacknowledged_) {
+            loss_detector_.observeAck(remote_ack);
+            return false;
+        }
+
+        /*
+        * ACK advanced SND.UNA. This resets the duplicate-ACK
+        * streak and performs the normal cumulative ACK handling.
+        */
+        loss_detector_.observeAck(remote_ack);
 
         onAcknowledged(
             remote_ack,
@@ -447,6 +473,16 @@ namespace kns {
 
         seq_num_ += static_cast<std::uint32_t>(
             segment.payloadSize()
+        );
+
+        /*
+        * Establish SND.UNA as the baseline for duplicate ACK
+        * detection. The first ACK equal to SND.UNA will therefore
+        * be counted as the first duplicate ACK.
+        */
+        loss_detector_.reset();
+        loss_detector_.observeAck(
+            send_unacknowledged_
         );
 
         return true;
@@ -635,5 +671,31 @@ namespace kns {
         rto_manager_.reset();
 
         return true;
+    }
+
+    std::uint32_t TCPConnection::getDuplicateAckCount()
+    const noexcept
+    {
+        return loss_detector_.getDuplicateAckCount();
+    }
+
+    bool TCPConnection::shouldFastRetransmit()
+        const noexcept
+    {
+        return loss_detector_.shouldFastRetransmit();
+    }
+
+    void TCPConnection::resetLossDetection() noexcept
+    {
+        loss_detector_.reset();
+
+        /*
+        * Preserve SND.UNA as the baseline after resetting the
+        * duplicate-ACK streak. The next ACK equal to SND.UNA
+        * must therefore be counted as the first duplicate ACK.
+        */
+        loss_detector_.observeAck(
+            send_unacknowledged_
+        );
     }
 }
