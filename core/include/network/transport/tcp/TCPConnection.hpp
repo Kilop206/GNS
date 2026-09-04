@@ -9,6 +9,7 @@
 #include "network/transport/tcp/TCPStateMachine.hpp"
 #include "network/transport/tcp/buffer/TCPReceiveBuffer.hpp"
 #include "network/transport/tcp/buffer/TCPSendBuffer.hpp"
+#include "network/transport/tcp/recovery/TCPLossDetector.hpp"
 #include "network/transport/tcp/timer/RTOManager.hpp"
 
 namespace kns {
@@ -139,6 +140,12 @@ namespace kns {
 
         bool failRetransmission() noexcept;
 
+        std::uint32_t getDuplicateAckCount() const noexcept;
+
+        bool shouldFastRetransmit() const noexcept;
+
+        void resetLossDetection() noexcept;
+
     private:
         static std::uint32_t generateInitialSeq();
 
@@ -165,6 +172,8 @@ namespace kns {
 
         TCPSendBuffer send_buffer_;
         TCPReceiveBuffer receive_buffer_;
+
+        TCPLossDetector loss_detector_;
     };
 
 }
