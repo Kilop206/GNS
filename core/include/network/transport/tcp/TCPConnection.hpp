@@ -156,6 +156,8 @@ namespace kns {
 
         void resetLossDetection() noexcept;
 
+        TCPStateMachine getStateMachine() const noexcept;
+
     private:
         static std::uint32_t generateInitialSeq();
 
