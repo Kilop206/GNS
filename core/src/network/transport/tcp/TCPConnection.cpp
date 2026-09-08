@@ -768,4 +768,8 @@ namespace kns {
             send_unacknowledged_
         );
     }
+
+    TCPStateMachine TCPConnection::getStateMachine() const noexcept {
+        return state_machine_;
+    }
 }
