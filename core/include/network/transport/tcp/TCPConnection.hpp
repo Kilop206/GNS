@@ -147,12 +147,9 @@ namespace kns {
 
         bool failRetransmission() noexcept;
 
-<<<<<<< HEAD
-=======
         /*
          * Duplicate ACK / fast retransmit detection.
          */
->>>>>>> 3db4abcb74074e2a3e4d6173dd220417f18ae468
         std::uint32_t getDuplicateAckCount() const noexcept;
 
         bool shouldFastRetransmit() const noexcept;

@@ -9,6 +9,7 @@
 
 #include "engine/core/SimulationEngine.hpp"
 #include "engine/events/TCPConnectionCloseEvent.hpp"
+#include "engine/events/TCPFastRetransmitEvent.hpp"
 #include "engine/events/TCPTimeoutEvent.hpp"
 #include "engine/events/TCPTimeWaitTimeoutEvent.hpp"
 #include "network/Packet.hpp"
@@ -178,6 +179,28 @@ namespace kns
                             )
                         );
                     }
+                }
+
+                /*
+                * Three duplicate ACKs indicate a probable
+                * loss of the oldest outstanding segment.
+                *
+                * The event performs the actual retransmission.
+                */
+                if (receiver.shouldFastRetransmit()) {
+                    engine.schedule(
+                        std::make_unique<TCPFastRetransmitEvent>(
+                            engine.now(),
+                            session.getSession_id()
+                        )
+                    );
+
+                    /*
+                    * Consume the current duplicate-ACK indication
+                    * so that the same ACK streak cannot schedule
+                    * another fast retransmission event.
+                    */
+                    receiver.resetLossDetection();
                 }
 
                 refreshSessionState(session);
