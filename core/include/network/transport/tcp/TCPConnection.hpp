@@ -54,14 +54,17 @@ namespace kns {
         TCPSegment buildFin() const;
 
         bool receive_syn(std::uint32_t remote_seq);
+
         bool receive_syn_ack(
             std::uint32_t remote_seq,
             std::uint32_t remote_ack
         );
+
         bool receive_ack(
             std::uint32_t remote_ack,
             double acknowledgement_time
         );
+
         bool receive_fin(std::uint32_t remote_seq);
 
         bool send_syn();
@@ -78,11 +81,15 @@ namespace kns {
         std::uint32_t getSendNext() const noexcept;
         std::uint32_t getSendWindow() const noexcept;
 
-        void setSendWindow(std::uint32_t window) noexcept;
+        void setSendWindow(
+            std::uint32_t window
+        ) noexcept;
 
         std::size_t getSendBufferSize() const noexcept;
 
-        bool canSend(std::size_t payload_size) const noexcept;
+        bool canSend(
+            std::size_t payload_size
+        ) const noexcept;
 
         bool queueSentSegment(
             const TCPSegment& segment,
@@ -140,6 +147,12 @@ namespace kns {
 
         bool failRetransmission() noexcept;
 
+<<<<<<< HEAD
+=======
+        /*
+         * Duplicate ACK / fast retransmit detection.
+         */
+>>>>>>> 3db4abcb74074e2a3e4d6173dd220417f18ae468
         std::uint32_t getDuplicateAckCount() const noexcept;
 
         bool shouldFastRetransmit() const noexcept;
@@ -154,7 +167,6 @@ namespace kns {
         ) noexcept;
 
     private:
-
         RTOManager rto_manager_;
 
         TCPStateMachine state_machine_;

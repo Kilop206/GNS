@@ -21,17 +21,22 @@ namespace kns {
         int remote_node
     )
         : state_machine_(state),
-        seq_num_(seq_num),
-        expected_ack_num_(expected_ack_num),
-        send_unacknowledged_(seq_num),
-        send_window_(DEFAULT_SEND_WINDOW),
-        local_node_(local_node),
-        remote_node_(remote_node),
-        receive_buffer_(
-            expected_ack_num,
-            DEFAULT_RECEIVE_WINDOW
-        )
+          seq_num_(seq_num),
+          expected_ack_num_(expected_ack_num),
+          send_unacknowledged_(seq_num),
+          send_window_(DEFAULT_SEND_WINDOW),
+          local_node_(local_node),
+          remote_node_(remote_node),
+          receive_buffer_(
+              expected_ack_num,
+              DEFAULT_RECEIVE_WINDOW
+          ),
+          loss_detector_()
     {
+        /*
+         * Establish the initial ACK baseline used by the
+         * duplicate-ACK detector.
+         */
         loss_detector_.observeAck(
             send_unacknowledged_
         );
@@ -57,7 +62,9 @@ namespace kns {
         return seq_num_;
     }
 
-    void TCPConnection::setSeqNum(std::uint32_t value) noexcept
+    void TCPConnection::setSeqNum(
+        std::uint32_t value
+    ) noexcept
     {
         seq_num_ = value;
     }
@@ -67,11 +74,15 @@ namespace kns {
         return expected_ack_num_;
     }
 
-    void TCPConnection::setExpectedAckNum(std::uint32_t value) noexcept
+    void TCPConnection::setExpectedAckNum(
+        std::uint32_t value
+    ) noexcept
     {
         expected_ack_num_ = value;
 
-        receive_buffer_.setNextSequence(value);
+        receive_buffer_.setNextSequence(
+            value
+        );
     }
 
     std::uint32_t TCPConnection::getSynRetries() const noexcept
@@ -110,12 +121,14 @@ namespace kns {
 
         seg.seq = seq_num_;
         seg.ack = 0;
+
         seg.window = static_cast<std::uint16_t>(
             std::min<std::size_t>(
                 receive_buffer_.availableWindow(),
                 65535
             )
         );
+
         seg.flags = TCPFlag::SYN;
 
         return seg;
@@ -127,12 +140,14 @@ namespace kns {
 
         seg.seq = seq_num_;
         seg.ack = expected_ack_num_;
+
         seg.window = static_cast<std::uint16_t>(
             std::min<std::size_t>(
                 receive_buffer_.availableWindow(),
                 65535
             )
         );
+
         seg.flags = TCPFlag::SYN | TCPFlag::ACK;
 
         return seg;
@@ -144,12 +159,14 @@ namespace kns {
 
         seg.seq = seq_num_;
         seg.ack = expected_ack_num_;
+
         seg.window = static_cast<std::uint16_t>(
             std::min<std::size_t>(
                 receive_buffer_.availableWindow(),
                 65535
             )
         );
+
         seg.flags = TCPFlag::ACK;
 
         return seg;
@@ -161,18 +178,22 @@ namespace kns {
 
         seg.seq = seq_num_;
         seg.ack = expected_ack_num_;
+
         seg.window = static_cast<std::uint16_t>(
             std::min<std::size_t>(
                 receive_buffer_.availableWindow(),
                 65535
             )
         );
+
         seg.flags = TCPFlag::FIN | TCPFlag::ACK;
 
         return seg;
     }
 
-    bool TCPConnection::receive_syn(std::uint32_t remote_seq)
+    bool TCPConnection::receive_syn(
+        std::uint32_t remote_seq
+    )
     {
         if (!state_machine_.onSynReceived()) {
             return false;
@@ -232,11 +253,19 @@ namespace kns {
             expected_ack_num_
         );
 
-        // The SYN consumes one sequence number.
+        /*
+         * The SYN consumes one sequence number.
+         */
         seq_num_ = remote_ack;
         send_unacknowledged_ = remote_ack;
 
         resetSynRetries();
+
+        /*
+         * Reset the loss detector to the new SND.UNA
+         * after the handshake has consumed the SYN sequence.
+         */
+        resetLossDetection();
 
         return true;
     }
@@ -273,6 +302,7 @@ namespace kns {
             send_unacknowledged_ = remote_ack;
 
             resetSynRetries();
+            resetLossDetection();
 
             return true;
         }
@@ -295,36 +325,47 @@ namespace kns {
             return false;
         }
 
-        /*
-        * ACKs beyond SND.NXT are invalid.
+        /** ACKs beyond SND.NXT are invalid.
         */
         if (remote_ack > seq_num_) {
             return false;
         }
 
         /*
-        * ACKs below SND.UNA are stale ACKs.
-        * They are not duplicate ACKs for fast retransmit purposes.
-        */
+         * ACKs below SND.UNA are stale ACKs.
+         *
+         * They are not duplicate ACKs for fast retransmit
+         * purposes and therefore must not affect the loss
+         * detector.
+         */
         if (remote_ack < send_unacknowledged_) {
             return false;
         }
 
         /*
-        * ACK equal to SND.UNA is a duplicate ACK.
-        * The loss detector observes it, but no send-buffer
-        * advancement or RTT measurement occurs.
-        */
+         * ACK equal to SND.UNA is a duplicate ACK.
+         *
+         * It is observed by the loss detector, but it does
+         * not advance the send buffer and must not generate
+         * an RTT measurement.
+         */
         if (remote_ack == send_unacknowledged_) {
-            loss_detector_.observeAck(remote_ack);
+            loss_detector_.observeAck(
+                remote_ack
+            );
+
             return false;
         }
 
         /*
-        * ACK advanced SND.UNA. This resets the duplicate-ACK
-        * streak and performs the normal cumulative ACK handling.
-        */
-        loss_detector_.observeAck(remote_ack);
+         * ACK advanced SND.UNA.
+         *
+         * This resets the duplicate-ACK streak and performs
+         * the normal cumulative ACK handling.
+         */
+        loss_detector_.observeAck(
+            remote_ack
+        );
 
         onAcknowledged(
             remote_ack,
@@ -354,7 +395,9 @@ namespace kns {
     bool TCPConnection::send_syn()
     {
         if (getTcpState() == TCPState::SYN_SENT) {
-            // Already in SYN_SENT (retransmit path).
+            /*
+             * Already in SYN_SENT (retransmit path).
+             */
             return true;
         }
 
@@ -365,19 +408,26 @@ namespace kns {
         seq_num_ = generateInitialSeq();
         send_unacknowledged_ = seq_num_;
 
+        resetLossDetection();
+
         return true;
     }
 
     bool TCPConnection::send_syn_ack()
     {
-        // The server transitions to SYN_RECEIVED when it receives
-        // the SYN. Sending the SYN-ACK does not change state.
+        /*
+         * The server transitions to SYN_RECEIVED when it
+         * receives the SYN. Sending the SYN-ACK does not
+         * change state.
+         */
         return getTcpState() == TCPState::SYN_RECEIVED;
     }
 
     bool TCPConnection::send_ack()
     {
-        // Plain ACK generation does not drive the state machine.
+        /*
+         * Plain ACK generation does not drive the state machine.
+         */
         return true;
     }
 
@@ -391,17 +441,20 @@ namespace kns {
         return state_machine_.onTimeWaitDone();
     }
 
-    std::uint32_t TCPConnection::getSendUnacknowledged() const noexcept
+    std::uint32_t TCPConnection::getSendUnacknowledged()
+        const noexcept
     {
         return send_unacknowledged_;
     }
 
-    std::uint32_t TCPConnection::getSendNext() const noexcept
+    std::uint32_t TCPConnection::getSendNext()
+        const noexcept
     {
         return seq_num_;
     }
 
-    std::uint32_t TCPConnection::getSendWindow() const noexcept
+    std::uint32_t TCPConnection::getSendWindow()
+        const noexcept
     {
         return send_window_;
     }
@@ -413,7 +466,8 @@ namespace kns {
         send_window_ = window;
     }
 
-    std::size_t TCPConnection::getSendBufferSize() const noexcept
+    std::size_t TCPConnection::getSendBufferSize()
+        const noexcept
     {
         return send_buffer_.size();
     }
@@ -467,7 +521,9 @@ namespace kns {
             sent_at
         };
 
-        if (!send_buffer_.push(std::move(entry))) {
+        if (!send_buffer_.push(
+            std::move(entry)
+        )) {
             return false;
         }
 
@@ -529,7 +585,9 @@ namespace kns {
             received_at
         };
 
-        if (!receive_buffer_.push(std::move(entry))) {
+        if (!receive_buffer_.push(
+            std::move(entry)
+        )) {
             return false;
         }
 
@@ -554,7 +612,8 @@ namespace kns {
     }
 
     std::optional<std::uint32_t>
-    TCPConnection::getOldestOutstandingSequence() const noexcept
+    TCPConnection::getOldestOutstandingSequence()
+        const noexcept
     {
         const TCPSendEntry* entry =
             send_buffer_.front();
@@ -576,10 +635,13 @@ namespace kns {
         std::uint32_t sequence
     ) const noexcept
     {
-        return send_buffer_.contains(sequence);
+        return send_buffer_.contains(
+            sequence
+        );
     }
 
-    double TCPConnection::getCurrentRTO() const noexcept
+    double TCPConnection::getCurrentRTO()
+        const noexcept
     {
         return rto_manager_.currentRTO();
     }
@@ -617,7 +679,9 @@ namespace kns {
     ) const
     {
         const TCPSendEntry* entry =
-            send_buffer_.find(sequence);
+            send_buffer_.find(
+                sequence
+            );
 
         if (entry == nullptr) {
             return std::nullopt;
@@ -642,7 +706,9 @@ namespace kns {
     ) const noexcept
     {
         const TCPSendEntry* entry =
-            send_buffer_.find(sequence);
+            send_buffer_.find(
+                sequence
+            );
 
         if (entry == nullptr) {
             return 0;
@@ -655,11 +721,13 @@ namespace kns {
         std::uint32_t sequence
     ) const noexcept
     {
-        return getRetransmissionCount(sequence) <
-            MAX_DATA_RETRANSMISSIONS;
+        return getRetransmissionCount(
+            sequence
+        ) < MAX_DATA_RETRANSMISSIONS;
     }
 
-    bool TCPConnection::failRetransmission() noexcept
+    bool TCPConnection::failRetransmission()
+        noexcept
     {
         if (!state_machine_.onRetransmissionFailure()) {
             return false;
@@ -669,6 +737,8 @@ namespace kns {
         receive_buffer_.clear();
 
         rto_manager_.reset();
+
+        resetLossDetection();
 
         return true;
     }
