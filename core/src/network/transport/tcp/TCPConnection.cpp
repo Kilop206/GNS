@@ -740,6 +740,8 @@ namespace kns {
 
         resetLossDetection();
 
+        delayed_ack_pending_ = false;
+
         return true;
     }
 
@@ -771,5 +773,23 @@ namespace kns {
 
     TCPStateMachine TCPConnection::getStateMachine() const noexcept {
         return state_machine_;
+    }
+
+    bool TCPConnection::hasDelayedAckPending()
+        const noexcept
+    {
+        return delayed_ack_pending_;
+    }
+
+    void TCPConnection::markDelayedAckPending()
+        noexcept
+    {
+        delayed_ack_pending_ = true;
+    }
+
+    void TCPConnection::clearDelayedAckPending()
+        noexcept
+    {
+        delayed_ack_pending_ = false;
     }
 }
