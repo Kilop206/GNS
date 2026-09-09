@@ -34,7 +34,9 @@ namespace kns {
             CongestionControlType congestion_control_type =
                 CongestionControlType::RENO,
             std::uint32_t congestion_mss =
-                DEFAULT_CONGESTION_MSS
+                DEFAULT_CONGESTION_MSS,
+            std::uint32_t congestion_initial_ssthresh =
+                65535
         );
 
         TCPState getTcpState() const noexcept;
