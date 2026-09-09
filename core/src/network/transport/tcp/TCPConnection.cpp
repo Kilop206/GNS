@@ -21,7 +21,8 @@ namespace kns {
         int local_node,
         int remote_node,
         CongestionControlType congestion_control_type,
-        std::uint32_t congestion_mss
+        std::uint32_t congestion_mss,
+        std::uint32_t congestion_initial_ssthresh
     )
         : state_machine_(state),
         seq_num_(seq_num),
@@ -38,7 +39,8 @@ namespace kns {
         congestion_control_(
             CongestionControlFactory::create(
                 congestion_control_type,
-                congestion_mss
+                congestion_mss,
+                congestion_initial_ssthresh
             )
         ),
         congestion_control_type_(congestion_control_type)
@@ -655,6 +657,10 @@ namespace kns {
     void TCPConnection::onSendTimeout() noexcept
     {
         rto_manager_.onTimeout();
+
+        if (congestion_control_ != nullptr) {
+            congestion_control_->onLoss();
+        }
     }
 
     void TCPConnection::onAcknowledged(
@@ -662,6 +668,9 @@ namespace kns {
         double acknowledgement_time
     ) noexcept
     {
+        const std::uint32_t previous_send_unacknowledged =
+            send_unacknowledged_;
+
         const auto sample =
             send_buffer_.acknowledgeAndGetRtt(
                 ack_number,
@@ -671,6 +680,18 @@ namespace kns {
         updateSendUnacknowledged(
             ack_number
         );
+
+        const std::uint32_t acknowledged_bytes =
+            ack_number - previous_send_unacknowledged;
+
+        if (
+            acknowledged_bytes > 0 &&
+            congestion_control_ != nullptr
+        ) {
+            congestion_control_->onAck(
+                acknowledged_bytes
+            );
+        }
 
         if (sample.has_value()) {
             rto_manager_.onAcknowledgement(
