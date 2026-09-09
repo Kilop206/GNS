@@ -158,12 +158,17 @@ namespace kns
     }
 
     void RenoCongestionControl::onRecoveryAck(
-        std::uint32_t acknowledged_bytes
+        std::uint32_t acknowledged_bytes,
+        bool recovery_complete
     ) noexcept
     {
         static_cast<void>(acknowledged_bytes);
 
         if (!fast_recovery_) {
+            return;
+        }
+
+        if (!recovery_complete) {
             return;
         }
 

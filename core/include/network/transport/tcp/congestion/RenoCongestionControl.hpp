@@ -38,7 +38,8 @@ namespace kns
         void onDuplicateAck() noexcept override;
 
         void onRecoveryAck(
-            std::uint32_t acknowledged_bytes
+            std::uint32_t acknowledged_bytes,
+            bool recovery_complete = true
         ) noexcept override;
 
         void reset() noexcept override;
