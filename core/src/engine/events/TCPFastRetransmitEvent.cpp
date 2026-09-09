@@ -70,6 +70,14 @@ namespace kns {
             return;
         }
 
+        const std::uint32_t flight_size =
+            client.getSendNext() -
+            client.getSendUnacknowledged();
+
+        client.getCongestionControl().onFastRetransmit(
+            flight_size
+        );
+
         client.markSegmentRetransmitted(
             sequence,
             engine.now()
