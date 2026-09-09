@@ -5,6 +5,7 @@
 
 #include "engine/core/Log.hpp"
 #include "engine/core/Random.hpp"
+#include "network/transport/tcp/congestion/CongestionControlFactory.hpp"
 
 namespace kns {
 
@@ -18,25 +19,30 @@ namespace kns {
         std::uint32_t seq_num,
         std::uint32_t expected_ack_num,
         int local_node,
-        int remote_node
+        int remote_node,
+        CongestionControlType congestion_control_type,
+        std::uint32_t congestion_mss
     )
         : state_machine_(state),
-          seq_num_(seq_num),
-          expected_ack_num_(expected_ack_num),
-          send_unacknowledged_(seq_num),
-          send_window_(DEFAULT_SEND_WINDOW),
-          local_node_(local_node),
-          remote_node_(remote_node),
-          receive_buffer_(
-              expected_ack_num,
-              DEFAULT_RECEIVE_WINDOW
-          ),
-          loss_detector_()
+        seq_num_(seq_num),
+        expected_ack_num_(expected_ack_num),
+        send_unacknowledged_(seq_num),
+        send_window_(DEFAULT_SEND_WINDOW),
+        local_node_(local_node),
+        remote_node_(remote_node),
+        receive_buffer_(
+            expected_ack_num,
+            DEFAULT_RECEIVE_WINDOW
+        ),
+        loss_detector_(),
+        congestion_control_(
+            CongestionControlFactory::create(
+                congestion_control_type,
+                congestion_mss
+            )
+        ),
+        congestion_control_type_(congestion_control_type)
     {
-        /*
-         * Establish the initial ACK baseline used by the
-         * duplicate-ACK detector.
-         */
         loss_detector_.observeAck(
             send_unacknowledged_
         );
@@ -791,5 +797,23 @@ namespace kns {
         noexcept
     {
         delayed_ack_pending_ = false;
+    }
+
+    CongestionControl&
+    TCPConnection::getCongestionControl() noexcept
+    {
+        return *congestion_control_;
+    }
+
+    const CongestionControl&
+    TCPConnection::getCongestionControl() const noexcept
+    {
+        return *congestion_control_;
+    }
+
+    CongestionControlType
+    TCPConnection::getCongestionControlType() const noexcept
+    {
+        return congestion_control_type_;
     }
 }

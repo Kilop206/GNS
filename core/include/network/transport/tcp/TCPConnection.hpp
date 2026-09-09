@@ -3,12 +3,15 @@
 #include <cstddef>
 #include <cstdint>
 #include <optional>
+#include <memory>
 
 #include "enums/TCPState.hpp"
 #include "network/transport/tcp/TCPSegment.hpp"
 #include "network/transport/tcp/TCPStateMachine.hpp"
 #include "network/transport/tcp/buffer/TCPReceiveBuffer.hpp"
 #include "network/transport/tcp/buffer/TCPSendBuffer.hpp"
+#include "network/transport/tcp/congestion/CongestionControl.hpp"
+#include "network/transport/tcp/congestion/CongestionControlType.hpp"
 #include "network/transport/tcp/recovery/TCPLossDetector.hpp"
 #include "network/transport/tcp/timer/RTOManager.hpp"
 
@@ -20,13 +23,18 @@ namespace kns {
         static constexpr std::uint32_t DEFAULT_SEND_WINDOW = 65535;
         static constexpr std::size_t DEFAULT_RECEIVE_WINDOW = 65535;
         static constexpr std::uint32_t MAX_DATA_RETRANSMISSIONS = 5;
+        static constexpr std::uint32_t DEFAULT_CONGESTION_MSS = DEFAULT_SEND_WINDOW;
 
         TCPConnection(
             TCPState state,
             std::uint32_t seq_num,
             std::uint32_t expected_ack_num,
             int local_node,
-            int remote_node
+            int remote_node,
+            CongestionControlType congestion_control_type =
+                CongestionControlType::RENO,
+            std::uint32_t congestion_mss =
+                DEFAULT_CONGESTION_MSS
         );
 
         TCPState getTcpState() const noexcept;
@@ -164,6 +172,15 @@ namespace kns {
 
         void clearDelayedAckPending() noexcept;
 
+        CongestionControl&
+        getCongestionControl() noexcept;
+
+        const CongestionControl&
+        getCongestionControl() const noexcept;
+
+        CongestionControlType
+        getCongestionControlType() const noexcept;
+
     private:
         static std::uint32_t generateInitialSeq();
 
@@ -193,6 +210,10 @@ namespace kns {
         TCPLossDetector loss_detector_;
 
         bool delayed_ack_pending_ = false;
+
+        std::unique_ptr<CongestionControl> congestion_control_;
+
+        CongestionControlType congestion_control_type_;
     };
 
 }
