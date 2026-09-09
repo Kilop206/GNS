@@ -10,11 +10,13 @@ namespace kns
     TCPDelayedAckEvent::TCPDelayedAckEvent(
         double timestamp,
         std::uint64_t session_id,
-        int receiver_node
+        int receiver_node,
+        std::uint32_t acknowledgement
     )
         : Event(timestamp),
           session_id_(session_id),
-          receiver_node_(receiver_node)
+          receiver_node_(receiver_node),
+          acknowledgement_(acknowledgement)
     {
     }
 
@@ -53,7 +55,22 @@ namespace kns
             return;
         }
 
-        if (receiver->getLocalNode() != receiver_node_) {
+        if (
+            !receiver->hasDelayedAckPending()
+        ) {
+            return;
+        }
+
+        /*
+         * If the expected ACK changed since this event was
+         * scheduled, an immediate ACK already acknowledged
+         * newer data and this delayed ACK is obsolete.
+         */
+        if (
+            receiver->getExpectedAckNum() !=
+            acknowledgement_
+        ) {
+            receiver->clearDelayedAckPending();
             return;
         }
 
@@ -62,13 +79,20 @@ namespace kns
             receiver->getRemoteNode(),
             receiver->getLocalNode(),
             engine.now(),
-            0,
+            engine.getGlobalPacketSize(),
             session_id_
         );
 
-        ack.packet_type = PacketType::ACK;
-        ack.tcp = receiver->buildAck();
-        ack.departure_time = engine.now();
+        ack.packet_type =
+            PacketType::ACK;
+
+        ack.tcp =
+            receiver->buildAck();
+
+        ack.departure_time =
+            engine.now();
+
+        receiver->clearDelayedAckPending();
 
         PacketUtils::sendPacketThroughTopology(
             engine,

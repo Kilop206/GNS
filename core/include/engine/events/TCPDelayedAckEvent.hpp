@@ -14,7 +14,8 @@ namespace kns
         TCPDelayedAckEvent(
             double timestamp,
             std::uint64_t session_id,
-            int receiver_node
+            int receiver_node,
+            std::uint32_t acknowledgement
         );
 
         void execute(
@@ -29,5 +30,6 @@ namespace kns
     private:
         std::uint64_t session_id_;
         int receiver_node_;
+        std::uint32_t acknowledgement_;
     };
 }

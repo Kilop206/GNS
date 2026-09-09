@@ -70,9 +70,11 @@ TEST_CASE("Dynamic topology: Link DOWN prevents new transmissions and UP restore
     // Run until finish
     engine.run();
 
-    // Each DATA packet generates an ACK back once the link is UP, so 2 DATA + 2 ACK = 4 packets delivered
-    REQUIRE(engine.getStats().packets_sent == 4);
-    REQUIRE(engine.getStats().packets_delivered == 4);
+    // The topology test injects DATA packets without establishing a TCP connection.
+    // Therefore no TCP ACK is generated; this test verifies only transmission
+    // acceptance/rejection across the Link DOWN/UP transitions.
+    REQUIRE(engine.getStats().packets_sent == 2);
+    REQUIRE(engine.getStats().packets_delivered == 2);
     REQUIRE(engine.getPacketsInTransit().empty());
 }
 

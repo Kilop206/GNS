@@ -1398,9 +1398,9 @@ static PickedNodes renderNetworkPanel(
 static void renderConfigWindow(
     bool& firstFrame,
     bool topologySelected,
-    std::unique_ptr<SimulationEngine>& engine,
-    Topology& topo,
-    SimulationState& state
+    std::unique_ptr<SimulationEngine>& /* engine */,
+    Topology& /* topo */,
+    SimulationState& /* state */
 )
 {
     bool autoClick = false;

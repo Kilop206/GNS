@@ -158,6 +158,12 @@ namespace kns {
 
         TCPStateMachine getStateMachine() const noexcept;
 
+        bool hasDelayedAckPending() const noexcept;
+
+        void markDelayedAckPending() noexcept;
+
+        void clearDelayedAckPending() noexcept;
+
     private:
         static std::uint32_t generateInitialSeq();
 
@@ -185,6 +191,8 @@ namespace kns {
         TCPReceiveBuffer receive_buffer_;
 
         TCPLossDetector loss_detector_;
+
+        bool delayed_ack_pending_ = false;
     };
 
 }

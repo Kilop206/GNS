@@ -1,15 +1,20 @@
 #include <catch2/catch_test_macros.hpp>
 
 #include <string>
+#include <vector>
 
 #include "engine/core/SimulationEngine.hpp"
+#include "engine/events/PacketReceivedEvent.hpp"
 #include "engine/events/TCPDelayedAckEvent.hpp"
 #include "network/Link.hpp"
+#include "network/Packet.hpp"
 #include "network/Topology.hpp"
 #include "network/transport/tcp/TCPSession.hpp"
 
 using kns::LinkMode;
 using kns::SimulationEngine;
+using kns::Packet;
+using kns::PacketReceivedEvent;
 using kns::TCPDelayedAckEvent;
 using kns::TCPState;
 using kns::Topology;
@@ -88,6 +93,7 @@ TEST_CASE(
     TCPDelayedAckEvent event(
         0.2,
         1,
+        1,
         1
     );
 
@@ -127,7 +133,8 @@ TEST_CASE(
         engine.now() +
             TCPDelayedAckEvent::DEFAULT_DELAY,
         999,
-        1
+        1,
+        0
     );
 
     REQUIRE_NOTHROW(
@@ -173,10 +180,309 @@ TEST_CASE(
         engine.now() +
             TCPDelayedAckEvent::DEFAULT_DELAY,
         session.getSession_id(),
+        1,
         1
     );
 
     REQUIRE_NOTHROW(
         event.execute(engine)
+    );
+}
+
+TEST_CASE(
+    "TCP first data segment schedules delayed ACK",
+    "[tcp][delayed-ack][integration]"
+)
+{
+    Topology topology(2);
+
+    auto link =
+        topology.addLinkPtr(
+            0,
+            1,
+            100.0,
+            100.0,
+            0.0,
+            LinkMode::FULL_DUPLEX
+        );
+
+    REQUIRE(link != nullptr);
+
+    SimulationEngine engine(topology);
+
+    auto& session =
+        engine.createTCPSession(
+            0,
+            1
+        );
+
+    establishSession(session);
+
+    auto& server =
+        session.getServerConnection();
+
+    const auto sequence =
+        server.getExpectedAckNum();
+
+    std::vector<std::uint8_t> payload(
+        100,
+        0x41
+    );
+
+    Packet data(
+        0,
+        1,
+        1,
+        engine.now(),
+        100,
+        session.getSession_id()
+    );
+
+    data.packet_type =
+        kns::PacketType::DATA;
+
+    data.tcp.seq =
+        sequence;
+
+    data.tcp.payload =
+        payload;
+
+    PacketReceivedEvent event(
+        engine.now(),
+        data
+    );
+
+    event.execute(engine);
+
+    REQUIRE(
+        server.hasDelayedAckPending()
+    );
+
+    REQUIRE(
+        engine.hasEvents()
+    );
+
+    REQUIRE(
+        engine.peekNextEventTime() ==
+        engine.now() +
+        TCPDelayedAckEvent::DEFAULT_DELAY
+    );
+}
+
+TEST_CASE(
+    "TCP second data segment triggers immediate ACK",
+    "[tcp][delayed-ack][integration]"
+)
+{
+    Topology topology(2);
+
+    auto link =
+        topology.addLinkPtr(
+            0,
+            1,
+            100.0,
+            100.0,
+            0.0,
+            LinkMode::FULL_DUPLEX
+        );
+
+    REQUIRE(link != nullptr);
+
+    SimulationEngine engine(topology);
+
+    auto& session =
+        engine.createTCPSession(
+            0,
+            1
+        );
+
+    establishSession(session);
+
+    auto& server =
+        session.getServerConnection();
+
+    const auto first_sequence =
+        server.getExpectedAckNum();
+
+    Packet first(
+        0,
+        1,
+        1,
+        engine.now(),
+        100,
+        session.getSession_id()
+    );
+
+    first.packet_type =
+        kns::PacketType::DATA;
+
+    first.tcp.seq =
+        first_sequence;
+
+    first.tcp.payload.assign(
+        100,
+        0x41
+    );
+
+    PacketReceivedEvent first_event(
+        engine.now(),
+        first
+    );
+
+    first_event.execute(engine);
+
+    REQUIRE(
+        server.hasDelayedAckPending()
+    );
+
+    const auto second_sequence =
+        server.getExpectedAckNum();
+
+    Packet second(
+        0,
+        1,
+        1,
+        engine.now(),
+        100,
+        session.getSession_id()
+    );
+
+    second.packet_type =
+        kns::PacketType::DATA;
+
+    second.tcp.seq =
+        second_sequence;
+
+    second.tcp.payload.assign(
+        100,
+        0x42
+    );
+
+    PacketReceivedEvent second_event(
+        engine.now(),
+        second
+    );
+
+    second_event.execute(engine);
+
+    REQUIRE_FALSE(
+        server.hasDelayedAckPending()
+    );
+
+    REQUIRE(
+        engine.hasEvents()
+    );
+
+    REQUIRE(
+        engine.peekNextEventTime() >
+        engine.now()
+    );
+}
+
+TEST_CASE(
+    "TCP delayed ACK event sends ACK when still pending",
+    "[tcp][delayed-ack]"
+)
+{
+    Topology topology(2);
+
+    auto link =
+        topology.addLinkPtr(
+            0,
+            1,
+            100.0,
+            100.0,
+            0.0,
+            LinkMode::FULL_DUPLEX
+        );
+
+    REQUIRE(link != nullptr);
+
+    SimulationEngine engine(topology);
+
+    auto& session =
+        engine.createTCPSession(
+            0,
+            1
+        );
+
+    establishSession(session);
+
+    auto& server =
+        session.getServerConnection();
+
+    server.markDelayedAckPending();
+
+    const auto acknowledgement =
+        server.getExpectedAckNum();
+
+    TCPDelayedAckEvent event(
+        engine.now() +
+            TCPDelayedAckEvent::DEFAULT_DELAY,
+        session.getSession_id(),
+        server.getLocalNode(),
+        acknowledgement
+    );
+
+    event.execute(engine);
+
+    REQUIRE_FALSE(
+        server.hasDelayedAckPending()
+    );
+}
+
+TEST_CASE(
+    "TCP obsolete delayed ACK event is ignored after ACK advancement",
+    "[tcp][delayed-ack]"
+)
+{
+    Topology topology(2);
+
+    auto link =
+        topology.addLinkPtr(
+            0,
+            1,
+            100.0,
+            100.0,
+            0.0,
+            LinkMode::FULL_DUPLEX
+        );
+
+    REQUIRE(link != nullptr);
+
+    SimulationEngine engine(topology);
+
+    auto& session =
+        engine.createTCPSession(
+            0,
+            1
+        );
+
+    establishSession(session);
+
+    auto& server =
+        session.getServerConnection();
+
+    server.markDelayedAckPending();
+
+    const auto old_ack =
+        server.getExpectedAckNum();
+
+    server.setExpectedAckNum(
+        old_ack + 100
+    );
+
+    TCPDelayedAckEvent event(
+        engine.now() +
+            TCPDelayedAckEvent::DEFAULT_DELAY,
+        session.getSession_id(),
+        server.getLocalNode(),
+        old_ack
+    );
+
+    event.execute(engine);
+
+    REQUIRE_FALSE(
+        server.hasDelayedAckPending()
     );
 }

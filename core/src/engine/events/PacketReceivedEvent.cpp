@@ -9,6 +9,7 @@
 
 #include "engine/core/SimulationEngine.hpp"
 #include "engine/events/TCPConnectionCloseEvent.hpp"
+#include "engine/events/TCPDelayedAckEvent.hpp"
 #include "engine/events/TCPFastRetransmitEvent.hpp"
 #include "engine/events/TCPTimeoutEvent.hpp"
 #include "engine/events/TCPTimeWaitTimeoutEvent.hpp"
@@ -237,27 +238,105 @@ namespace kns
 
             case PacketType::DATA:
             {
-                receiver.receive_data(
-                    packet.tcp.seq,
-                    packet.tcp.payload,
-                    engine.now()
-                );
+                const auto expected_before =
+                    receiver.getExpectedAckNum();
 
-                Packet ack(
-                    receiver.getLocalNode(),
-                    receiver.getRemoteNode(),
-                    receiver.getLocalNode(),
-                    engine.now(),
-                    engine.getGlobalPacketSize(),
-                    packet.session_id
-                );
+                if (
+                    !receiver.receive_data(
+                        packet.tcp.seq,
+                        packet.tcp.payload,
+                        engine.now()
+                    )
+                ) {
+                    break;
+                }
 
-                ack.tcp = receiver.buildAck();
-                ack.packet_type = inferPacketType(ack.tcp);
+                const auto expected_after =
+                    receiver.getExpectedAckNum();
 
-                PacketUtils::sendPacketThroughTopology(
-                    engine,
-                    ack
+                /*
+                * Out-of-order data must be ACKed immediately.
+                */
+                if (
+                    packet.tcp.seq != expected_before
+                ) {
+                    Packet ack(
+                        receiver.getLocalNode(),
+                        receiver.getRemoteNode(),
+                        receiver.getLocalNode(),
+                        engine.now(),
+                        engine.getGlobalPacketSize(),
+                        packet.session_id
+                    );
+
+                    ack.packet_type =
+                        PacketType::ACK;
+
+                    ack.tcp =
+                        receiver.buildAck();
+
+                    ack.departure_time =
+                        engine.now();
+
+                    receiver.clearDelayedAckPending();
+
+                    PacketUtils::sendPacketThroughTopology(
+                        engine,
+                        ack
+                    );
+
+                    break;
+                }
+
+                /*
+                * A second in-order segment arriving while an ACK
+                * is pending causes an immediate ACK.
+                */
+                if (
+                    receiver.hasDelayedAckPending()
+                ) {
+                    Packet ack(
+                        receiver.getLocalNode(),
+                        receiver.getRemoteNode(),
+                        receiver.getLocalNode(),
+                        engine.now(),
+                        engine.getGlobalPacketSize(),
+                        packet.session_id
+                    );
+
+                    ack.packet_type =
+                        PacketType::ACK;
+
+                    ack.tcp =
+                        receiver.buildAck();
+
+                    ack.departure_time =
+                        engine.now();
+
+                    receiver.clearDelayedAckPending();
+
+                    PacketUtils::sendPacketThroughTopology(
+                        engine,
+                        ack
+                    );
+
+                    break;
+                }
+
+                /*
+                * First in-order segment:
+                * delay the ACK by 200 ms.
+                */
+                receiver.markDelayedAckPending();
+
+                engine.schedule(
+                    std::make_unique<TCPDelayedAckEvent>(
+                        engine.now() +
+                            TCPDelayedAckEvent::DEFAULT_DELAY,
+                        session.getSession_id(),
+                        receiver.getLocalNode(),
+                        expected_after
+                    )
                 );
 
                 break;
