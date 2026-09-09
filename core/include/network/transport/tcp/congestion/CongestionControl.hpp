@@ -52,21 +52,55 @@ namespace kns
 
         /**
          * @brief Notifies the algorithm that new bytes were acknowledged.
-         *
-         * The implementation updates cwnd and/or ssthresh according
-         * to the selected congestion control algorithm.
          */
         virtual void onAck(
             std::uint32_t acknowledged_bytes
         ) noexcept = 0;
 
         /**
-         * @brief Notifies the algorithm that packet loss was detected.
-         *
-         * The loss may have been detected by a timeout or by a
-         * mechanism such as fast retransmit.
+         * @brief Notifies the algorithm that packet loss was detected
+         * by a retransmission timeout.
          */
         virtual void onLoss() noexcept = 0;
+
+        /**
+         * @brief Notifies the algorithm that fast retransmit was triggered.
+         *
+         * The default implementation treats fast retransmit as a
+         * generic loss event, which is appropriate for algorithms
+         * without fast recovery.
+         *
+         * @param flight_size Current amount of outstanding data.
+         */
+        virtual void onFastRetransmit(
+            std::uint32_t flight_size
+        ) noexcept
+        {
+            static_cast<void>(flight_size);
+            onLoss();
+        }
+
+        /**
+         * @brief Notifies the algorithm that another duplicate ACK
+         * arrived while recovering from fast retransmit.
+         */
+        virtual void onDuplicateAck() noexcept
+        {
+        }
+
+        /**
+         * @brief Notifies the algorithm that a new ACK ended fast recovery.
+         *
+         * The default implementation does nothing.
+         *
+         * @param acknowledged_bytes Number of newly acknowledged bytes.
+         */
+        virtual void onRecoveryAck(
+            std::uint32_t acknowledged_bytes
+        ) noexcept
+        {
+            static_cast<void>(acknowledged_bytes);
+        }
 
         /**
          * @brief Restores the algorithm to its initial state.
