@@ -362,9 +362,13 @@ namespace kns {
                 remote_ack
             );
 
+            if (congestion_control_ != nullptr) {
+                congestion_control_->onDuplicateAck();
+            }
+
             return false;
         }
-
+        
         /*
          * ACK advanced SND.UNA.
          *
