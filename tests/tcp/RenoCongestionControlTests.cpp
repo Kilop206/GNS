@@ -127,7 +127,7 @@ TEST_CASE(
 
     REQUIRE(control.inFastRecovery());
 
-    control.onRecoveryAck(1000);
+    control.onRecoveryAck(1000, true);
 
     REQUIRE(control.getCwnd() == 5000);
     REQUIRE_FALSE(control.inFastRecovery());

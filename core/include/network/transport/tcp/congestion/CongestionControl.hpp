@@ -67,8 +67,7 @@ namespace kns
          * @brief Notifies the algorithm that fast retransmit was triggered.
          *
          * The default implementation treats fast retransmit as a
-         * generic loss event, which is appropriate for algorithms
-         * without fast recovery.
+         * generic loss event.
          *
          * @param flight_size Current amount of outstanding data.
          */
@@ -89,17 +88,20 @@ namespace kns
         }
 
         /**
-         * @brief Notifies the algorithm that a new ACK ended fast recovery.
-         *
-         * The default implementation does nothing.
+         * @brief Notifies the algorithm that an ACK was received
+         * while in fast recovery.
          *
          * @param acknowledged_bytes Number of newly acknowledged bytes.
+         * @param recovery_complete true when the ACK covers all data
+         *                           outstanding when fast recovery began.
          */
         virtual void onRecoveryAck(
-            std::uint32_t acknowledged_bytes
+            std::uint32_t acknowledged_bytes,
+            bool recovery_complete = true
         ) noexcept
         {
             static_cast<void>(acknowledged_bytes);
+            static_cast<void>(recovery_complete);
         }
 
         /**
