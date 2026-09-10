@@ -64,7 +64,9 @@ namespace kns {
             return;
         }
 
-        client.onSendTimeout();
+        client.onSendTimeout(
+            engine.now()
+        );
 
         if (!client.isEstablished()) {
             return;

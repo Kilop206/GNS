@@ -133,6 +133,10 @@ namespace kns {
 
         double getCurrentRTO() const noexcept;
 
+        void onSendTimeout(
+            double timeout_time
+        ) noexcept;
+
         void onSendTimeout() noexcept;
 
         void onAcknowledged(

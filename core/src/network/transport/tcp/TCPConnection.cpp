@@ -664,6 +664,21 @@ namespace kns {
         return rto_manager_.currentRTO();
     }
 
+    void TCPConnection::onSendTimeout(
+        double timeout_time
+    ) noexcept
+    {
+        rto_manager_.onTimeout();
+
+        if (congestion_control_ != nullptr) {
+            congestion_control_->onLoss();
+
+            recordCongestionSample(
+                timeout_time
+            );
+        }
+    }
+
     void TCPConnection::onSendTimeout() noexcept
     {
         rto_manager_.onTimeout();
