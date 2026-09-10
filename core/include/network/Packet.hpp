@@ -14,6 +14,9 @@ namespace kns {
         const bool ack = (seg.flags & TCPFlag::ACK) == TCPFlag::ACK;
         const bool fin = (seg.flags & TCPFlag::FIN) == TCPFlag::FIN;
         const bool psh = (seg.flags & TCPFlag::PSH) == TCPFlag::PSH;
+        const bool rst = (seg.flags & TCPFlag::RST) == TCPFlag::RST;
+
+        if (rst) return PacketType::RST;
 
         if (syn && ack) return PacketType::SYN_ACK;
 

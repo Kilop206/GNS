@@ -253,6 +253,10 @@ static void renderEventLogWindow(const EventLog& log)
                     rowColor = IM_COL32(255, 205, 190, 255);
                     break;
 
+                case kns::PacketType::RST:
+                    rowColor = IM_COL32(255, 180, 180, 255);
+                    break;
+
                 default:
                     break;
             }

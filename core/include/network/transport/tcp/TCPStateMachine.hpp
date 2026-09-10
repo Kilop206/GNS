@@ -13,6 +13,15 @@ namespace kns {
                 return state_;
             }
 
+            bool onListen() noexcept {
+                if (state_ == TCPState::CLOSED) {
+                    state_ = TCPState::LISTEN;
+                    return true;
+                }
+
+                return state_ == TCPState::LISTEN;
+            }
+
             bool onSynSent() noexcept {
                 if (state_ == TCPState::CLOSED || state_ == TCPState::LISTEN) {
                     state_ = TCPState::SYN_SENT;

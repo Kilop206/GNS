@@ -57,6 +57,11 @@ namespace kns {
         return state_machine_.state();
     }
 
+    bool TCPConnection::onListen() noexcept
+    {
+        return state_machine_.onListen();
+    }
+
     int TCPConnection::getLocalNode() const noexcept
     {
         return local_node_;
@@ -197,6 +202,18 @@ namespace kns {
         );
 
         seg.flags = TCPFlag::FIN | TCPFlag::ACK;
+
+        return seg;
+    }
+
+    TCPSegment TCPConnection::buildRst(std::uint32_t remote_seq) const
+    {
+        TCPSegment seg;
+
+        seg.seq = seq_num_;
+        seg.ack = remote_seq + 1;
+        seg.window = 0;
+        seg.flags = TCPFlag::RST | TCPFlag::ACK;
 
         return seg;
     }
@@ -429,6 +446,11 @@ namespace kns {
         resetLossDetection();
 
         return true;
+    }
+
+    bool TCPConnection::markSynSent() noexcept
+    {
+        return state_machine_.onSynSent();
     }
 
     bool TCPConnection::send_syn_ack()

@@ -29,7 +29,7 @@ namespace kns {
         latencyObserver_(nullptr),
         packetObserver(nullptr),
         sessions(),
-        next_session_id(0),
+        next_session_id(1),
         handshake_offset_(0.0),
         kPacketsPerRoute(20)
     {
@@ -305,7 +305,7 @@ namespace kns {
     void SimulationEngine::emitPacketEvent(const Packet& p, int from, int to, double departure_time, double arrival_time) {
         if (packetObserver) {
             // if a real session id is known in context, pass it instead of 0
-            packetObserver(p, /*session_id*/ 0, from, to, departure_time, arrival_time);
+            packetObserver(p, p.session_id, from, to, departure_time, arrival_time);
         }
     }
 
@@ -389,10 +389,22 @@ namespace kns {
         return it != listeners_.end() && it->second.isListening();
     }
 
-    std::uint64_t SimulationEngine::acceptOnListener(int listening_node, int connecting_node) {
+    std::uint64_t SimulationEngine::acceptOnListener(
+        int listening_node,
+        int connecting_node,
+        std::uint32_t connecting_seq
+    ) {
         auto it = listeners_.find(listening_node);
-        if (it == listeners_.end()) return 0;
-        return it->second.accept(connecting_node, *this);
+
+        if (it == listeners_.end()) {
+            return TCPListener::INVALID_SESSION_ID;
+        }
+
+        return it->second.accept(
+            connecting_node,
+            connecting_seq,
+            *this
+        );
     }
 
     void SimulationEngine::generatePackets(

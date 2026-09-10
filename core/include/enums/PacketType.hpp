@@ -7,7 +7,8 @@ namespace kns {
         SYN_ACK,
         ACK,
         DATA,
-        FIN
+        FIN,
+        RST
     };
 
 }

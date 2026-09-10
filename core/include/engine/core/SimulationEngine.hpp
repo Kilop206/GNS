@@ -76,7 +76,7 @@ namespace kns {
 
         std::map<std::uint64_t, TCPSession> sessions;
 
-        uint64_t next_session_id = 0;
+        uint64_t next_session_id = 1;
 
         double handshake_offset_ = 0.0;
 
@@ -153,8 +153,12 @@ namespace kns {
         bool hasListener(int node_id) const noexcept;
 
         /// Accept an incoming SYN on a listening node. Returns the new
-        /// session_id (0 on failure). Called by PacketReceivedEvent.
-        std::uint64_t acceptOnListener(int listening_node, int connecting_node);
+        /// session_id, or TCPListener::INVALID_SESSION_ID on failure.
+        std::uint64_t acceptOnListener(
+            int listening_node,
+            int connecting_node,
+            std::uint32_t connecting_seq
+        );
 
         void setPacketObserver(
             std::function<void(const Packet&, uint64_t session_id, int from, int to, double departure_time, double arrival_time)> observer

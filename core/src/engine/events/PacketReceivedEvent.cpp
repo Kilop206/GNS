@@ -93,14 +93,24 @@ namespace kns
                 engine.hasListener(packet.destination))
             {
                 const std::uint64_t new_sid =
-                    engine.acceptOnListener(packet.destination, packet.source);
-                if (new_sid != 0) {
-                    // Rewrite the packet's session_id and continue handling below.
+                    engine.acceptOnListener(
+                        packet.destination,
+                        packet.source,
+                        packet.tcp.seq
+                    );
+                if (new_sid != TCPListener::INVALID_SESSION_ID) {
                     packet.session_id = new_sid;
-                    // Fall through — the session now exists.
                 } else {
-                    return; // Backlog full — drop (could send RST in the future).
+                    PacketUtils::sendReset(
+                        engine,
+                        packet.destination,
+                        packet.source,
+                        packet.tcp.seq
+                    );
+                    return;
                 }
+            } else if (packet.packet_type == PacketType::RST) {
+                return;
             } else {
                 return;
             }
@@ -116,20 +126,20 @@ namespace kns
         switch (packet.packet_type) {
             case PacketType::SYN: {
 
-                if (!server.receive_syn(packet.tcp.seq)) {
+                if (!receiver.receive_syn(packet.tcp.seq)) {
                     break;
                 }
 
                 Packet synAck(
-                    server.getLocalNode(),
-                    server.getRemoteNode(),
-                    server.getLocalNode(),
+                    receiver.getLocalNode(),
+                    receiver.getRemoteNode(),
+                    receiver.getLocalNode(),
                     engine.now(),
                     engine.getGlobalPacketSize(),
                     packet.session_id
                 );
 
-                synAck.tcp = server.buildSynAck();
+                synAck.tcp = receiver.buildSynAck();
                 synAck.packet_type = inferPacketType(synAck.tcp);
 
                 PacketUtils::sendPacketThroughTopology(engine, synAck);
@@ -341,6 +351,10 @@ namespace kns
                     )
                 );
 
+                break;
+            }
+
+            case PacketType::RST: {
                 break;
             }
 

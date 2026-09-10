@@ -13,6 +13,7 @@ namespace gui {
             case kns::PacketType::ACK:     return IM_COL32( 60, 190, 255, 255); // blue
             case kns::PacketType::DATA:    return IM_COL32( 80, 220, 120, 255); // green
             case kns::PacketType::FIN:     return IM_COL32(255, 120,  60, 255); // orange
+            case kns::PacketType::RST:     return IM_COL32(230,  70,  70, 255); // red
             default:                       return IM_COL32(200, 200, 200, 255); // gray
         }
     }
@@ -27,6 +28,7 @@ namespace gui {
             case kns::PacketType::DATA:
                 return IM_COL32(255, 255, 255, 160);
             case kns::PacketType::FIN:
+            case kns::PacketType::RST:
                 return IM_COL32(255, 255, 255, 180);
             default:
                 return IM_COL32(255, 255, 255, 150);
@@ -41,6 +43,7 @@ namespace gui {
             case kns::PacketType::ACK:     return "ACK";
             case kns::PacketType::DATA:    return "DATA";
             case kns::PacketType::FIN:     return "FIN";
+            case kns::PacketType::RST:     return "RST";
             default:                       return "UNKNOWN";
         }
     }

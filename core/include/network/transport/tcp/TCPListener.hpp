@@ -1,9 +1,10 @@
 #pragma once
 
+#include <algorithm>
 #include <cstdint>
 #include <functional>
+#include <limits>
 #include <vector>
-#include <algorithm>
 
 namespace kns {
 
@@ -27,6 +28,9 @@ namespace kns {
     public:
         using ConnectionCallback = std::function<void(std::uint64_t session_id)>;
 
+        static constexpr std::uint64_t INVALID_SESSION_ID =
+            std::numeric_limits<std::uint64_t>::max();
+            
         explicit TCPListener(int node_id, int backlog = 128) noexcept
             : node_id_(node_id), backlog_(backlog) {}
 
@@ -45,9 +49,13 @@ namespace kns {
 
         /// Accept an incoming SYN from source_node: create a new TCPSession
         /// in the engine and start the server-side handshake.
-        /// Returns the new session_id, or 0 if the listener is not active or
-        /// the backlog is full.
-        std::uint64_t accept(int source_node, SimulationEngine& engine);
+        /// Returns the new session_id, or INVALID_SESSION_ID if the listener
+        /// is not active or the backlog is full.
+        std::uint64_t accept(
+            int source_node,
+            std::uint32_t source_seq,
+            SimulationEngine& engine
+        );
 
         /// Track an accepted session so the listener can report active count.
         void trackSession(std::uint64_t session_id) {

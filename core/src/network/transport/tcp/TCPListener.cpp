@@ -5,25 +5,42 @@
 
 namespace kns {
 
-    std::uint64_t TCPListener::accept(int source_node, SimulationEngine& engine)
+    std::uint64_t TCPListener::accept(
+        int source_node,
+        std::uint32_t source_seq,
+        SimulationEngine& engine
+    )
     {
         if (!listening_) {
-            return 0;
+            return INVALID_SESSION_ID;
         }
 
         if (backlog_ > 0 && getActiveConnections() >= backlog_) {
-            return 0;  // backlog full — caller may send RST
+            return INVALID_SESSION_ID;
         }
 
         // Create a fresh session: server = node_id_, client = source_node.
-        TCPSession& session = engine.createTCPSession(node_id_, source_node);
-        const std::uint64_t sid = session.getSession_id();
+        TCPSession& session =
+            engine.createTCPSession(source_node, node_id_);
 
-        // Put the server-side connection in LISTEN so it can accept the SYN.
-        // receive_syn() will transition it to SYN_RECEIVED.
-        // (The client-side connection starts in CLOSED — it will transition
-        //  to SYN_SENT when the client sends its next SYN, or we treat the
-        //  incoming SYN as having already been sent.)
+        const std::uint64_t sid =
+            session.getSession_id();
+
+        auto& client =
+            session.getClientConnection();
+
+        auto& server =
+            session.getServerConnection();
+
+        client.setSeqNum(source_seq);
+
+        if (!client.markSynSent()) {
+            return INVALID_SESSION_ID;
+        }
+
+        if (!server.onListen()) {
+            return INVALID_SESSION_ID;
+        }
 
         trackSession(sid);
 

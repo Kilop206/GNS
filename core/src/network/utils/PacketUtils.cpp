@@ -73,4 +73,29 @@ namespace kns {
 
         return true;
     }
+
+    bool PacketUtils::sendReset(
+        SimulationEngine& engine,
+        int from,
+        int to,
+        std::uint32_t remote_seq,
+        std::uint64_t session_id
+    ) {
+        Packet rst(
+            from,
+            to,
+            from,
+            engine.now(),
+            engine.getGlobalPacketSize(),
+            session_id
+        );
+
+        rst.tcp.seq = 0;
+        rst.tcp.ack = remote_seq + 1;
+        rst.tcp.window = 0;
+        rst.tcp.flags = TCPFlag::RST | TCPFlag::ACK;
+        rst.packet_type = inferPacketType(rst.tcp);
+
+        return sendPacketThroughTopology(engine, rst);
+    }
 }

@@ -43,6 +43,8 @@ namespace kns {
 
         TCPState getTcpState() const noexcept;
 
+        bool onListen() noexcept;
+
         int getLocalNode() const noexcept;
         int getRemoteNode() const noexcept;
 
@@ -64,6 +66,7 @@ namespace kns {
         TCPSegment buildSynAck() const;
         TCPSegment buildAck() const;
         TCPSegment buildFin() const;
+        TCPSegment buildRst(std::uint32_t remote_seq) const;
 
         bool receive_syn(std::uint32_t remote_seq);
 
@@ -80,6 +83,8 @@ namespace kns {
         bool receive_fin(std::uint32_t remote_seq);
 
         bool send_syn();
+
+        bool markSynSent() noexcept;
 
         bool send_syn_ack();
 

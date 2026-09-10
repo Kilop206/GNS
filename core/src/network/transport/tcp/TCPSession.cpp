@@ -73,6 +73,9 @@ namespace kns {
         if (cs == TCPState::SYN_SENT || ss == TCPState::SYN_SENT)
             return TCPState::SYN_SENT;
 
+        if (cs == TCPState::LISTEN || ss == TCPState::LISTEN)
+            return TCPState::LISTEN;
+
         // Default: delegate to the client's own state.
         return cs;
     }
