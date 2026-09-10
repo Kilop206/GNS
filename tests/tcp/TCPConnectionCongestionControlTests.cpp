@@ -241,3 +241,124 @@ TEST_CASE(
         connection.getCurrentRTO() == 6.0
     );
 }
+
+TEST_CASE(
+    "TCPConnection does not notify congestion control for stale ACK",
+    "[tcp][congestion][connection][ack]"
+)
+{
+    TCPConnection connection(
+        TCPState::ESTABLISHED,
+        5000,
+        6000,
+        0,
+        1,
+        CongestionControlType::RENO,
+        1000,
+        4000
+    );
+
+    TCPSegment segment;
+    segment.seq = 5000;
+    segment.payload.assign(
+        1000,
+        0x41
+    );
+
+    REQUIRE(
+        connection.queueSentSegment(
+            segment,
+            10.0
+        )
+    );
+
+    REQUIRE(
+        connection.receive_ack(
+            6000,
+            11.0
+        )
+    );
+
+    REQUIRE(
+        connection.getDuplicateAckCount() == 0
+    );
+
+    REQUIRE(
+        connection.getCongestionControl().getCwnd() == 2000
+    );
+
+    REQUIRE_FALSE(
+        connection.receive_ack(
+            5999,
+            12.0
+        )
+    );
+
+    REQUIRE(
+        connection.getDuplicateAckCount() == 0
+    );
+
+    REQUIRE(
+        connection.getCongestionControl().getCwnd() == 2000
+    );
+}
+
+TEST_CASE(
+    "TCPConnection duplicate ACK inflates congestion window during recovery",
+    "[tcp][congestion][connection][ack]"
+)
+{
+    TCPConnection connection(
+        TCPState::ESTABLISHED,
+        1000,
+        2000,
+        0,
+        1,
+        CongestionControlType::RENO,
+        1000,
+        4000
+    );
+
+    connection.getCongestionControl().onFastRetransmit(
+        4000
+    );
+
+    REQUIRE(
+        connection.getCongestionControl().getCwnd() == 5000
+    );
+
+    const std::uint32_t initial_cwnd =
+        connection.getCongestionControl().getCwnd();
+
+    REQUIRE_FALSE(
+        connection.receive_ack(
+            1000,
+            10.0
+        )
+    );
+
+    REQUIRE(
+        connection.getDuplicateAckCount() == 1
+    );
+
+    REQUIRE(
+        connection.getCongestionControl().getCwnd() ==
+        initial_cwnd + 1000
+    );
+
+    REQUIRE_FALSE(
+        connection.receive_ack(
+            1000,
+            11.0
+        )
+    );
+
+    REQUIRE(
+        connection.getDuplicateAckCount() == 2
+    );
+
+    REQUIRE(
+        connection.getCongestionControl().getCwnd() ==
+        initial_cwnd + 2 * 1000
+    );
+}
