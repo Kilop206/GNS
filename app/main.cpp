@@ -33,6 +33,7 @@
 #include "gui/include/LatencyChart.hpp"
 #include "gui/include/MetricsPannel.hpp"
 #include "gui/include/PacketRenderer.hpp"
+#include "gui/include/TcpCongestionPanel.hpp"
 #include "gui/include/VisualPacketManager.hpp"
 #include "gui/include/VisualPacket.hpp"
 #include "gui/include/Window.hpp"
@@ -604,6 +605,18 @@ static void renderStatsWindow(
     {
         MetricsPannel panel;
         panel.render(stats, buffer);
+    }
+
+    // ------------------------------------------------------
+    // Congestion Control
+    // ------------------------------------------------------
+
+    if (ImGui::CollapsingHeader(
+        "TCP Congestion Control",
+        ImGuiTreeNodeFlags_DefaultOpen))
+    {
+        TcpCongestionPanel panel;
+        panel.render(*engine);
     }
 
     // ------------------------------------------------------
