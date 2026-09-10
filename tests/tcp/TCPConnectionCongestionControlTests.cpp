@@ -165,8 +165,8 @@ TEST_CASE(
 }
 
 TEST_CASE(
-    "TCPConnection forwards newly acknowledged bytes to congestion control",
-    "[tcp][congestion][connection]"
+    "TCPConnection timeout notifies congestion control",
+    "[tcp][congestion][connection][timeout]"
 )
 {
     TCPConnection connection(
@@ -176,62 +176,16 @@ TEST_CASE(
         0,
         1,
         CongestionControlType::RENO,
-        1000
-    );
-
-    TCPSegment segment;
-    segment.seq = 1000;
-    segment.payload.assign(1000, 0x41);
-
-    REQUIRE(
-        connection.queueSentSegment(
-            segment,
-            10.0
-        )
-    );
-
-    REQUIRE(
-        connection.getCongestionControl().getCwnd() == 1000
-    );
-
-    REQUIRE(
-        connection.receive_ack(
-            2000,
-            11.0
-        )
-    );
-
-    REQUIRE(
-        connection.getSendUnacknowledged() == 2000
-    );
-
-    REQUIRE(
-        connection.getCongestionControl().getCwnd() == 2000
-    );
-}
-
-TEST_CASE(
-    "TCPConnection congestion control enters congestion avoidance after ssthresh",
-    "[tcp][congestion][connection]"
-)
-{
-    TCPConnection connection(
-        TCPState::ESTABLISHED,
         1000,
-        2000,
-        0,
-        1,
-        CongestionControlType::RENO,
-        1000
+        4000
     );
 
     TCPSegment first;
     first.seq = 1000;
-    first.payload.assign(1000, 0x41);
-
-    TCPSegment second;
-    second.seq = 2000;
-    second.payload.assign(1000, 0x42);
+    first.payload.assign(
+        1000,
+        0x41
+    );
 
     REQUIRE(
         connection.queueSentSegment(
@@ -241,38 +195,116 @@ TEST_CASE(
     );
 
     REQUIRE(
-        connection.queueSentSegment(
-            second,
-            11.0
-        )
-    );
-
-    REQUIRE(
         connection.receive_ack(
             2000,
-            12.0
+            11.0
         )
     );
 
     REQUIRE(
         connection.getCongestionControl().getCwnd() == 2000
     );
+    TCPSegment second;
+    second.seq = 2000;
+    second.payload.assign(
+        1000,
+        0x42
+    );
 
     REQUIRE(
-        connection.receive_ack(
-            3000,
-            13.0
+        connection.queueSentSegment(
+            second,
+            12.0
         )
     );
 
     REQUIRE(
-        connection.getCongestionControl().getCwnd() == 2500
+        connection.getSendBufferSize() == 1
+    );
+
+    REQUIRE(
+        connection.getCongestionControl().getCwnd() == 2000
+    );
+
+    connection.onSendTimeout();
+
+    REQUIRE(
+        connection.getCongestionControl().getSsthresh() == 2000
+    );
+
+    REQUIRE(
+        connection.getCongestionControl().getCwnd() == 1000
+    );
+
+    REQUIRE(
+        connection.getCurrentRTO() == 6.0
     );
 }
 
 TEST_CASE(
-    "TCPConnection does not grow congestion window for invalid ACK",
-    "[tcp][congestion][connection]"
+    "TCPConnection does not notify congestion control for stale ACK",
+    "[tcp][congestion][connection][ack]"
+)
+{
+    TCPConnection connection(
+        TCPState::ESTABLISHED,
+        5000,
+        6000,
+        0,
+        1,
+        CongestionControlType::RENO,
+        1000,
+        4000
+    );
+
+    TCPSegment segment;
+    segment.seq = 5000;
+    segment.payload.assign(
+        1000,
+        0x41
+    );
+
+    REQUIRE(
+        connection.queueSentSegment(
+            segment,
+            10.0
+        )
+    );
+
+    REQUIRE(
+        connection.receive_ack(
+            6000,
+            11.0
+        )
+    );
+
+    REQUIRE(
+        connection.getDuplicateAckCount() == 0
+    );
+
+    REQUIRE(
+        connection.getCongestionControl().getCwnd() == 2000
+    );
+
+    REQUIRE_FALSE(
+        connection.receive_ack(
+            5999,
+            12.0
+        )
+    );
+
+    REQUIRE(
+        connection.getDuplicateAckCount() == 0
+    );
+
+    REQUIRE(
+        connection.getCongestionControl().getCwnd() == 2000
+    );
+}
+
+TEST_CASE(
+    "TCPConnection duplicate ACK inflates congestion window during recovery",
+    "[tcp][congestion][connection][ack]"
 )
 {
     TCPConnection connection(
@@ -282,28 +314,50 @@ TEST_CASE(
         0,
         1,
         CongestionControlType::RENO,
-        1000
+        1000,
+        4000
     );
 
-    TCPSegment segment;
-    segment.seq = 1000;
-    segment.payload.assign(1000, 0x41);
+    connection.getCongestionControl().onFastRetransmit(
+        4000
+    );
 
     REQUIRE(
-        connection.queueSentSegment(
-            segment,
+        connection.getCongestionControl().getCwnd() == 5000
+    );
+
+    const std::uint32_t initial_cwnd =
+        connection.getCongestionControl().getCwnd();
+
+    REQUIRE_FALSE(
+        connection.receive_ack(
+            1000,
             10.0
         )
     );
 
+    REQUIRE(
+        connection.getDuplicateAckCount() == 1
+    );
+
+    REQUIRE(
+        connection.getCongestionControl().getCwnd() ==
+        initial_cwnd + 1000
+    );
+
     REQUIRE_FALSE(
         connection.receive_ack(
-            2500,
+            1000,
             11.0
         )
     );
 
     REQUIRE(
-        connection.getCongestionControl().getCwnd() == 1000
+        connection.getDuplicateAckCount() == 2
+    );
+
+    REQUIRE(
+        connection.getCongestionControl().getCwnd() ==
+        initial_cwnd + 2 * 1000
     );
 }
