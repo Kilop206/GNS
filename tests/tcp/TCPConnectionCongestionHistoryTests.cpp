@@ -228,4 +228,73 @@ TEST_CASE(
     }
 }
 
+TEST_CASE(
+    "TCPConnection records congestion change after timeout",
+    "[tcp][congestion][history]"
+)
+{
+    auto connection =
+        makeEstablishedConnection();
+
+    const auto segment =
+        makeDataSegment(
+            1000,
+            1000
+        );
+
+    REQUIRE(
+        connection.queueSentSegment(
+            segment,
+            0.0
+        )
+    );
+
+    REQUIRE(
+        connection.receive_ack(
+            2000,
+            1.0
+        )
+    );
+
+    const auto before_timeout =
+        connection.getCongestionHistory().size();
+
+    const auto cwnd_before =
+        connection.getCongestionControl().getCwnd();
+
+    connection.onSendTimeout(
+        5.0
+    );
+
+    const auto& history =
+        connection.getCongestionHistory();
+
+    REQUIRE(
+        history.size() >
+        before_timeout
+    );
+
+    const auto& last =
+        history.back();
+
+    REQUIRE(
+        last.timestamp == 5.0
+    );
+
+    REQUIRE(
+        last.cwnd !=
+        cwnd_before
+    );
+
+    REQUIRE(
+        last.cwnd ==
+        connection.getCongestionControl().getCwnd()
+    );
+
+    REQUIRE(
+        last.ssthresh ==
+        connection.getCongestionControl().getSsthresh()
+    );
+}
+
 }
