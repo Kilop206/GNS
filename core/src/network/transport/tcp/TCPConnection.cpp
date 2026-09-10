@@ -48,6 +48,8 @@ namespace kns {
         loss_detector_.observeAck(
             send_unacknowledged_
         );
+
+        recordCongestionSample(0.0);
     }
 
     TCPState TCPConnection::getTcpState() const noexcept

@@ -1,11 +1,14 @@
 #include "../include/TcpCongestionPanel.hpp"
 
+#include <algorithm>
 #include <cstdint>
 #include <string>
+#include <vector>
 
 #include "../../../core/include/network/transport/tcp/TCPConnection.hpp"
 #include "../../../core/include/network/transport/tcp/TCPSession.hpp"
 #include "../../../core/include/network/transport/tcp/congestion/CongestionControlType.hpp"
+#include "../../../core/include/network/transport/tcp/congestion/CongestionControl.hpp"
 #include "../../../core/include/network/transport/tcp/congestion/RenoCongestionControl.hpp"
 #include "../../../core/include/network/transport/tcp/congestion/NewRenoCongestionControl.hpp"
 #include "../../../core/include/network/transport/tcp/congestion/TahoeCongestionControl.hpp"
@@ -67,13 +70,127 @@ namespace gui {
             return false;
         }
 
+        void renderCongestionChart(
+            const kns::TCPConnection& connection
+        )
+        {
+            const auto& history =
+                connection.getCongestionHistory();
+
+            if (history.empty()) {
+                ImGui::TextDisabled(
+                    "No congestion history available."
+                );
+
+                return;
+            }
+
+            std::vector<float> cwnd_values;
+            std::vector<float> ssthresh_values;
+
+            cwnd_values.reserve(history.size());
+            ssthresh_values.reserve(history.size());
+
+            for (const auto& sample : history) {
+                cwnd_values.push_back(
+                    static_cast<float>(sample.cwnd)
+                );
+
+                ssthresh_values.push_back(
+                    static_cast<float>(sample.ssthresh)
+                );
+            }
+
+            const auto max_cwnd =
+                *std::max_element(
+                    cwnd_values.begin(),
+                    cwnd_values.end()
+                );
+
+            const auto max_ssthresh =
+                *std::max_element(
+                    ssthresh_values.begin(),
+                    ssthresh_values.end()
+                );
+
+            const float max_value =
+                std::max(
+                    max_cwnd,
+                    max_ssthresh
+                );
+
+            const float chart_max =
+                max_value > 0.0f
+                    ? max_value * 1.10f
+                    : 1.0f;
+
+            ImGui::Separator();
+
+            ImGui::Text(
+                "Congestion Window History"
+            );
+
+            ImGui::PlotLines(
+                "cwnd",
+                cwnd_values.data(),
+                static_cast<int>(cwnd_values.size()),
+                0,
+                nullptr,
+                0.0f,
+                chart_max,
+                ImVec2(
+                    -1.0f,
+                    180.0f
+                )
+            );
+
+            ImGui::PlotLines(
+                "ssthresh",
+                ssthresh_values.data(),
+                static_cast<int>(ssthresh_values.size()),
+                0,
+                nullptr,
+                0.0f,
+                chart_max,
+                ImVec2(
+                    -1.0f,
+                    180.0f
+                )
+            );
+
+            const auto& first =
+                history.front();
+
+            const auto& last =
+                history.back();
+
+            ImGui::Text(
+                "Samples: %u",
+                static_cast<unsigned>(
+                    history.size()
+                )
+            );
+
+            ImGui::Text(
+                "First sample: t=%.3f s",
+                first.timestamp
+            );
+
+            ImGui::Text(
+                "Last sample: t=%.3f s",
+                last.timestamp
+            );
+        }
+
     }
 
     void TcpCongestionPanel::render(
         const kns::SimulationEngine& engine
     )
     {
-        ImGui::Begin("TCP Congestion Control");
+        ImGui::Begin(
+            "TCP Congestion Control"
+        );
 
         const auto& sessions =
             engine.getTCPSessions();
@@ -89,13 +206,17 @@ namespace gui {
 
         static std::uint64_t selected_session_id = 0;
 
-        if (!sessions.contains(selected_session_id)) {
+        if (!sessions.contains(
+            selected_session_id
+        )) {
             selected_session_id =
                 sessions.begin()->first;
         }
 
         const auto selected =
-            sessions.find(selected_session_id);
+            sessions.find(
+                selected_session_id
+            );
 
         if (selected == sessions.end()) {
             ImGui::TextDisabled(
@@ -120,7 +241,9 @@ namespace gui {
 
         if (ImGui::BeginCombo(
             "##TCPCongestionSession",
-            std::to_string(session_id).c_str()
+            std::to_string(
+                session_id
+            ).c_str()
         ))
         {
             for (const auto& [id, session] : sessions)
@@ -209,7 +332,13 @@ namespace gui {
             "State: %s",
             congestionControlInFastRecovery(
                 congestion
-            ) ? "Fast Recovery" : "Normal"
+            )
+                ? "Fast Recovery"
+                : "Normal"
+        );
+
+        renderCongestionChart(
+            connection
         );
 
         ImGui::End();
