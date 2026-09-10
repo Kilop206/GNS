@@ -366,6 +366,10 @@ namespace kns {
                 congestion_control_->onDuplicateAck();
             }
 
+            recordCongestionSample(
+                acknowledgement_time
+            );
+
             return false;
         }
         
@@ -695,6 +699,10 @@ namespace kns {
             congestion_control_->onAck(
                 acknowledged_bytes
             );
+
+            recordCongestionSample(
+                acknowledgement_time
+            );
         }
 
         if (sample.has_value()) {
@@ -840,5 +848,58 @@ namespace kns {
     TCPConnection::getCongestionControlType() const noexcept
     {
         return congestion_control_type_;
+    }
+
+    void TCPConnection::recordCongestionSample(
+        double timestamp
+    ) noexcept
+    {
+        if (congestion_control_ == nullptr) {
+            return;
+        }
+
+        const TcpCongestionSample sample{
+            timestamp,
+            congestion_control_->getCwnd(),
+            congestion_control_->getSsthresh()
+        };
+
+        if (!congestion_history_.empty()) {
+            const auto& previous =
+                congestion_history_.back();
+
+            if (
+                previous.cwnd == sample.cwnd &&
+                previous.ssthresh == sample.ssthresh
+            ) {
+                return;
+            }
+        }
+
+        congestion_history_.push_back(sample);
+    }
+
+    const std::vector<TcpCongestionSample>&
+    TCPConnection::getCongestionHistory() const noexcept
+    {
+        return congestion_history_;
+    }
+
+    void TCPConnection::onFastRetransmit(
+        std::uint32_t flight_size,
+        double timestamp
+    ) noexcept
+    {
+        if (congestion_control_ == nullptr) {
+            return;
+        }
+
+        congestion_control_->onFastRetransmit(
+            flight_size
+        );
+
+        recordCongestionSample(
+            timestamp
+        );
     }
 }

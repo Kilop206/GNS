@@ -78,6 +78,10 @@ namespace kns {
             flight_size
         );
 
+        client.recordCongestionSample(
+            engine.now()
+        );
+
         client.markSegmentRetransmitted(
             sequence,
             engine.now()

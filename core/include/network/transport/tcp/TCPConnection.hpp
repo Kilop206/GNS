@@ -4,6 +4,7 @@
 #include <cstdint>
 #include <optional>
 #include <memory>
+#include <vector>
 
 #include "enums/TCPState.hpp"
 #include "network/transport/tcp/TCPSegment.hpp"
@@ -12,6 +13,7 @@
 #include "network/transport/tcp/buffer/TCPSendBuffer.hpp"
 #include "network/transport/tcp/congestion/CongestionControl.hpp"
 #include "network/transport/tcp/congestion/CongestionControlType.hpp"
+#include "network/transport/tcp/congestion/TcpCongestionSample.hpp"
 #include "network/transport/tcp/recovery/TCPLossDetector.hpp"
 #include "network/transport/tcp/timer/RTOManager.hpp"
 
@@ -183,6 +185,18 @@ namespace kns {
         CongestionControlType
         getCongestionControlType() const noexcept;
 
+        const std::vector<TcpCongestionSample>&
+        getCongestionHistory() const noexcept;
+
+        void onFastRetransmit(
+            std::uint32_t flight_size,
+            double timestamp
+        ) noexcept;
+
+        void recordCongestionSample(
+            double timestamp
+        ) noexcept;
+
     private:
         static std::uint32_t generateInitialSeq();
 
@@ -216,6 +230,7 @@ namespace kns {
         std::unique_ptr<CongestionControl> congestion_control_;
 
         CongestionControlType congestion_control_type_;
-    };
 
+        std::vector<TcpCongestionSample> congestion_history_;
+    };
 }
