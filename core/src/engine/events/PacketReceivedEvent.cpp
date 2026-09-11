@@ -87,19 +87,27 @@ namespace kns
         }
 
         if (!engine.hasTCPSession(packet.session_id)) {
-            // If the destination node has a passive listener and this is a SYN,
-            // let the listener create a new session (issue #79).
-            if (packet.packet_type == PacketType::SYN &&
-                engine.hasListener(packet.destination))
-            {
-                const std::uint64_t new_sid =
-                    engine.acceptOnListener(
-                        packet.destination,
-                        packet.source,
-                        packet.tcp.seq
-                    );
-                if (new_sid != TCPListener::INVALID_SESSION_ID) {
-                    packet.session_id = new_sid;
+            if (packet.packet_type == PacketType::SYN) {
+                if (engine.hasListener(packet.destination)) {
+                    const std::uint64_t new_sid =
+                        engine.acceptOnListener(
+                            packet.destination,
+                            packet.source,
+                            packet.tcp.seq
+                        );
+
+                    if (new_sid != TCPListener::INVALID_SESSION_ID) {
+                        packet.session_id = new_sid;
+                    } else {
+                        PacketUtils::sendReset(
+                            engine,
+                            packet.destination,
+                            packet.source,
+                            packet.tcp.seq
+                        );
+
+                        return;
+                    }
                 } else {
                     PacketUtils::sendReset(
                         engine,
@@ -107,6 +115,7 @@ namespace kns
                         packet.source,
                         packet.tcp.seq
                     );
+
                     return;
                 }
             } else if (packet.packet_type == PacketType::RST) {

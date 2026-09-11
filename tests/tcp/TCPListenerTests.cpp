@@ -374,3 +374,192 @@ TEST_CASE(
         TCPState::SYN_SENT
     );
 }
+
+TEST_CASE(
+    "TCPListener sends RST when backlog is full",
+    "[tcp][listener][backlog][rst]"
+)
+{
+    Topology topology(4);
+
+    topology.addLink(
+        0,
+        3,
+        10.0,
+        10.0,
+        0.0,
+        LinkMode::FULL_DUPLEX
+    );
+
+    topology.addLink(
+        1,
+        3,
+        10.0,
+        10.0,
+        0.0,
+        LinkMode::FULL_DUPLEX
+    );
+
+    topology.addLink(
+        2,
+        3,
+        10.0,
+        10.0,
+        0.0,
+        LinkMode::FULL_DUPLEX
+    );
+
+    SimulationEngine engine(topology);
+
+    engine.setGlobalPacketSize(1000);
+
+    auto& listener =
+        engine.startTCPListen(3, 2);
+
+    const auto first_session =
+        engine.acceptOnListener(3, 0, 1000);
+
+    const auto second_session =
+        engine.acceptOnListener(3, 1, 2000);
+
+    REQUIRE(first_session == 0);
+    REQUIRE(second_session == 1);
+
+    REQUIRE(listener.getActiveConnections() == 2);
+
+    bool rst_seen = false;
+    int rst_source = -1;
+    int rst_destination = -1;
+    std::uint32_t rst_seq = 1;
+    std::uint32_t rst_ack = 0;
+    TCPFlag rst_flags = TCPFlag::None;
+
+    engine.setPacketObserver(
+        [&](const Packet& packet,
+            std::uint64_t,
+            int,
+            int,
+            double,
+            double)
+        {
+            if (packet.packet_type == PacketType::RST) {
+                rst_seen = true;
+                rst_source = packet.source;
+                rst_destination = packet.destination;
+                rst_seq = packet.tcp.seq;
+                rst_ack = packet.tcp.ack;
+                rst_flags = packet.tcp.flags;
+            }
+        }
+    );
+
+    Packet syn(
+        2,
+        3,
+        2,
+        engine.now(),
+        engine.getGlobalPacketSize(),
+        999
+    );
+
+    syn.tcp.seq = 3000;
+    syn.tcp.flags = TCPFlag::SYN;
+    syn.packet_type = PacketType::SYN;
+
+    REQUIRE(
+        PacketUtils::sendPacketThroughTopology(
+            engine,
+            syn
+        )
+    );
+
+    REQUIRE(engine.processEvent());
+
+    REQUIRE(rst_seen);
+    REQUIRE(rst_source == 3);
+    REQUIRE(rst_destination == 2);
+    REQUIRE(rst_seq == 0);
+    REQUIRE(rst_ack == 3001);
+    REQUIRE(rst_flags == (TCPFlag::RST | TCPFlag::ACK));
+
+    REQUIRE(listener.getActiveConnections() == 2);
+    REQUIRE(engine.getTCPSessions().size() == 2);
+}
+
+TEST_CASE(
+    "TCP sends RST when SYN arrives without listener",
+    "[tcp][listener][rst][no-listener]"
+)
+{
+    Topology topology(2);
+
+    topology.addLink(
+        0,
+        1,
+        10.0,
+        10.0,
+        0.0,
+        LinkMode::FULL_DUPLEX
+    );
+
+    SimulationEngine engine(topology);
+
+    engine.setGlobalPacketSize(1000);
+
+    bool rst_seen = false;
+    int rst_source = -1;
+    int rst_destination = -1;
+    std::uint32_t rst_seq = 1;
+    std::uint32_t rst_ack = 0;
+    TCPFlag rst_flags = TCPFlag::None;
+
+    engine.setPacketObserver(
+        [&](const Packet& packet,
+            std::uint64_t,
+            int,
+            int,
+            double,
+            double)
+        {
+            if (packet.packet_type == PacketType::RST) {
+                rst_seen = true;
+                rst_source = packet.source;
+                rst_destination = packet.destination;
+                rst_seq = packet.tcp.seq;
+                rst_ack = packet.tcp.ack;
+                rst_flags = packet.tcp.flags;
+            }
+        }
+    );
+
+    Packet syn(
+        0,
+        1,
+        0,
+        engine.now(),
+        engine.getGlobalPacketSize(),
+        999
+    );
+
+    syn.tcp.seq = 1000;
+    syn.tcp.flags = TCPFlag::SYN;
+    syn.packet_type = PacketType::SYN;
+
+    REQUIRE(
+        PacketUtils::sendPacketThroughTopology(
+            engine,
+            syn
+        )
+    );
+
+    REQUIRE(engine.processEvent());
+
+    REQUIRE(rst_seen);
+    REQUIRE(rst_source == 1);
+    REQUIRE(rst_destination == 0);
+    REQUIRE(rst_seq == 0);
+    REQUIRE(rst_ack == 1001);
+    REQUIRE(rst_flags == (TCPFlag::RST | TCPFlag::ACK));
+
+    REQUIRE(engine.getTCPSessions().empty());
+}
