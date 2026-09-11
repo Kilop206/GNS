@@ -76,7 +76,7 @@ namespace kns {
 
         std::map<std::uint64_t, TCPSession> sessions;
 
-        uint64_t next_session_id = 1;
+        uint64_t next_session_id = 0;
 
         double handshake_offset_ = 0.0;
 

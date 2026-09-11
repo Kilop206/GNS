@@ -29,7 +29,7 @@ namespace kns {
         latencyObserver_(nullptr),
         packetObserver(nullptr),
         sessions(),
-        next_session_id(1),
+        next_session_id(0),
         handshake_offset_(0.0),
         kPacketsPerRoute(20)
     {
